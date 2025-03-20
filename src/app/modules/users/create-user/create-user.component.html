@@ -66,7 +66,13 @@
                         <label class="required fw-bold fs-6 mb-2">Roles: </label>
                         <select class="form-control form-select-solid fw-bolder" name="role_selected"
                             placeholder="Selecciona Rol" [(ngModel)]="role_id">
-                            <option value="">Todos</option>
+
+                            <option value="">Selec. Rol</option>
+
+                            <ng-container *ngFor="let rol of roles">
+                                <option [value]="rol.id">{{rol.name}}</option>
+                            </ng-container>
+
                         </select>
                     </div>
                 </div>
@@ -124,6 +130,23 @@
                                     accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
+                            <div *ngIf="imagen_previzualiza">
+                                <img [src]="imagen_previzualiza" style="height: 100px ;"  alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row my-1">
+                        <div class="col-6">
+                            <label class="required fw-bold fs-6 mb-2">Contaseña: </label>
+                            <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="*********" [(ngModel)]="password" />
+                        </div>
+    
+                        <div class="col-6">
+                            <label class="required fw-bold fs-6 mb-2">Repetir Contraseña: </label>
+                            <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="*********" [(ngModel)]="password_repit" />
                         </div>
                     </div>
 
