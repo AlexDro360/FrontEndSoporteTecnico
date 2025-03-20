@@ -43,14 +43,13 @@ export class CreateUserComponent {
     }
 
     processFile($event: any) {
-      const file = $event.target.files[0];
       
-      if (!file.type.includes("image")) {
+      if ($event.target.files[0].type.indexOf("image") <0) {
         this.toast.warning("WARN", "El archivo no es una imagen");
         return;
       }
     
-      this.file_name = file;
+      this.file_name = $event.target.files[0];
       let reader = new FileReader();
       reader.readAsDataURL(this.file_name);
       reader.onloadend = () => this.imagen_previzualiza = reader.result;
@@ -124,7 +123,9 @@ export class CreateUserComponent {
       formData.append("n_document",this.n_document);
       formData.append("type_document",this.type_document);
       formData.append("address",this.address);
-      formData.append("image",this.file_name);
+
+
+      formData.append("imagen",this.file_name);
       formData.append("password",this.password);
 
 
