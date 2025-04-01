@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit , ChangeDetectorRef} from '@angular/core';
+import { UsersService } from 'src/app/modules/users/service/users.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,12 +10,27 @@ export class NavbarComponent implements OnInit {
   @Input() appHeaderDefaulMenuDisplay: boolean;
   @Input() isRtl: boolean;
 
+  avatar: string = '';
+
   itemClass: string = 'ms-1 ms-lg-3';
   btnClass: string = 'btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px';
   userAvatarClass: string = 'symbol-35px symbol-md-40px';
   btnIconClass: string = 'fs-2 fs-md-1';
 
-  constructor() {}
+  constructor(
+    public usersService: UsersService,
+    private cd: ChangeDetectorRef,
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.me();
+  }
+
+  me(){
+    this.usersService.listme().subscribe((data: any) =>{
+      this.avatar = data.avatar;
+      this.cd.detectChanges();
+    });
+    //console.log(this.n_empleado);
+  }
 }

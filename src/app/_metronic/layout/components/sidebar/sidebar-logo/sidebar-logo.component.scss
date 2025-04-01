@@ -1,0 +1,21 @@
+.sidenav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    transition: color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.sidenav-item:hover {
+    color: #feb47b; /* Efecto sutil de color al pasar el mouse */
+}
+
+.sidenav-logo {
+    height: 45px;
+    border-radius: 15px; /* Ajusta el radio según el nivel de redondeo que quieras */
+    overflow: hidden;
+}

@@ -20,8 +20,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
 
   USER: any;
 
-  name: string = '';
-  surname: string = '';
+  fullname: string = '';
   email: string = '';
   avatar: string = '';
 
@@ -40,8 +39,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
 
   me(){
     this.usersService.listme().subscribe((data: any) =>{
-      this.name = data.name;
-      this.surname = data.surname;
+      this.fullname = data.full_name;
       this.email = data.email;
       this.avatar = data.avatar;
       this.cd.detectChanges();

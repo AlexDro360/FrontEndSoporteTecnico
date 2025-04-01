@@ -8,7 +8,7 @@
             position-relative
           "
         >
-          <img src="./assets/media/avatars/300-1.jpg" alt="Metronic" />
+          <img [src]="avatar" alt="Metronic" />
           <div
             class="
               position-absolute
@@ -47,11 +47,12 @@
                   cursor-pointer
                 "
               >
-                Max Smith Como estas
+                {{fullname}}
               </a>
               <a class="cursor-pointer">
                 <app-keenicon name="verify" class="fs-1 text-primary"></app-keenicon>
               </a>
+              <!--
               <a
                 class="
                   btn btn-sm btn-light-success
@@ -67,6 +68,7 @@
               >
                 Upgrade to Pro
               </a>
+              -->
             </div>
 
             <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
@@ -81,7 +83,7 @@
                 "
               >
                 <app-keenicon name="profile-circle" class="fs-4 me-1"></app-keenicon>
-                Developer
+                {{role}}
               </a>
               <a
                 class="
@@ -94,7 +96,7 @@
                 "
               >
                 <app-keenicon name="geolocation" class="fs-4 me-1"></app-keenicon>
-                SF, Bay Area
+                {{departamento}}
               </a>
               <a
                 class="
@@ -106,11 +108,12 @@
                 "
               >
                 <app-keenicon name="sms" class="fs-4 me-1"></app-keenicon>
-                max@kt.com
+                {{email}}
               </a>
             </div>
           </div>
 
+          <!-- 
           <div class="d-flex my-4">
             <a
               class="btn btn-sm btn-light me-2 cursor-pointer"
@@ -146,6 +149,7 @@
               <app-dropdown-menu1></app-dropdown-menu1>
             </div>
           </div>
+          -->
         </div>
 
         <div class="d-flex flex-wrap flex-stack">
@@ -163,11 +167,11 @@
                 "
               >
                 <div class="d-flex align-items-center">
-                  <app-keenicon name="arrow-up" class="fs-3 text-success me-2"></app-keenicon>
-                  <div class="fs-2 fw-bolder">4500$</div>
+                  <!-- <app-keenicon name="arrow-up" class="fs-3 text-success me-2"></app-keenicon> -->
+                  <div class="fs-2 fw-bolder"> {{n_empleado}} </div>
                 </div>
 
-                <div class="fw-bold fs-6 text-gray-500">Earnings</div>
+                <div class="fw-bold fs-6 text-gray-500">N° de Empleado/Control</div>
               </div>
 
               <div
@@ -182,11 +186,11 @@
                 "
               >
                 <div class="d-flex align-items-center">
-                  <app-keenicon name="arrow-down" class="fs-3 text-danger me-2"></app-keenicon>
-                  <div class="fs-2 fw-bolder">75</div>
+                  <!-- <app-keenicon name="arrow-down" class="fs-3 text-danger me-2"></app-keenicon>-->
+                  <div class="fs-2 fw-bolder">{{phone}}</div>
                 </div>
 
-                <div class="fw-bold fs-6 text-gray-500">Projects</div>
+                <div class="fw-bold fs-6 text-gray-500">Télefono</div>
               </div>
 
               <div
@@ -201,15 +205,16 @@
                 "
               >
                 <div class="d-flex align-items-center">
-                  <app-keenicon name="arrow-up" class="fs-3 text-success me-2"></app-keenicon>
-                  <div class="fs-2 fw-bolder">60%</div>
+                  <!-- <app-keenicon name="arrow-up" class="fs-3 text-success me-2"></app-keenicon> -->
+                  <div class="fs-2 fw-bolder"> Fecha de actualización </div>
                 </div>
 
-                <div class="fw-bold fs-6 text-gray-500">Success Rate</div>
+                <div class="fw-bold fs-6 text-gray-500">{{fecha_create}}</div>
               </div>
             </div>
           </div>
 
+          <!--
           <div
             class="
               d-flex
@@ -218,7 +223,7 @@
               flex-column
               mt-3
             "
-          >
+          > 
             <div class="d-flex justify-content-between w-100 mt-auto mb-2">
               <span class="fw-bold fs-6 text-gray-500"
                 >Profile Compleation</span
@@ -233,10 +238,12 @@
               ></div>
             </div>
           </div>
+          -->
         </div>
       </div>
     </div>
 
+    <!--
     <div class="d-flex overflow-auto h-55px">
       <ul
         class="
@@ -294,6 +301,7 @@
         </li>
       </ul>
     </div>
+    -->
   </div>
 </div>
 
