@@ -11,11 +11,11 @@
 <div class="d-flex flex-column flex-lg-row flex-column-fluid">
 
   <!--begin::Body-->
-  <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
+  <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 order-2 order-lg-1 align-middle">
     <!--begin::Form-->
-    <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+    <div class="d-flex flex-column align-items-center align-items-lg-end flex-lg-row-fluid" style="justify-content: center;">
       <!--begin::Wrapper-->
-      <div class="<?php echo $params['wrapperClass']?> p-10">
+      <div class="<?php echo $params['wrapperClass']?> p-10" >
         <router-outlet></router-outlet>
       </div>
       <!--end::Wrapper-->
@@ -23,51 +23,49 @@
     <!--end::Form-->
 
     <!--begin::Footer-->
-    <div class="d-flex flex-center flex-wrap px-5">
+    <!-- <div class="d-flex flex-center flex-wrap px-5"> -->
       <!--begin::Links-->
-      <div class="d-flex fw-semibold text-primary fs-base">
+      <!-- <div class="d-flex fw-semibold text-primary fs-base">
         <a href="#" class="px-5" target="_blank">Terms</a>
 
         <a href="#" class="px-5" target="_blank">Plans</a>
 
         <a href="#" class="px-5" target="_blank">Contact Us</a>
-      </div>
+      </div> -->
       <!--end::Links-->
-    </div>
+    <!-- </div> -->
     <!--end::Footer-->
   </div>
   <!--end::Body-->
 
   <!--begin::Aside-->
-  <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2"
-    [ngStyle]="{'background-image': 'url(./assets/media/misc/auth-bg.png)'}">
+  <div class="d-flex flex-lg-column flex-center w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2" style="background-color: #fcfcfc;">
+    <!-- [ngStyle]="{'background-image': 'url(./assets/media/misc/auth-bg.png)'}"> -->
     <!--begin::Content-->
-    <div class="d-flex flex-column flex-center py-15 px-5 px-md-15 w-100">
+    <div class="d-flex flex-row flex-center w-50 px-lg-20 pt-5 ps-5" style=" ">
       <!--begin::Logo-->
-      <a routerLink="/" class="mb-12">
+      <!-- <a routerLink="/" class="mb-12">
         <img alt="Logo" src="./assets/media/logos/custom-1.png" class="h-75px" />
-      </a>
+      </a> -->
       <!--end::Logo-->
 
       <!--begin::Image-->
-      <img class="mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20" src="./assets/media/misc/auth-screens.png"
+      <img class="img-fluid" style="border-radius: 50%;" src="./assets/media/misc/inicio.jpg"
         alt="" />
       <!--end::Image-->
+    </div>
+    
+    <div class="d-flex flex-column flex-center w-100 px-lg-20 pt-5 pe-5" style="">
 
       <!--begin::Title-->
-      <h1 class="text-white fs-2qx fw-bolder text-center mb-7">
-        Fast, Efficient and Productive
+      <h1 class="text-gray-900 fs-1qx fw-bolder text-center mb-7" >
+        Sobre este sitio
       </h1>
       <!--end::Title-->
 
       <!--begin::Text-->
-      <div class="text-white fs-base text-center">
-        In this kind of post, <a href="#" class="opacity-75-hover text-warning fw-bold me-1">the blogger</a>
-
-        introduces a person they’ve interviewed <br /> and provides some background information about
-
-        <a href="#" class="opacity-75-hover text-warning fw-bold me-1">the interviewee</a>
-        and their <br /> work following this is a transcript of the interview.
+      <div class="text-gray-900fs-base text-center" style="color: black;">
+        Aplicación web para la gestión de soporte y mantenimiento técnico del Instituto Tecnológico de Oaxaca. 
       </div>
       <!--end::Text-->
     </div>
