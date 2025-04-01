@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateUserComponent } from '../create-user/create-user.component';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { DeleteUserComponent } from '../delete-user/delete-user.component';
+import { WatchUserComponent } from '../watch-user/watch-user.component';
 import { UsersService } from '../service/users.service';
 
 @Component({
@@ -87,4 +88,8 @@ export class ListUsersComponent {
     })
   }
 
+  watchUser(USER: any) {
+    const modalRef = this.modalService.open(WatchUserComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.USER_SELECTED = USER;
+  }
 }

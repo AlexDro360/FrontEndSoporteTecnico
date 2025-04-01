@@ -1,0 +1,96 @@
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header" id="kt_modal_view_user_header">
+        <!--begin::Modal title-->
+        <h2 class="fw-bolder">Información del Usuario: {{ USER_SELECTED.full_name }}</h2>
+        <!--end::Modal title-->
+
+        <!--begin::Close-->
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close"
+            (click)="modal.dismiss()">
+            <span class="svg-icon svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)"
+                        fill="currentColor" />
+                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                        fill="currentColor" />
+                </svg>
+            </span>
+        </div>
+        <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+
+    <!--begin::Modal body-->
+    <div class="modal-body scroll-y mx-5 my-3">
+        <div class="d-flex flex-column">
+            <!-- Imagen del usuario -->
+            <div class="row mb-3 pb-5">
+                <div class="col-12 text-center">
+                    <!-- <label class="fw-bold fs-6">Avatar:</label> -->
+                    <div>
+                        <img [src]="USER_SELECTED.avatar || 'assets/media/avatars/default.png'" 
+                             class="img-thumbnail" 
+                             style="height: 100px; border-radius: 50%;" 
+                             alt="Avatar del usuario">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información del Usuario -->
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label class="fw-bold fs-6">Nombre:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.name }}</p>
+                </div>
+
+                <div class="col-6">
+                    <label class="fw-bold fs-6">Apellido:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.surname }}</p>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label class="fw-bold fs-6">Correo:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.email }}</p>
+                </div>
+
+                <div class="col-6">
+                    <label class="fw-bold fs-6">Teléfono:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.phone }}</p>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label class="fw-bold fs-6">Rol:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.role.name }}</p>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label class="fw-bold fs-6">Departamento:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.departamento_id }}</p>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label class="fw-bold fs-6">N° Empleado Control:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.num_empleado }}</p>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+    <!--end::Modal body-->
+
+    <!--begin::Actions-->
+    <div class="text-center pt-15">
+        <button type="button" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
+    </div>
+    <!--end::Actions-->
+</div>
