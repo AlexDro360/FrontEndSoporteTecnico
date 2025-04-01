@@ -98,7 +98,7 @@ export class EditUserComponent {
     }
 
     if (!this.n_empleado) {
-      this.toast.error("Validación", "El tipo de documento es requerido");
+      this.toast.error("Validación", "El Número de empleado es requerido");
       return false;
     }
   

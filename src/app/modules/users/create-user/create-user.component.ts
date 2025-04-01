@@ -9,21 +9,20 @@ import { UsersService } from '../service/users.service';
   styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent {
-
   @Output() UserC: EventEmitter<any> = new EventEmitter();
-  
-    @Input() roles:any[];
-    isLoading:any;
+  @Input() roles:any[];
+  departamentos:any[]=[];
+  isLoading:any;
 
     name:string = '';
     surname:string = '';
     email:string = '';
     phone:string = '';
     role_id:string = '';
-    gender:string = '';
-    n_document:string = '';
-    type_document:string = 'DNI';
-    address:string = '';
+    n_empleado:string = '';
+    departamento_id: any=null;
+
+    
     password:string = '';
     password_repit:string ='';
 
@@ -39,7 +38,13 @@ export class CreateUserComponent {
     }
   
     ngOnInit():void {
-  
+      this.userService.getDepartamentos().subscribe((data)=>{
+        this.departamentos=data.departamento; 
+        const id_dep = this.departamentos.find(d => d.nombre === this.departamento_id);
+        if (id_dep) {
+          this.departamento_id = id_dep.id;
+        }
+      });
     }
 
     processFile($event: any) {
@@ -82,23 +87,13 @@ export class CreateUserComponent {
         return false;
       }
 
-      if(!this.gender){
-        this.toast.error("Validación", "El genero es requerido");
+      if (!this.n_empleado) {
+        this.toast.error("Validación", "El Número de empleado es requerido");
         return false;
       }
-
-      if(!this.n_document){
-        this.toast.error("Validación", "El tipo de documento es requerido");
-        return false;
-      }
-
-      if(!this.type_document){
-        this.toast.error("Validación", "El tipo de documento es requerido");
-        return false;
-      }
-
-      if(!this.address){
-        this.toast.error("Validación", "La direccion es requerida");
+    
+      if (!this.departamento_id) {
+        this.toast.error("Validación", "El Departamento es requerido");
         return false;
       }
 
@@ -119,10 +114,8 @@ export class CreateUserComponent {
       formData.append("email",this.email);
       formData.append("phone",this.phone);
       formData.append("role_id",this.role_id);
-      formData.append("gender",this.gender);
-      formData.append("n_document",this.n_document);
-      formData.append("type_document",this.type_document);
-      formData.append("address",this.address);
+      formData.append("num_empleado", this.n_empleado);
+      formData.append("departamento_id", this.departamento_id);
 
 
       formData.append("imagen",this.file_name);
