@@ -12,6 +12,7 @@ export class EditUserComponent {
   @Output() UserE: EventEmitter<any> = new EventEmitter();
   @Input() roles: any[];
   @Input() USER_SELECTED: any;
+  departamentos:any[]=[];
 
   isLoading: any;
 
@@ -20,10 +21,8 @@ export class EditUserComponent {
   email: string = '';
   phone: string = '';
   role_id: string = '';
-  gender: string = '';
-  n_document: string = '';
-  type_document: string = '';
-  address: string = '';
+  n_empleado: string = '';
+  departamento_id: any=null;
 
   file_name: any;
   imagen_previzualiza: any;
@@ -45,11 +44,17 @@ export class EditUserComponent {
     this.email = this.USER_SELECTED.email;
     this.phone = this.USER_SELECTED.phone;
     this.role_id = this.USER_SELECTED.role_id;
-    this.gender = this.USER_SELECTED.gender;
-    this.n_document = this.USER_SELECTED.n_document;
-    this.type_document = this.USER_SELECTED.type_document;
-    this.address = this.USER_SELECTED.address;
+    this.n_empleado = this.USER_SELECTED.num_empleado;
+    this.departamento_id = this.USER_SELECTED.departamento_id;
     this.imagen_previzualiza = this.USER_SELECTED.avatar;
+    this.userService.getDepartamentos().subscribe((data)=>{
+      this.departamentos=data.departamento; 
+      const id_dep = this.departamentos.find(d => d.nombre === this.departamento_id);
+      if (id_dep) {
+        this.departamento_id = id_dep.id;
+      }
+      
+    });
   }
 
   processFile($event: any) {
@@ -92,23 +97,13 @@ export class EditUserComponent {
       return false;
     }
 
-    if (!this.gender) {
-      this.toast.error("Validación", "El genero es requerido");
-      return false;
-    }
-
-    if (!this.n_document) {
+    if (!this.n_empleado) {
       this.toast.error("Validación", "El tipo de documento es requerido");
       return false;
     }
-
-    if (!this.type_document) {
-      this.toast.error("Validación", "El tipo de documento es requerido");
-      return false;
-    }
-
-    if (!this.address) {
-      this.toast.error("Validación", "La direccion es requerida");
+  
+    if (!this.departamento_id) {
+      this.toast.error("Validación", "El Departamento es requerido");
       return false;
     }
 
@@ -123,19 +118,14 @@ export class EditUserComponent {
     formData.append("email", this.email);
     formData.append("phone", this.phone);
     formData.append("role_id", this.role_id);
-    formData.append("gender", this.gender);
-    formData.append("n_document", this.n_document);
-    formData.append("type_document", this.type_document);
-    formData.append("address", this.address);
+    formData.append("num_empleado", this.n_empleado);
+    formData.append("departamento_id", this.departamento_id);
 
     if (this.password) {
       formData.append("password", this.password);
     }
       formData.append("imagen", this.file_name);
     
-
-
-
 
 
 
@@ -146,6 +136,7 @@ export class EditUserComponent {
         this.toast.success("Exito", "El Usuario se editado correctamento");
         this.UserE.emit(resp.user);
         this.modal.close();
+        location.reload();
       }
     })
   }
