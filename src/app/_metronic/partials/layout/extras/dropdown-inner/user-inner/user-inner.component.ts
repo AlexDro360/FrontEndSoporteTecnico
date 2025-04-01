@@ -1,7 +1,8 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { TranslationService } from '../../../../../../modules/i18n';
 import { AuthService, UserType } from '../../../../../../modules/auth';
+import { UsersService } from 'src/app/modules/users/service/users.service';
 
 @Component({
   selector: 'app-user-inner',
@@ -17,14 +18,34 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   langs = languages;
   private unsubscribe: Subscription[] = [];
 
+  USER: any;
+
+  name: string = '';
+  surname: string = '';
+  email: string = '';
+  avatar: string = '';
+
   constructor(
     private auth: AuthService,
-    private translationService: TranslationService
-  ) {}
+    private translationService: TranslationService,
+    public usersService: UsersService,
+    private cd: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.user$ = this.auth.currentUserSubject.asObservable();
     this.setLanguage(this.translationService.getSelectedLanguage());
+    this.me();
+  }
+
+  me(){
+    this.usersService.listme().subscribe((data: any) =>{
+      this.name = data.name;
+      this.surname = data.surname;
+      this.email = data.email;
+      this.avatar = data.avatar;
+      this.cd.detectChanges();
+    });
   }
 
   logout() {
