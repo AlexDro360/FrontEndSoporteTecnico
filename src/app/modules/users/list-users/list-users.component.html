@@ -110,6 +110,14 @@
                       </a>
 
                       <span class="text-muted fw-semibold text-muted d-block fs-7">{{USER.email}}</span>
+
+                      <div>
+                        <span class="fw-semibold d-inline-block px-1 py-1 rounded text-white"
+                          [ngStyle]="{'background-color': USER.status == 1 ? '#28a745' : '#dc3545'}">
+                          {{ USER.status == 1 ? 'Activo' : 'Inactivo' }}
+                        </span>
+                      </div>
+
                     </div>
                   </div>
                 </td>
@@ -135,13 +143,16 @@
                 </td>
 
                 <td class="">
-                  <a href="#" onclick="return false;" (click)="editUser(USER)"
+                  <a href="#" onclick="return false;" (click)="editUser(USER)" *ngIf="USER.id !== 1"
                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                    <i class="ki-duotone ki-pencil fs-2"><span class="path1"></span><span class="path2"></span></i>
+                    <i class="ki-duotone ki-pencil fs-2">
+                      <span class="path1"></span><span class="path2"></span>
+                    </i>
                   </a>
 
                   <a href="#" onclick="return false;" (click)="deleteUser(USER)"
-                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                    *ngIf="USER.id !== 1 && USER.status !== 0">
                     <i class="ki-duotone ki-trash fs-2">
                       <span class="path1"></span><span class="path2">
                       </span><span class="path3"></span><span class="path2"></span>

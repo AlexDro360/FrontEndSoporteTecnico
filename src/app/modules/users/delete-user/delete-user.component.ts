@@ -38,6 +38,7 @@ export class DeleteUserComponent {
         this.toast.success("Exito", "El usuario se elimino correctamento");
         this.UserD.emit(resp.role);
         this.modal.close();
+        location.reload();
       }
     })
   }

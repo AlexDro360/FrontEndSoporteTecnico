@@ -70,6 +70,8 @@ export class UserListingComponent implements OnInit, AfterViewInit, OnDestroy {
               </div>
             `;
 
+            
+
             return `
               <div class="symbol symbol-circle symbol-50px overflow-hidden me-3" data-action="view" data-id="${full.id}">
                 <a href="javascript:;">
