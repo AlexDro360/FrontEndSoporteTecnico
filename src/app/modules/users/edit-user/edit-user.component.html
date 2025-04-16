@@ -49,15 +49,23 @@
 
                 <div class="fv-row row my-1">
                     <div class="col-6">
-                        <label class="required fw-bold fs-6 mb-2">Correo: </label>
-                        <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="example@gmail.com" [(ngModel)]="email" />
-                    </div>
-
-                    <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Telefono: </label>
                         <input type="number" name="phone" class="form-control form-control-solid mb-3 mb-lg-0"
                             placeholder="951XXXXXXX" [(ngModel)]="phone" />
+                    </div>
+
+                    <div class="col-6">
+                        <label class="required fw-bold fs-6 mb-2">N° Empleado/Control: </label>
+                        <input type="number" [(ngModel)]="n_empleado" name="n_empleado"
+                            class="form-control form-control-solid mb-3 mb-lg-0" placeholder="000" />
+                    </div>
+                </div>
+
+                <div class="fv-row row my-1">
+                    <div class="col-12">
+                        <label class="required fw-bold fs-6 mb-2">Correo: </label>
+                        <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="example@gmail.com" [(ngModel)]="email" />
                     </div>
                 </div>
 
@@ -85,52 +93,43 @@
 
                             <option value="">Seleccionar Departamento</option>
                             <ng-container *ngFor="let departamento of departamentos">
-                                <option [value]="departamento.id" [selected]="departamento.id === departamento_id">{{departamento.nombre}}</option>
+                                <option [value]="departamento.id" [selected]="departamento.id === departamento_id">
+                                    {{departamento.nombre}}</option>
                             </ng-container>
 
                         </select>
                     </div>
                 </div>
 
+
                 <div class="fv-row row my-1">
-                    
-                    <div class="fv-row row my-1">
-                        <div class="col-6">
-                            <label class="required fw-bold fs-6 mb-2">N° Empleado/Control: </label>
-                            <input type="number" [(ngModel)]="n_empleado" name="n_empleado"
-                                class="form-control form-control-solid mb-3 mb-lg-0" placeholder="000" />
+                    <div class="col-12">
+                        <label class="required fw-bold fs-6 mb-2">Avatar: </label>
+                        <div class="custom-file">
+                            <input type="file" class="form-control custom-file-input" id="customFile"
+                                accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <div *ngIf="imagen_previzualiza">
+                            <img [src]="imagen_previzualiza" style="height: 100px ;" alt="">
                         </div>
                     </div>
-
-                    <div class="fv-row row my-1">
-                        <div class="col-6">
-                            <label class="required fw-bold fs-6 mb-2">Avatar: </label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile"
-                                    accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
-                            <div *ngIf="imagen_previzualiza">
-                                <img [src]="imagen_previzualiza" style="height: 100px ;"  alt="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fv-row row my-1">
-                        <div class="col-6">
-                            <label class="required fw-bold fs-6 mb-2">Contaseña: </label>
-                            <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
-                                placeholder="*********" [(ngModel)]="password" />
-                        </div>
-    
-                        <div class="col-6">
-                            <label class="required fw-bold fs-6 mb-2">Repetir Contraseña: </label>
-                            <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
-                                placeholder="*********" [(ngModel)]="password_repit" />
-                        </div>
-                    </div>
-
                 </div>
+
+                <div class="fv-row row my-1">
+                    <div class="col-6">
+                        <label class="required fw-bold fs-6 mb-2">Contaseña: </label>
+                        <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="*********" [(ngModel)]="password" />
+                    </div>
+
+                    <div class="col-6">
+                        <label class="required fw-bold fs-6 mb-2">Repetir Contraseña: </label>
+                        <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="*********" [(ngModel)]="password_repit" />
+                    </div>
+                </div>
+
 
 
             </div>
