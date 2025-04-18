@@ -23,7 +23,7 @@ export class SolicitudService {
   registerSolicitud(data: any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/users";
+    let URL = URL_SERVICIOS + "/solicitudes";
     return this.http.post(URL, data, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
@@ -41,26 +41,17 @@ export class SolicitudService {
   configAll() {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/users/config";
+    let URL = URL_SERVICIOS + "/tipos";
     return this.http.get(URL, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
-  updateUser(ID_USER: String, data: any) {
-    this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/users/" + ID_USER;
-    return this.http.post(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
-  }
+  listme() {
+    let headers = new HttpHeaders({ 'Authorization':'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS +"/auth/me";
 
-  deleteUser(ID_ROLE: String) {
-    this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/users/" + ID_ROLE;
-    return this.http.delete(URL, { headers: headers }).pipe(
+    return this.http.post(URL, {}, { headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
