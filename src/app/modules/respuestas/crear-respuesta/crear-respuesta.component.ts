@@ -76,7 +76,7 @@ export class CrearRespuestaComponent {
     formData.append('nombreAprovo', this.user.full_name)
     formData.append('asunto', this.asunto);
     formData.append('descripcion', this.descripcion);
-    formData.append('idSolicitud', this.idTipoMantenimiento);
+    formData.append('idSolicitud', this.idSolicitud);
     formData.append('idTipoMantenimiento', this.idTipoMantenimiento);
     formData.append('idTipoServicio', this.idTipoServicio);
 

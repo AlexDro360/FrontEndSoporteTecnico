@@ -6,6 +6,7 @@ import { forkJoin } from 'rxjs';
 import { EditarRespuestaComponent } from '../editar-respuesta/editar-respuesta.component';
 import { BorrarRespuestaComponent } from '../borrar-respuesta/borrar-respuesta.component';
 import { VerRespuestaComponent } from '../ver-respuesta/ver-respuesta.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-respuesta',
@@ -28,6 +29,7 @@ export class ListRespuestaComponent {
   constructor(
     public modalService: NgbModal,
     public respuestaService: RespuestaService,
+    public toast: ToastrService,
   ) {
 
   }
@@ -101,6 +103,21 @@ export class ListRespuestaComponent {
     })
   }
 
+
+  verPdf(respuesta: any) {
+    this.respuestaService.obtenerPDF(respuesta.id).subscribe({
+      next: (resp) => {
+        const fileURL = URL.createObjectURL(resp);
+        window.open(fileURL);
+      },
+      error: (err) => {
+        console.log(err);
+        console.error('Error al generar el pdf', err);
+        this.toast.error('Error al abrir el pdf', 'Error');
+      }
+    })
+  }
+
   configAll() {
     forkJoin({
       tipoServicio: this.respuestaService.tiposServicios(),
@@ -115,5 +132,6 @@ export class ListRespuestaComponent {
       }
     });
   }
+
 
 }

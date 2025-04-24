@@ -58,22 +58,22 @@ export class RespuestaService {
   }
 
   tiposServicios() {
-    this.setLoading(true);
+    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/tiposervicios";
     return this.http.get(URL, { headers: headers }).pipe(
-      finalize(() => this.setLoading(false))
+      finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
   tiposMantenimientos() {
-    this.setLoading(true);
+    this.isLoadingSubject.next(true);
     // this.setLoading(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/tipomantenimientos";
     return this.http.get(URL, { headers: headers }).pipe(
       // finalize(() => this.setLoading(false))
-      finalize(() => this.setLoading(false))
+      finalize(() => this.isLoadingSubject.next(false))
 
     );
   }
@@ -87,13 +87,22 @@ export class RespuestaService {
     );
   }
 
-  private setLoading(estado: boolean) {
-    if ((estado && this.loadingCounter == 0)) {
-      this.loadingCounter++;
-      this.isLoadingSubject.next(estado);
-    } else if (!estado && this.loadingCounter == 1) {
-      this.loadingCounter--;
-      this.isLoadingSubject.next(estado);
-    }
+  obtenerPDF(id: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/pdf/${id}`;
+    return this.http.get(URL, { headers: headers, responseType: 'blob'}).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
   }
+
+  // private setLoading(estado: boolean) {
+  //   if ((estado && this.loadingCounter == 0)) {
+  //     this.loadingCounter++;
+  //     this.isLoadingSubject.next(estado);
+  //   } else if (!estado && this.loadingCounter == 1) {
+  //     this.loadingCounter--;
+  //     this.isLoadingSubject.next(estado);
+  //   }
+  // }
 }

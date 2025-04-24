@@ -67,7 +67,8 @@
 
               <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
-                <span class="dt-column-title" role="button">Tipo Mantenimiento</span><span class="dt-column-order"></span>
+                <span class="dt-column-title" role="button">Tipo Mantenimiento</span><span
+                  class="dt-column-order"></span>
               </th>
 
               <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
@@ -112,14 +113,14 @@
 
                 <td class="">
                   <a href="#" onclick="return false;" (click)="editRespuesta(Respuesta)"
-                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm m-1">
                     <i class="ki-duotone ki-pencil fs-2">
                       <span class="path1"></span><span class="path2"></span>
                     </i>
                   </a>
 
                   <a href="#" onclick="return false;" (click)="deleteRespuesta(Respuesta)"
-                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm m-1">
                     <i class="ki-duotone ki-trash fs-2">
                       <span class="path1"></span><span class="path2">
                       </span><span class="path3"></span><span class="path2"></span>
@@ -127,8 +128,16 @@
                   </a>
 
                   <a href="#" onclick="return false;" (click)="watchRespuesta(Respuesta)"
-                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm m-1">
                     <i class="ki-solid ki-eye fs-2"></i>
+                  </a>
+
+                  <a href="#" onclick="return false;" (click)="verPdf(Respuesta)"
+                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm m-1">
+                    <i class="ki-duotone ki-file fs-2">
+                      <span class="path1"></span>
+                      <span class="path2"></span>
+                    </i>
                   </a>
                 </td>
               </tr>
