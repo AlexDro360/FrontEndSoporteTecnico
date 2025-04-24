@@ -60,6 +60,10 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/solicitudes/solicitudes.module').then((m) => m.SolicitudesModule),
   },
   {
+    path: 'respuestas',
+    loadChildren: () => import('../modules/respuestas/respuestas.module').then((m) => m.RespuestasModule),
+  },
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',
