@@ -14,7 +14,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-kt-menu') dataKtMenu = 'true';
 
   language: LanguageFlag;
-  user$: Observable<UserType>;
+  user$: Observable<any>;
   langs = languages;
   private unsubscribe: Subscription[] = [];
 
@@ -34,16 +34,22 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user$ = this.auth.currentUserSubject.asObservable();
     this.setLanguage(this.translationService.getSelectedLanguage());
-    this.me();
+    this.loadUserFromStorage();  // Aquí usas los datos del localStorage
   }
 
-  me(){
-    this.usersService.listme().subscribe((data: any) =>{
-      this.fullname = data.full_name;
-      this.email = data.email;
-      this.avatar = data.avatar;
-      this.cd.detectChanges();
-    });
+  loadUserFromStorage() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      try {
+        const user = JSON.parse(userString);
+        this.fullname = user.full_names;
+        this.email = user.email;
+        this.avatar = user.avatar;
+        this.cd.detectChanges();
+      } catch (e) {
+        console.error('Error parsing user from localStorage', e);
+      }
+    }
   }
 
   logout() {

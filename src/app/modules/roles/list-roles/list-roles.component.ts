@@ -4,6 +4,8 @@ import { CreateRolesComponent } from '../create-roles/create-roles.component';
 import { RolesService } from '../service/roles.service';
 import { EditRolesComponent } from '../edit-roles/edit-roles.component';
 import { DeleteRolesComponent } from '../delete-roles/delete-roles.component';
+import { isPermission } from 'src/app/config/config';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -16,6 +18,7 @@ export class ListRolesComponent {
   search:string = '';
   ROLES:any = [];
   isLoading$:any;
+  myRoleId:any;
 
   totalPages:number = 0 ;
   currentPage:number = 1 ;
@@ -29,6 +32,7 @@ export class ListRolesComponent {
   ngOnInit(): void {
     this.isLoading$=this.rolesService.isLoading$;
     this.listRoles();
+    this.myRole();
   }
 
   listRoles(page =1){
@@ -79,4 +83,12 @@ export class ListRolesComponent {
     })
   }
 
+  isPermission(permission:string){
+    return isPermission(permission);
+  }
+
+  myRole(){
+    let USER_AUTH = JSON.parse(localStorage.getItem('user') ?? '');
+    this.myRoleId=USER_AUTH.role_id;
+  }
 }

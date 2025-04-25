@@ -1,7 +1,7 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,6 +15,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrModule } from 'ngx-toastr';
 // #fake-start#
 import { FakeAPIService } from './_fake/fake-api.service';
+import { PermissionGeneralInterceptor } from './permission-general.interceptor';
 // #fake-end#
 
 function appInitializer(authService: AuthService) {
@@ -55,6 +56,11 @@ function appInitializer(authService: AuthService) {
       multi: true,
       deps: [AuthService],
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: PermissionGeneralInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
 })

@@ -131,7 +131,7 @@
     </div>
 
     <!-- Pages -->
-    <div class="menu-item">
+    <div class="menu-item" *ngIf="showMenu(['view_role'])">
       <a class="menu-link without-sub" routerLink="/roles/list" routerLinkActive="active">
         <span class="menu-icon">
           <app-keenicon name="people" class="fs-2"></app-keenicon>
@@ -139,28 +139,14 @@
         <span class="menu-title">Roles</span>
       </a>
     </div>
-    <!-- Customers -->
-    <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
-      <span class="menu-link">
+
+    <div class="menu-item" *ngIf="showMenu(['view_user'])">
+      <a class="menu-link without-sub" routerLink="/usuarios/list" routerLinkActive="active">
         <span class="menu-icon">
           <app-keenicon name="profile-user" class="fs-2"></app-keenicon>
         </span>
-        <span class="menu-title" data-link="/usuarios">Gestión Usuarios
-        </span>
-        <span class="menu-arrow"></span>
-      </span>
-      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
-        <div class="menu-item">
-          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/usuarios/list">
-            <span
-              class="menu-bullet">
-              <span class="bullet bullet-dot"></span>
-            </span>
-            <span class="menu-title">Lista
-            </span>
-          </a>
-        </div>
-      </div>
+        <span class="menu-title">Gestión Usuarios</span>
+      </a>
     </div>
 
 

@@ -5,6 +5,8 @@ import { EditUserComponent } from '../edit-user/edit-user.component';
 import { DeleteUserComponent } from '../delete-user/delete-user.component';
 import { WatchUserComponent } from '../watch-user/watch-user.component';
 import { UsersService } from '../service/users.service';
+import { isPermission } from 'src/app/config/config';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-users',
@@ -91,5 +93,9 @@ export class ListUsersComponent {
   watchUser(USER: any) {
     const modalRef = this.modalService.open(WatchUserComponent, { centered: true, size: 'md' });
     modalRef.componentInstance.USER_SELECTED = USER;
+  }
+
+  isPermission(permission:string){
+      return isPermission(permission);
   }
 }

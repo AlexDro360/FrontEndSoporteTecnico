@@ -52,12 +52,16 @@ export class AuthService implements OnDestroy {
   // public methods
   login(email: string, password: string): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.http.post(URL_SERVICIOS+"/auth/login",{email,password}).pipe(
+  
+    return this.http.post(URL_SERVICIOS + "/auth/login", { email, password }).pipe(
       map((auth: any) => {
+        if (auth?.user?.status === 0) {
+          throw new Error('Usuario inactivo');
+        }
+  
         const result = this.setAuthFromLocalStorage(auth);
         return result;
       }),
-      //switchMap(() => this.getUserByToken()),
       catchError((err) => {
         console.error('err', err);
         return of(undefined);

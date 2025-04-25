@@ -9,6 +9,10 @@ export const SIDEBAR:any = [
       'name': 'Roles',
       'permisos': [
         {
+          name:'Ver',
+          permiso: 'view_role',
+        },
+        {
           name:'Registrar',
           permiso: 'register_role',
         },
@@ -26,6 +30,10 @@ export const SIDEBAR:any = [
       'name': 'Usuarios',
       'permisos': [
         {
+          name:'Ver',
+          permiso: 'view_user',
+        },
+        {
           name:'Registrar',
           permiso: 'register_user',
         },
@@ -39,196 +47,60 @@ export const SIDEBAR:any = [
         }
       ]
     },
-    // {
-    //   'name': 'Sucursales',
-    //   'permisos': [
-    //     {
-    //       name:'Registrar',
-    //       permiso: 'register_Sucursales',
-    //     },
-    //     {
-    //       name:'Editar',
-    //       permiso: 'edit_Sucursales',
-    //     },
-    //     {
-    //       name:'Eliminar',
-    //       permiso: 'delete_Sucursales',
-    //     }
-    //   ]
-    // },
     {
-      'name': 'Productos',
+      'name': 'Solicitudes',
       'permisos': [
         {
+          name:'Ver',
+          permiso: 'view_solicitud',
+        },
+        {
           name:'Registrar',
-          permiso: 'register_product',
+          permiso: 'register_solicitud',
         },
         {
           name:'Editar',
-          permiso: 'edit_product',
+          permiso: 'edit_solicitud',
         },
         {
           name:'Eliminar',
-          permiso: 'delete_product',
-        },
-        {
-          name:'Ver billetera de precios',
-          permiso: 'show_wallet_price_product',
-        },
-        {
-          name:'Nuevo precio',
-          permiso: 'register_wallet_price_product',
-        },
-        {
-          name:'Editar precio',
-          permiso: 'edit_wallet_price_product',
-        },
-        {
-          name:'Eliminar precio',
-          permiso: 'delete_wallet_price_product',
-        },
+          permiso: 'delete_solicitud',
+        }
       ]
     },
     {
-      'name': 'Clientes',
+      'name': 'Respuesta',
       'permisos': [
         {
+          name:'Ver',
+          permiso: 'view_response',
+        },
+        {
           name:'Registrar',
-          permiso: 'register_clientes',
+          permiso: 'register_response',
         },
         {
           name:'Editar',
-          permiso: 'edit_clientes',
+          permiso: 'edit_response',
         },
         {
           name:'Eliminar',
-          permiso: 'delete_clientes',
-        },
+          permiso: 'delete_response',
+        }
       ]
     },
-    {
-      'name': 'Caja',
-      'permisos': [
-        {
-          name:'Validar pagos',
-          permiso: 'valid_payments',
-        },
-        {
-          name:'Reporte de caja',
-          permiso: 'reports_caja',
-        },
-        {
-          name:'Historial de contratos procesados',
-          permiso: 'record_contract_process',
-        },
-        {
-          name:'Egreso (Salida de efectivo)',
-          permiso: 'egreso',
-        },
-        {
-          name:'Ingreso',
-          permiso: 'ingreso',
-        },
-        {
-          name:'Cierre de caja',
-          permiso: 'close_caja',
-        },
-      ]
-    },
-    {
-      'name': 'Proforma',
-      'permisos': [
-        {
-          name:'Registrar',
-          permiso: 'register_proforma',
-        },
-        {
-          name:'Editar',
-          permiso: 'edit_proforma',
-        },
-        {
-          name:'Eliminar',
-          permiso: 'delete_proforma',
-        },
-      ]
-    },
-    {
-      'name': 'Cronograma',
-      'permisos': [
-        {
-          name:'Disponible',
-          permiso: 'cronograma',
-        },
-      ]
-    },
-    {
-      'name': 'Comisiones',
-      'permisos': [
-        {
-          name:'Disponible',
-          permiso: 'comisiones',
-        },
-      ]
-    },
-    {
-      'name': 'Compras',
-      'permisos': [
-        {
-          name:'Registrar',
-          permiso: 'register_compra',
-        },
-        {
-          name:'Editar',
-          permiso: 'edit_compra',
-        },
-        {
-          name:'Eliminar',
-          permiso: 'delete_compra',
-        },
-      ]
-    },
-    {
-      'name': 'Transporte',
-      'permisos': [
-        {
-          name:'Registrar',
-          permiso: 'register_transporte',
-        },
-        {
-          name:'Editar',
-          permiso: 'edit_transporte',
-        },
-        {
-          name:'Eliminar',
-          permiso: 'delete_transporte',
-        },
-      ]
-    },
-    {
-      'name': 'Despacho',
-      'permisos': [
-        {
-          name:'Disponible',
-          permiso: 'despacho',
-        },
-      ]
-    },
-    {
-      'name': 'Movimientos',
-      'permisos': [
-        {
-          name:'Disponible',
-          permiso: 'movimientos',
-        },
-      ]
-    },
-    {
-      'name': 'Kardex',
-      'permisos': [
-        {
-          name:'Disponible',
-          permiso: 'kardex',
-        },
-      ]
-    },
-  ];
+];
+
+export function isPermission(permission:string){
+  let USER_AUTH = JSON.parse(localStorage.getItem('user') ?? '');
+  if(USER_AUTH){
+    if(USER_AUTH.role_name == 'Super-Admin'){
+      return true;
+    }
+    if(USER_AUTH.permissions.includes(permission)){
+      return true;
+    }
+    return false;
+  }
+  return false;
+}

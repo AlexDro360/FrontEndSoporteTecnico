@@ -23,14 +23,19 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.me();
+    this.loadUserFromStorage();
   }
 
-  me(){
-    this.usersService.listme().subscribe((data: any) =>{
-      this.avatar = data.avatar;
-      this.cd.detectChanges();
-    });
-    //console.log(this.n_empleado);
+  loadUserFromStorage() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      try {
+        const user = JSON.parse(userString);
+        this.avatar = user.avatar;
+        this.cd.detectChanges();
+      } catch (e) {
+        console.error('Error parsing user from localStorage', e);
+      }
+    }
   }
 }
