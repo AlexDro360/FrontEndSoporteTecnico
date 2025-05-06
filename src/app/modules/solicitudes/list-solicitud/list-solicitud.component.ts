@@ -4,6 +4,7 @@ import { DeleteSolicitudComponent } from '../delete-solicitud/delete-solicitud.c
 import { SolicitudService } from '../service/solicitud.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateSolicitudComponent } from '../create-solicitud/create-solicitud.component';
+import { AsignarPersonalComponent } from '../../atender-solicitud/asignar-personal/asignar-personal.component';
 
 @Component({
   selector: 'app-list-solicitud',
@@ -58,7 +59,7 @@ export class ListSolicitudComponent {
     const modalRef = this.modalService.open(CreateSolicitudComponent, { centered: true, size: 'md' });
     modalRef.componentInstance.tipos = this.tipos;
     modalRef.componentInstance.user = this.user;
-  
+
     modalRef.componentInstance.SolicitudC.subscribe((tipo: any) => {
       console.log(tipo);
       this.SOLICITUDES.unshift(tipo);
@@ -86,6 +87,21 @@ export class ListSolicitudComponent {
       if (INDEX != -1) {
         this.SOLICITUDES.splice(INDEX, 1);
       }
+    })
+  }
+
+  asignarTecnicos(SOLICITUD: any) {
+    let tecnicos: any;
+
+    this.solicitudesService.listTecnicos().subscribe((resp: any) => {
+      tecnicos = resp;
+      const modalRef = this.modalService.open(AsignarPersonalComponent, { centered: true, size: 'md' });
+      modalRef.componentInstance.solicitud = SOLICITUD;
+      modalRef.componentInstance.tecnicos = tecnicos;
+
+      modalRef.componentInstance.AsigTec.subscribe((resp: any) => {
+
+      })
     })
   }
 
