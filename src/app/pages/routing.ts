@@ -64,6 +64,10 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/respuestas/respuestas.module').then((m) => m.RespuestasModule),
   },
   {
+    path: 'bitacora',
+    loadChildren: () => import('../modules/bitacora/bitacora.module').then((m) => m.BitacoraModule),
+  },
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',

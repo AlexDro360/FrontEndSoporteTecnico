@@ -4,6 +4,7 @@ import { DeleteSolicitudComponent } from '../delete-solicitud/delete-solicitud.c
 import { SolicitudService } from '../service/solicitud.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateSolicitudComponent } from '../create-solicitud/create-solicitud.component';
+import { CrearBitacoraComponent } from '../../bitacora/crear-bitacora/crear-bitacora.component';
 
 @Component({
   selector: 'app-list-solicitud',
@@ -52,6 +53,11 @@ export class ListSolicitudComponent {
 
   loadPage($event: any) {
     this.listSolicitudes($event);
+  }
+
+  crearBitacora(id:any){
+    const modalRef=this.modalService.open(CrearBitacoraComponent,{centered: false, size:'bg'});
+    modalRef.componentInstance.idSolicitud=id;
   }
 
   createSolicitud() {
