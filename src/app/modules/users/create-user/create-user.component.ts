@@ -15,7 +15,8 @@ export class CreateUserComponent {
   isLoading:any;
 
     name:string = '';
-    surname:string = '';
+    surnameM:string = '';
+    surnameP:string = '';
     email:string = '';
     phone:string = '';
     role_id:string = '';
@@ -67,8 +68,13 @@ export class CreateUserComponent {
         return false;
       }
 
-      if(!this.surname){
-        this.toast.error("Validación", "El apellido es requerido");
+      if(!this.surnameP){
+        this.toast.error("Validación", "El apellido paterno es requerido");
+        return false;
+      }
+
+      if(!this.surnameM){
+        this.toast.error("Validación", "El apellido materno es requerido");
         return false;
       }
 
@@ -110,7 +116,8 @@ export class CreateUserComponent {
 
       let formData = new FormData();
       formData.append("name",this.name);
-      formData.append("surname",this.surname);
+      formData.append("surname",this.surnameP);
+      formData.append("surname",this.surnameM);
       formData.append("email",this.email);
       formData.append("phone",this.phone);
       formData.append("role_id",this.role_id);

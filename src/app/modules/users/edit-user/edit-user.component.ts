@@ -17,7 +17,8 @@ export class EditUserComponent {
   isLoading: any;
 
   name: string = '';
-  surname: string = '';
+  surnameP: string = '';
+  surnameM: string = '';
   email: string = '';
   phone: string = '';
   role_id: string = '';
@@ -40,7 +41,8 @@ export class EditUserComponent {
 
   ngOnInit(): void {
     this.name = this.USER_SELECTED.name;
-    this.surname = this.USER_SELECTED.surname;
+    this.surnameP = this.USER_SELECTED.surnameP;
+    this.surnameM = this.USER_SELECTED.surnameM;
     this.email = this.USER_SELECTED.email;
     this.phone = this.USER_SELECTED.phone;
     this.role_id = this.USER_SELECTED.role_id;
@@ -77,8 +79,13 @@ export class EditUserComponent {
       return false;
     }
 
-    if (!this.surname) {
-      this.toast.error("Validación", "El apellido es requerido");
+    if (!this.surnameP) {
+      this.toast.error("Validación", "El apellido Paterno es requerido");
+      return false;
+    }
+
+    if (!this.surnameM) {
+      this.toast.error("Validación", "El apellido Materno es requerido");
       return false;
     }
 
@@ -114,12 +121,14 @@ export class EditUserComponent {
 
     let formData = new FormData();
     formData.append("name", this.name);
-    formData.append("surname", this.surname);
+    formData.append("surnameP", this.surnameP);
+    formData.append("surnameM", this.surnameM);
     formData.append("email", this.email);
     formData.append("phone", this.phone);
     formData.append("role_id", this.role_id);
     formData.append("num_empleado", this.n_empleado);
     formData.append("departamento_id", this.departamento_id);
+
 
     if (this.password) {
       formData.append("password", this.password);

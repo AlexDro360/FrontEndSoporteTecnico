@@ -26,6 +26,11 @@
     <!--begin::Modal body-->
     <div class="modal-body scroll-y mx-5 my-3">
         <!--begin::Form-->
+        <div>
+            <label style="justify-items: center;" class="required fw-bold fs-2 mb-3">Todos los datos con</label>
+            <span style="justify-items: center;" class=" fw-bold fs-2 mb-3" > son requeridos </span>
+            <br>
+        </div>
         <form id="kt_modal_add_user_form" class="form" action="#">
             <!--begin::Scroll-->
             <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true"
@@ -41,14 +46,20 @@
                     </div>
 
                     <div class="col-6">
-                        <label class="required fw-bold fs-6 mb-2">Apellido: </label>
-                        <input type="text" name="surname" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Apellidos" [(ngModel)]="surname" />
+                        <label class="required fw-bold fs-6 mb-2">Apellido Paterno </label>
+                        <input type="text" name="surnameP" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Apellido Paterno" [(ngModel)]="surnameP" />
                     </div>
                 </div>
 
                 <div class="fv-row row my-1">
-                    <div class="col-12">
+                    <div class="col-6">
+                        <label class="required fw-bold fs-6 mb-2">Apellido Paterno </label>
+                        <input type="text" name="surnameM" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Apellido Materno" [(ngModel)]="surnameM" />
+                    </div>
+
+                    <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Correo: </label>
                         <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0"
                             placeholder="example@gmail.com" [(ngModel)]="email" />
@@ -104,14 +115,14 @@
 
                 <div class="fv-row row my-1">
                     <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Avatar: </label>
+                        <label class="fw-bold fs-6 mb-2">Avatar: </label>
                         <div class="custom-file">
                             <input type="file" class="form-control custom-file-input" id="customFile"
                                 accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+                            <label class="custom-file-label" for="customFile"></label>
                         </div>
-                        <div *ngIf="imagen_previzualiza">
-                            <img [src]="imagen_previzualiza" style="height: 100px ;" alt="">
+                        <div *ngIf="imagen_previzualiza" style="text-align: center;">
+                            <img [src]="imagen_previzualiza" style="height: 100px ; border-radius: 15px;" alt="">
                         </div>
                     </div>
                 </div>

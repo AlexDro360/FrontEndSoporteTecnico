@@ -45,8 +45,20 @@
                 </div>
 
                 <div class="col-6">
-                    <label class="fw-bold fs-6">Apellido:</label>
-                    <p class="form-control form-control-solid">{{ USER_SELECTED.surname }}</p>
+                    <label class="fw-bold fs-6">Apellido Paterno:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.surnameP }}</p>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label class="fw-bold fs-6">Apellido Materno:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.surnameM }}</p>
+                </div>
+
+                <div class="col-6">
+                    <label class="fw-bold fs-6">N° Empleado Control:</label>
+                    <p class="form-control form-control-solid">{{ USER_SELECTED.num_empleado }}</p>
                 </div>
             </div>
 
@@ -76,14 +88,6 @@
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-6">
-                    <label class="fw-bold fs-6">N° Empleado Control:</label>
-                    <p class="form-control form-control-solid">{{ USER_SELECTED.num_empleado }}</p>
-                </div>
-            </div>
-
-            
         </div>
     </div>
     <!--end::Modal body-->
