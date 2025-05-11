@@ -64,4 +64,62 @@ export class SolicitudService {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+
+  crearRespuestas(data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS + "/respuesta/agregar";
+    return this.http.post(URL, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  tiposServicios() {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS + "/tiposervicios";
+    return this.http.get(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  tiposMantenimientos() {
+    this.isLoadingSubject.next(true);
+    // this.setLoading(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS + "/tipomantenimientos";
+    return this.http.get(URL, { headers: headers }).pipe(
+      // finalize(() => this.setLoading(false))
+      finalize(() => this.isLoadingSubject.next(false))
+
+    );
+  }
+
+  getRespuesta(idSolicitud: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/respuesta/buscar/${idSolicitud}`;
+    return this.http.get(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  editarRespuesta(data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/respuesta/editar/${data.id}`;
+    return this.http.put(URL, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  rechazarSolicitud(idSolicitud: any){
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/solicitud/rechazar/${idSolicitud}`;
+    return this.http.patch(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
 }

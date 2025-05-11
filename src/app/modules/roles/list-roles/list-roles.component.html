@@ -9,8 +9,8 @@
           <span class="path1"></span><span class="path2"></span>
         </i>
         <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listRoles()"
-          data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12"
-          placeholder="Buscar Rol" />
+          data-kt-customer-table-filter="search" style="font-size: 18px;"
+          class="form-control form-control-solid w-250px ps-12" placeholder="Buscar Rol" />
       </div>
       <!--end::Search-->
     </div>
@@ -21,7 +21,8 @@
       <!--begin::Toolbar-->
       <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
         <!--begin::Add customer-->
-        <button type="button" class="btn btn-primary" (click)="createRol()" *ngIf="isPermission('register_role')">
+        <button type="button" class="btn btn-primary" style="font-size: 18px;" (click)="createRol()"
+          *ngIf="isPermission('register_role')">
           + Agregar Rol
         </button>
         <!--end::Add customer-->
@@ -49,11 +50,11 @@
   <div class="card-body pt-0">
     <!--begin::Table-->
     <div id="kt_customers_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
-      <div id="" class="table-responsive">
-        <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable" id="kt_customers_table"
-          style="width: 100%">
-          <thead>
-            <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+      <div id="" style="border-radius: 0.475rem;" class="table-responsive">
+        <table style="width: 100%; border-collapse: collapse;" class="table align-middle fs-6 gy-5 dataTable;"
+          id="kt_customers_table" style="width: 100%">  
+          <thead class="bg-primary">
+            <tr class="text-center rounded text-light fw-bold g-0" style="font-size: 18px;">
               <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
                 <span class="dt-column-title" role="button">Rol</span><span class="dt-column-order"></span>
@@ -70,9 +71,9 @@
                   class="dt-column-order"></span>
               </th>
 
-              <th class="text-end min-w-70px dt-orderable-none" data-dt-column="6" rowspan="1" colspan="1"
+              <th class="min-w-70px dt-orderable-none" data-dt-column="6" rowspan="1" colspan="1"
                 aria-label="Actions">
-                <span class="dt-column-title">Actions</span><span class="dt-column-order"></span>
+                <span class="dt-column-title">Acciones</span><span class="dt-column-order"></span>
               </th>
             </tr>
           </thead>
@@ -89,7 +90,7 @@
 
                 <td>
                   <span style="width: 550px !important;
-                    display: block;">{{ROL.permission_pluck}} 
+                    display: block;">{{ROL.permission_pluck}}
                   </span>
                 </td>
 
@@ -97,13 +98,13 @@
                   {{ROL.create_format_at}}
                 </td>
                 <td class="">
-                  <a *ngIf="ROL.id != myRoleId isPermission('edit_role') && ROL.id > 1" href="#" onclick="return false;" (click)="editRole(ROL)"
-                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                  <a *ngIf="ROL.id != myRoleId isPermission('edit_role') && ROL.id > 1" href="#" onclick="return false;"
+                    (click)="editRole(ROL)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                     <i class="ki-duotone ki-pencil fs-2"><span class="path1"></span><span class="path2"></span></i>
                   </a>
 
-                  <a *ngIf="isPermission('delete_role') && ROL.id > 1" href="#" onclick="return false;" (click)="deleteRole(ROL)"
-                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                  <a *ngIf="isPermission('delete_role') && ROL.id > 1" href="#" onclick="return false;"
+                    (click)="deleteRole(ROL)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                     <i class="ki-duotone ki-trash fs-2">
                       <span class="path1"></span><span class="path2">
                       </span><span class="path3"></span><span class="path4"></span>
@@ -117,13 +118,8 @@
           <tfoot></tfoot>
         </table>
       </div>
-      <ngb-pagination 
-        [collectionSize]="totalPages" 
-        [(page)]="currentPage" 
-        [pageSize]="25" 
-        [rotate]="true"
-        [boundaryLinks]="true" 
-        (pageChange)="loadPage($event)"></ngb-pagination>
+      <ngb-pagination [collectionSize]="totalPages" [(page)]="currentPage" [pageSize]="25" [rotate]="true"
+        [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
     </div>
     <!--end::Table-->
   </div>

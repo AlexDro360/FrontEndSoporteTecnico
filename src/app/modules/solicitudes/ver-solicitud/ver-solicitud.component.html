@@ -1,0 +1,147 @@
+<div class="modal-content">
+  <!--begin::Modal header-->
+  <div class="modal-header">
+    <h2 class="fw-bolder">Información de la Solicitud</h2>
+    <div class="btn btn-icon btn-sm btn-active-icon-primary" (click)="modal.dismiss()">
+      <span class="svg-icon svg-icon-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)"
+            fill="currentColor" />
+          <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+        </svg>
+      </span>
+    </div>
+  </div>
+  <!--end::Modal header-->
+
+  <!--begin::Modal body-->
+  <div class="modal-body scroll-y mx-5 my-3">
+    <div class="d-flex flex-column">
+
+      <p class="fw-bold fs-4 text-center"> Información del solicitante</p>
+
+      <div class="row mb-3">
+        <div class="col-12">
+          <label class="fw-bold fs-6">Usuario:</label>
+          <p class="form-control form-control-solid ">
+            {{ solicitud.user?.full_name || 'Sin nombre' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12">
+          <label class="fw-bold fs-6">Departamento:</label>
+          <p class="form-control form-control-solid">
+            {{ solicitud.user?.departamento || 'Sin departamento' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <!-- <div class="col-6">
+            <label class="fw-bold fs-6">Teléfono:</label>
+            <p class="form-control form-control-solid">
+              {{ solicitud.phone?.telefono || 'Sin telefono' }}
+            </p>
+          </div> -->
+
+        <div class="col-12">
+          <label class="fw-bold fs-6">Correo electrónico:</label>
+          <p class="form-control form-control-solid">
+            {{ solicitud.user?.email || 'Sin correo' }}
+          </p>
+        </div>
+      </div>
+
+
+      <p class="fs-4 fw-bold text-center">Información de la solicitud
+      <p>
+
+
+      <div class="row mb-3">
+        <div class="col-6">
+          <label class="fw-bold fs-6">Tipo de Solicitud:</label>
+          <p class="form-control form-control-solid">
+            {{ solicitud.tipo?.nombre || 'No especificado' }}
+          </p>
+        </div>
+
+        <div class="col-6">
+          <label class="fw-bold fs-6">Número de Solicitud:</label>
+          <p class="form-control form-control-solid">
+            #{{ solicitud.id }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12">
+          <label class="fw-bold fs-6">Descripción del Usuario:</label>
+          <p class="form-control form-control-solid">{{ solicitud.descripcionUser }}</p>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-6">
+          <label class="fw-bold fs-6">Fecha de creación:</label>
+          <p class="form-control form-control-solid">
+            {{ solicitud.created_format_at | date:'medium' }}
+          </p>
+        </div>
+
+        <div class="col-6">
+          <label class="fw-bold fs-6">Estado:</label>
+          <p class="form-control form-control-solid">
+            {{ solicitud.estado?.nombre || 'Sin estado' }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center">
+      <!-- Cerrar -->
+      <button type="button" class="btn btn-light m-1" (click)="modal.dismiss()">Cerrar</button>
+
+      <!-- Abrir PDF (visible siempre) -->
+      <button type="button" class="btn btn-secondary m-1" (click)="verPdf()">
+        <span class="indicator-label">Abrir PDF</span>
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+      </button>
+
+      <!-- Responder (estado 4) -->
+      <button *ngIf="solicitud.estado.id === 4" type="button" class="btn btn-success m-1" (click)="responder()">
+        <span class="indicator-label">Responder</span>
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+      </button>
+
+      <!-- Ver respuesta (estado 2 o 5) -->
+      <button *ngIf="solicitud.estado.id === 2 || solicitud.estado.id === 5" type="button"
+        class="btn btn-info m-1 text-white" (click)="verRespuesta()">
+        <span class="indicator-label">Ver respuesta</span>
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+      </button>
+
+      <!-- Hacer Bitácora (estado 3) -->
+      <button *ngIf="solicitud.estado.id === 3" type="button" class="btn btn-warning m-1" (click)="hacerBitacora()">
+        <span class="indicator-label">Hacer Bitácora</span>
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+      </button>
+
+      <!-- Asignar Técnicos (estado 1) -->
+      <button *ngIf="solicitud.estado.id === 1" type="button" class="btn btn-primary m-1" (click)="asignarTecnicos()">
+        <span class="indicator-label">Asignar Técnicos</span>
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+      </button>
+
+      <!-- Rechazar (estado 1) -->
+      <button *ngIf="solicitud.estado.id === 1" type="button" class="btn btn-danger m-1" (click)="rechazar()">
+        <span class="indicator-label">Rechazar</span>
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+      </button>
+    </div>
+    <!--end::Modal body-->
+
+
+  </div>

@@ -82,7 +82,7 @@ export class CrearRespuestaComponent {
 
     this.respuestaService.crearRespuestas(formData).subscribe({
       next: (resp) => {
-        this.toast.success("Éxito", "Se creo la respuesta correctamente");
+        this.toast.success("Éxito", "Se creó la respuesta correctamente");
         this.RespuestaN.emit(resp);
         this.modal.close();
       },

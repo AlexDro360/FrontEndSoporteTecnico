@@ -6,6 +6,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateSolicitudComponent } from '../create-solicitud/create-solicitud.component';
 import { CrearBitacoraComponent } from '../../bitacora/crear-bitacora/crear-bitacora.component';
 import { AsignarPersonalComponent } from '../../atender-solicitud/asignar-personal/asignar-personal.component';
+import { CrearRespuestaComponent } from '../../respuestas/crear-respuesta/crear-respuesta.component';
+import { forkJoin } from 'rxjs';
+import { VerRespuestaComponent } from '../../respuestas/ver-respuesta/ver-respuesta.component';
+import { VerSolicitudComponent } from '../ver-solicitud/ver-solicitud.component';
+import { Toast } from 'bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { RechazarSolicitudComponent } from '../rechazar-solicitud/rechazar-solicitud.component';
 
 @Component({
   selector: 'app-list-solicitud',
@@ -17,6 +24,8 @@ export class ListSolicitudComponent {
   SOLICITUDES: any = [];
   isLoading$: any;
 
+  estadosCBitacora = [3];
+
   tipos: any[];
   user: any;
 
@@ -25,6 +34,7 @@ export class ListSolicitudComponent {
   constructor(
     public modalService: NgbModal,
     public solicitudesService: SolicitudService,
+    public toast: ToastrService
   ) {
 
   }
@@ -56,9 +66,12 @@ export class ListSolicitudComponent {
     this.listSolicitudes($event);
   }
 
-  crearBitacora(id:any){
-    const modalRef=this.modalService.open(CrearBitacoraComponent,{centered: false, size:'bg'});
-    modalRef.componentInstance.idSolicitud=id;
+  crearBitacora(id: any) {
+    const modalRef = this.modalService.open(CrearBitacoraComponent, { centered: false, size: 'bg' });
+    modalRef.componentInstance.idSolicitud = id;
+    modalRef.componentInstance.BitacoraN.subscribe((resp: any) => {
+      this.listSolicitudes();
+    });
   }
 
   createSolicitud() {
@@ -72,42 +85,91 @@ export class ListSolicitudComponent {
     });
   }
 
-  editSolicitud(SOLICITUD: any) {
-    const modalRef = this.modalService.open(EditSolicitudComponent, { centered: true, size: 'md' });
-    modalRef.componentInstance.SOLICITUD_SELECTED = SOLICITUD;
+  verSolicitud(SOLICITUD: any) {
+    const modalRef = this.modalService.open(VerSolicitudComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.solicitud = SOLICITUD;
+    modalRef.componentInstance.user = this.user;
 
-    modalRef.componentInstance.RoleE.subscribe((role: any) => {
-      let INDEX = this.SOLICITUDES.findIndex((rol: any) => rol.id == SOLICITUD.id);
-      if (INDEX != -1) {
-        this.SOLICITUDES[INDEX] = role;
-      }
-    })
-  }
-
-  deleteRole(SOLICITUD: any) {
-    const modalRef = this.modalService.open(DeleteSolicitudComponent, { centered: true, size: 'md' });
-    modalRef.componentInstance.SOLICITUD_SELECTED = SOLICITUD;
-
-    modalRef.componentInstance.RoleD.subscribe((role: any) => {
-      let INDEX = this.SOLICITUDES.findIndex((rol: any) => rol.id == SOLICITUD.id);
-      if (INDEX != -1) {
-        this.SOLICITUDES.splice(INDEX, 1);
-      }
-    })
+    modalRef.componentInstance.SolicitudV.subscribe((tipo: any) => {
+      this.listSolicitudes();
+    });
   }
 
   asignarTecnicos(SOLICITUD: any) {
-    let tecnicos: any;
+    this.solicitudesService.listTecnicos().subscribe({
+      next: (resp: any) => {
+        const tecnicos = resp;
 
-    this.solicitudesService.listTecnicos().subscribe((resp: any) => {
-      tecnicos = resp;
-      const modalRef = this.modalService.open(AsignarPersonalComponent, { centered: true, size: 'md' });
-      modalRef.componentInstance.solicitud = SOLICITUD;
-      modalRef.componentInstance.tecnicos = tecnicos;
+        const modalRef = this.modalService.open(AsignarPersonalComponent, { centered: true, size: 'md' });
+        modalRef.componentInstance.solicitud = SOLICITUD;
+        modalRef.componentInstance.tecnicos = tecnicos;
 
-      modalRef.componentInstance.AsigTec.subscribe((resp: any) => {
+        modalRef.componentInstance.AsigTec.subscribe((resp: any) => {
+          this.listSolicitudes();
+        });
+      },
+      error: (err) => {
+        console.error('Error al obtener técnicos:', err);
+        this.toast.error("Error", "Error al obtener datos de los técnicos");
+      }
+    });
+  }
 
-      })
+
+  createRespuesta(isSolicitud: any) {
+    forkJoin({
+      tipoServicio: this.solicitudesService.tiposServicios(),
+      tipoMantenimiento: this.solicitudesService.tiposMantenimientos()
+    }).subscribe({
+      next: (result) => {
+        const modalRef = this.modalService.open(CrearRespuestaComponent, { centered: true, size: 'mb' });
+        modalRef.componentInstance.idSolicitud = isSolicitud;
+        modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
+        modalRef.componentInstance.tipoServicio = result.tipoServicio;
+        modalRef.componentInstance.user = this.user;
+
+        modalRef.componentInstance.RespuestaN.subscribe((res: any) => {
+          console.log(res);
+          this.listSolicitudes();
+        });
+      },
+      error: (err) => {
+        console.error('Error al cargar los datos', err);
+        this.toast.error("Error", "Error al cargar datos");
+      }
+    });
+  }
+
+  watchRespuesta(idSolicitud: any) {
+    forkJoin({
+      tipoServicio: this.solicitudesService.tiposServicios(),
+      tipoMantenimiento: this.solicitudesService.tiposMantenimientos(),
+      respuesta: this.solicitudesService.getRespuesta(idSolicitud)
+    }).subscribe({
+      next: (result) => {
+        console.log(result.respuesta);
+        const modalRef = this.modalService.open(VerRespuestaComponent, { centered: true, size: 'md' });
+        modalRef.componentInstance.respuesta = result.respuesta;
+        modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
+        modalRef.componentInstance.tipoServicio = result.tipoServicio;
+
+        modalRef.componentInstance.RespuestaV.subscribe((res: any) => {
+        })
+      },
+      error: (err) => {
+        console.error('Error al cargar los datos', err);
+        this.toast.error("Error", "Error al obtener la respuesta");
+      }
+    });
+  }
+
+  rechazarSolicitud(solicitud: any) {
+    const modalRef = this.modalService.open(RechazarSolicitudComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.solicitud = solicitud;
+
+    modalRef.componentInstance.SolicitudR.subscribe((res: any) => {
+      console.log("actualizap");
+      this.listSolicitudes();
     })
   }
 

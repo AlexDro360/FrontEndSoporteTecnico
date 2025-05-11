@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { VerSolicitudComponent } from './ver-solicitud/ver-solicitud.component';
+import { RechazarSolicitudComponent } from './rechazar-solicitud/rechazar-solicitud.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     DeleteSolicitudComponent,
     ListSolicitudComponent,
     SolicitudesComponent,
-    AsignarPersonalComponent
+    AsignarPersonalComponent,
+    VerSolicitudComponent,
+    RechazarSolicitudComponent
   ],
   imports: [
     CommonModule,

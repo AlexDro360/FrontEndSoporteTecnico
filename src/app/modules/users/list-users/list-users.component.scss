@@ -11,6 +11,7 @@
   
     &::after {
       content: attr(data-label); // ← usa el mensaje que le pases en HTML
+      white-space: pre-line;
       position: absolute;
       bottom: 120%;
       left: 50%;
@@ -31,4 +32,6 @@
       opacity: 1;
     }
   }
+  
+
   

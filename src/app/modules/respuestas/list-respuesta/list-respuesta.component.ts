@@ -19,8 +19,8 @@ export class ListRespuestaComponent {
   respuesta: any = [];
   isLoading$: any;
 
-  tipoServicio: any;
-  tipoMantenimiento: any;
+  // tipoServicio: any;
+  // tipoMantenimiento: any;
   user: any;
   solicitud: string = '1';
 
@@ -37,7 +37,7 @@ export class ListRespuestaComponent {
   ngOnInit(): void {
     this.isLoading$ = this.respuestaService.isLoading$;
     this.listRespuestas();
-    this.configAll();
+    // this.configAll();
     this.me();
   }
 
@@ -60,28 +60,53 @@ export class ListRespuestaComponent {
   }
 
   createRespuesta() {
-    const modalRef = this.modalService.open(CrearRespuestaComponent, { centered: true, size: 'mb' });
-    modalRef.componentInstance.idSolicitud = this.solicitud;
-    modalRef.componentInstance.tipoMantenimiento = this.tipoMantenimiento;
-    modalRef.componentInstance.tipoServicio = this.tipoServicio;
-    modalRef.componentInstance.user = this.user;
+    forkJoin({
+      tipoServicio: this.respuestaService.tiposServicios(),
+      tipoMantenimiento: this.respuestaService.tiposMantenimientos()
+    }).subscribe({
+      next: (result) => {
+        const modalRef = this.modalService.open(CrearRespuestaComponent, { centered: true, size: 'mb' });
+        modalRef.componentInstance.idSolicitud = this.solicitud;
+        modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
+        modalRef.componentInstance.tipoServicio = result.tipoServicio;
+        modalRef.componentInstance.user = this.user;
 
-
-    modalRef.componentInstance.RespuestaN.subscribe((res: any) => {
-      console.log(res);
-      this.listRespuestas();
+        modalRef.componentInstance.RespuestaN.subscribe((res: any) => {
+          console.log(res);
+          this.listRespuestas();
+        });
+      },
+      error: (err) => {
+        console.error('Error al cargar los datos', err);
+      }
     });
+
+
+
   }
 
   editRespuesta(respuesta: any) {
-    const modalRef = this.modalService.open(EditarRespuestaComponent, { centered: true, size: 'md' });
-    modalRef.componentInstance.respuesta = JSON.parse(JSON.stringify(respuesta));
-    modalRef.componentInstance.tipoMantenimiento = this.tipoMantenimiento;
-    modalRef.componentInstance.tipoServicio = this.tipoServicio;
+    forkJoin({
+      tipoServicio: this.respuestaService.tiposServicios(),
+      tipoMantenimiento: this.respuestaService.tiposMantenimientos()
+    }).subscribe({
+      next: (result) => {
+        const modalRef = this.modalService.open(EditarRespuestaComponent, { centered: true, size: 'md' });
+        modalRef.componentInstance.respuesta = JSON.parse(JSON.stringify(respuesta));
+        modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
+        modalRef.componentInstance.tipoServicio = result.tipoServicio;
 
-    modalRef.componentInstance.RespuestaA.subscribe((res: any) => {
-      this.listRespuestas();
-    })
+        modalRef.componentInstance.RespuestaA.subscribe((res: any) => {
+          this.listRespuestas();
+        })
+      },
+      error: (err) => {
+        console.error('Error al cargar los datos', err);
+      }
+    });
+
+
+
   }
 
   deleteRespuesta(respuesta: any) {
@@ -94,15 +119,24 @@ export class ListRespuestaComponent {
   }
 
   watchRespuesta(respuesta: any) {
-    const modalRef = this.modalService.open(VerRespuestaComponent, { centered: true, size: 'md' });
-    modalRef.componentInstance.respuesta = respuesta;
-    modalRef.componentInstance.tipoMantenimiento = this.tipoMantenimiento;
-    modalRef.componentInstance.tipoServicio = this.tipoServicio;
+    forkJoin({
+      tipoServicio: this.respuestaService.tiposServicios(),
+      tipoMantenimiento: this.respuestaService.tiposMantenimientos()
+    }).subscribe({
+      next: (result) => {
+        const modalRef = this.modalService.open(VerRespuestaComponent, { centered: true, size: 'md' });
+        modalRef.componentInstance.respuesta = respuesta;
+        modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
+        modalRef.componentInstance.tipoServicio = result.tipoServicio;
 
-    modalRef.componentInstance.RespuestaV.subscribe((res: any) => {
-    })
+        modalRef.componentInstance.RespuestaV.subscribe((res: any) => {
+        })
+      },
+      error: (err) => {
+        console.error('Error al cargar los datos', err);
+      }
+    });
   }
-
 
   verPdf(respuesta: any) {
     this.respuestaService.obtenerPDF(respuesta.id).subscribe({
@@ -118,20 +152,20 @@ export class ListRespuestaComponent {
     })
   }
 
-  configAll() {
-    forkJoin({
-      tipoServicio: this.respuestaService.tiposServicios(),
-      tipoMantenimiento: this.respuestaService.tiposMantenimientos()
-    }).subscribe({
-      next: (result) => {
-        this.tipoServicio = result.tipoServicio;
-        this.tipoMantenimiento = result.tipoMantenimiento;
-      },
-      error: (err) => {
-        console.error('Error al cargar los datos', err);
-      }
-    });
-  }
+  // configAll() {
+  //   forkJoin({
+  //     tipoServicio: this.respuestaService.tiposServicios(),
+  //     tipoMantenimiento: this.respuestaService.tiposMantenimientos()
+  //   }).subscribe({
+  //     next: (result) => {
+  //       this.tipoServicio = result.tipoServicio;
+  //       this.tipoMantenimiento = result.tipoMantenimiento;
+  //     },
+  //     error: (err) => {
+  //       console.error('Error al cargar los datos', err);
+  //     }
+  //   });
+  // }
 
 
 }

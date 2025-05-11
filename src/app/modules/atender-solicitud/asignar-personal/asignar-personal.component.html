@@ -3,7 +3,7 @@
     <!--begin::Modal header-->
     <div class="modal-header" id="kt_modal_add_user_header">
         <!--begin::Modal title-->
-        <h2 class="fw-bolder">Crear Solicitud</h2>
+        <h2 class="fw-bolder ">Asignar Técnicos</h2>
 
         <!--end::Modal title-->
         <!--begin::Close-->
@@ -34,6 +34,8 @@
                 data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
                 <!--begin::Input group-->
 
+                <p class="fw-bold fs-4 text-center"> Información de la solicitud</p>
+
                 <div class="fv-row row my-1">
                     <div class="col-12">
                         <label class="fw-bold fs-6">Tipo de problema:</label>
@@ -50,11 +52,20 @@
 
                 <div class="fv-row row my-1">
                     <div class="col-12">
+                        <label class="fw-bold fs-6">Departamento:</label>
+                        <p class="form-control form-control-solid">{{ solicitud.user.departamento }}</p>
+                    </div>
+                </div>
+
+                <p class="fw-bold fs-4 text-center">Técnicos</p>
+
+                <div class="fv-row row my-1">
+                    <div class="col-12">
                         <label class="fw-bold fs-6">Seleccione los técnicos para atender la solicitud:</label>
                         <div *ngFor="let tecnico of tecnicos" class="form-check d-flex align-items-center mb-2">
                             <input class="form-check-input me-2" type="checkbox" [value]="tecnico.id"
                                 [disabled]="isMaxSelected(tecnico.id)" (change)="onTecnicoChange($event)"
-                                [checked]="tecnicosSeleccionados.includes(tecnico.id)" id="tecnico-{{tecnico.id}}" />
+                                [checked]="personalAtencion.includes(tecnico.id)" id="tecnico-{{tecnico.id}}" />
                             <label class="form-check-label flex-grow-1 py-2 px-3 form-control form-control-solid"
                                 [for]="'tecnico-' + tecnico.id">
                                 {{ tecnico.name }} {{ tecnico.surname }}
