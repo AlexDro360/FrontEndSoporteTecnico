@@ -44,6 +44,11 @@ export class VerSolicitudComponent {
         modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
         modalRef.componentInstance.tipoServicio = result.tipoServicio;
         modalRef.componentInstance.user = this.user;
+
+        modalRef.componentInstance.RespuestaN.subscribe((resp: any) => {
+          this.SolicitudV.emit(resp);
+          this.modal.close();
+        });
       },
       error: (err) => {
         console.error('Error al cargar los datos', err);
@@ -78,6 +83,10 @@ export class VerSolicitudComponent {
   hacerBitacora(): void {
     const modalRef = this.modalService.open(CrearBitacoraComponent, { centered: false, size: 'bg' });
     modalRef.componentInstance.idSolicitud = this.solicitud.id;
+    modalRef.componentInstance.BitacoraN.subscribe((resp: any) => {
+      this.SolicitudV.emit(resp);
+      this.modal.close();
+    });
   }
 
   verBitacora(): void {
@@ -99,6 +108,8 @@ export class VerSolicitudComponent {
         modalRef.componentInstance.tecnicos = tecnicos;
 
         modalRef.componentInstance.AsigTec.subscribe((resp: any) => {
+          this.SolicitudV.emit(resp);
+          this.modal.close();
         });
       },
       error: (err) => {
@@ -112,8 +123,9 @@ export class VerSolicitudComponent {
     const modalRef = this.modalService.open(RechazarSolicitudComponent, { centered: true, size: 'md' });
     modalRef.componentInstance.solicitud = this.solicitud;
 
-    modalRef.componentInstance.SolicitudV.subscribe({
+    modalRef.componentInstance.SolicitudR.subscribe({
       next: (resp: any) => {
+        this.SolicitudV.emit(resp);
         this.modal.close();
       }
     })

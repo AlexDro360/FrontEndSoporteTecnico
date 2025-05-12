@@ -1,9 +1,12 @@
 <!--begin::Modal content CREATE-->
 <div class="modal-content">
     <!--begin::Modal header-->
-    <div class="modal-header" id="kt_modal_add_user_header">
-        <!--begin::Modal title-->
-        <h2 class="fw-bolder">Responder</h2>
+    <div class="modal-header d-flex justify-content-between align-items-start flex-wrap" id="kt_modal_add_user_header">
+        <!-- Título y subtítulo en columna -->
+        <div class="d-flex flex-column">
+            <h2 class="fw-bolder mb-1">Crear Respuesta</h2>
+            <small class="fs-6 fst-italic text-danger">* Campos obligatorios</small>
+        </div>
 
         <!--end::Modal title-->
         <!--begin::Close-->
@@ -26,73 +29,128 @@
     <!--begin::Modal body-->
     <div class="modal-body scroll-y mx-5 my-3">
         <!--begin::Form-->
+
         <form id="kt_modal_add_user_form" class="form" action="#">
-            <!--begin::Scroll-->
-            <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true"
-                data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
-                data-kt-scroll-dependencies="#kt_modal_add_user_header"
-                data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-                <!--begin::Input group-->
+            <div class="d-flex flex-column flex-lg-row">
+                <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 order-2 order-lg-2 scroll-y me-n7 pe-7 me-lg-5"
+                    id="kt_modal_view_data_scroll" data-kt-scroll="true"
+                    data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
+                    data-kt-scroll-dependencies="#kt_modal_view_data_header"
+                    data-kt-scroll-wrappers="#kt_modal_view_data_scroll" data-kt-scroll-offset="300px"
+                    *ngIf="!!bitacora">
 
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Nombre de quien aprobo</label>
-                        <input type="text" class="form-control form-control-solid mb-3 mb-lg-0" name="aprovo"
-                        placeholder="Nombre de la persona que aprobo..." [(ngModel)]="user.full_name">
-                            
+                    <h3 class="fw-bolder text-center mb-7">Información de la Bitácora</h3>
+
+                    <div class="fv-row row my-1">
+                        <div class="col-6">
+                            <label class="fw-bold fs-6 mb-2"># Solicitud</label>
+                            <p type="text" class="form-control form-control-outline mb-3 mb-lg-0" value="1">{{
+                                bitacora.idSolicitud}}</p>
+                        </div>
+
+
+                        <div class="col-6">
+                            <label class="fw-bold fs-6 mb-2">Fecha</label>
+                            <input type="date" class="form-control form-control-outline  mb-3 mb-lg-0"
+                                [value]="(bitacora.fecha | date:'yyyy-MM-dd')" readonly>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="fw-bold fs-6 mb-2">Descripción de la Falla</label>
+                            <p class="form-control form-control-outline mb-3 mb-lg-0" rows="2">{{ bitacora.descFalla }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="fw-bold fs-6 mb-2">Descripción de la Solución</label>
+                            <p class="form-control form-control-outline mb-3 mb-lg-0" rows="3">{{ bitacora.descSolucion }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="fw-bold fs-6 mb-2">Material Requerido</label>
+                            <p class="form-control form-control-outline mb-3 mb-lg-0" rows="2">{{ bitacora.materialReq }}
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Asunto</label>
-                        <textarea name="asunto" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Asunto..." [(ngModel)]="asunto"
-                            rows="2"></textarea>
+
+                <!--begin::Scroll-->
+                <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 order-2 order-lg-2 scroll-y me-n7 pe-7 "
+                    id="kt_modal_add_user_scroll" data-kt-scroll="true"
+                    data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
+                    data-kt-scroll-dependencies="#kt_modal_add_user_header"
+                    data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+                    <!--begin::Input group-->
+
+                    <h3 class="fw-bolder text-center mb-7">Realice la respuesta de la solicitud</h3>
+
+
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Nombre de quien aprobo</label>
+                            <input type="text" class="form-control form-control-solid mb-3 mb-lg-0" name="aprovo"
+                                placeholder="Nombre de la persona que aprobo..." [(ngModel)]="user.full_names">
+
+                        </div>
                     </div>
-                </div>
 
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Descripción de la solución</label>
-                        <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Describe la solución" [(ngModel)]="descripcion"
-                            rows="5"></textarea>
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Asunto</label>
+                            <textarea name="asunto" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Asunto..." [(ngModel)]="asunto" rows="2"></textarea>
+                        </div>
                     </div>
-                </div>
 
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Tipo de Servicio </label>
-                        <select class="form-control form-select-solid fw-bolder" name="tipo_servicio_selected"
-                            placeholder="Selecciona el Tipo de Servicio" [(ngModel)]="idTipoServicio">
-
-                            <option value="">Selec. Tipo Servicio</option>
-
-                            <ng-container *ngFor="let tipo of tipoServicio">
-                                <option [value]="tipo.id">{{tipo.nombre}}</option>
-                            </ng-container>
-
-                        </select>
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Descripción</label>
+                            <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Describe la solución" [(ngModel)]="descripcion" rows="5"></textarea>
+                        </div>
                     </div>
-                </div>
 
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Tipo de Mantenimiento </label>
-                        <select class="form-control form-select-solid fw-bolder" name="tipo_mantenimiento_selected"
-                            placeholder="Selecciona el Tipo de Mantenimiento" [(ngModel)]="idTipoMantenimiento">
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Tipo de Servicio </label>
+                            <select class="form-control form-select-solid fw-bolder" name="tipo_servicio_selected"
+                                placeholder="Selecciona el Tipo de Servicio" [(ngModel)]="idTipoServicio">
 
-                            <option value="">Selec. Tipo Mantenimiento</option>
+                                <option value="">Selec. Tipo Servicio</option>
 
-                            <ng-container *ngFor="let tipo of tipoMantenimiento">
-                                <option [value]="tipo.id">{{tipo.nombre}}</option>
-                            </ng-container>
+                                <ng-container *ngFor="let tipo of tipoServicio">
+                                    <option [value]="tipo.id">{{tipo.nombre}}</option>
+                                </ng-container>
 
-                        </select>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Tipo de Mantenimiento </label>
+                            <select class="form-control form-select-solid fw-bolder" name="tipo_mantenimiento_selected"
+                                placeholder="Selecciona el Tipo de Mantenimiento" [(ngModel)]="idTipoMantenimiento">
+
+                                <option value="">Selec. Tipo Mantenimiento</option>
+
+                                <ng-container *ngFor="let tipo of tipoMantenimiento">
+                                    <option [value]="tipo.id">{{tipo.nombre}}</option>
+                                </ng-container>
+
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <!--end::Scroll-->
 
@@ -104,7 +162,7 @@
 
                     <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
                     <span class="indicator-progress">Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                 </button>
             </div>
             <!--end::Actions-->

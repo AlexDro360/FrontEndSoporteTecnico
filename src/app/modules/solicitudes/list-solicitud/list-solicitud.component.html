@@ -174,7 +174,7 @@
                     <i class="bi bi-person-plus-fill fs-1"></i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 4"
+                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 4 || (SOLICITUD.estado.id === 2 && !SOLICITUD.respuesta)"
                     (click)="createRespuesta(SOLICITUD.id)"
                     class="btn btn-icon btn-bg-light btn-hover-success btn-active-success btn-active-color-light btn-color-success btn-sm m-1 btn-con-tooltip"
                     data-label="Responder">
@@ -185,7 +185,7 @@
                     </i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 2 || SOLICITUD.estado.id === 5"
+                  <a href="#" onclick="return false;" *ngIf="(SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 5"
                     (click)="watchRespuesta(SOLICITUD.id)"
                     class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Respuesta">

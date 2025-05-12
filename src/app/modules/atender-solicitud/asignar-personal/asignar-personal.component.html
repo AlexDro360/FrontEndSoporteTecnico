@@ -1,9 +1,12 @@
 <!--begin::Modal content CREATE-->
 <div class="modal-content">
     <!--begin::Modal header-->
-    <div class="modal-header" id="kt_modal_add_user_header">
-        <!--begin::Modal title-->
-        <h2 class="fw-bolder ">Asignar Técnicos</h2>
+    <div class="modal-header d-flex justify-content-between align-items-start flex-wrap" id="kt_modal_add_user_header">
+        <!-- Título y subtítulo en columna -->
+        <div class="d-flex flex-column">
+            <h2 class="fw-bolder mb-1">Asignar técnicos</h2>
+            <small class="fs-6 fst-italic text-danger">* Campos obligatorios</small>
+        </div>
 
         <!--end::Modal title-->
         <!--begin::Close-->
@@ -61,7 +64,7 @@
 
                 <div class="fv-row row my-1">
                     <div class="col-12">
-                        <label class="fw-bold fs-6">Seleccione los técnicos para atender la solicitud:</label>
+                        <label class="required fw-bold fs-6">Seleccione los técnicos para atender la solicitud:</label>
                         <div *ngFor="let tecnico of tecnicos" class="form-check d-flex align-items-center mb-2">
                             <input class="form-check-input me-2" type="checkbox" [value]="tecnico.id"
                                 [disabled]="isMaxSelected(tecnico.id)" (change)="onTecnicoChange($event)"

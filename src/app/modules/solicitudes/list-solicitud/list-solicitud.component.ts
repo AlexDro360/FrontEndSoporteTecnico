@@ -24,8 +24,6 @@ export class ListSolicitudComponent {
   SOLICITUDES: any = [];
   isLoading$: any;
 
-  estadosCBitacora = [3];
-
   tipos: any[];
   user: any;
 
@@ -116,29 +114,43 @@ export class ListSolicitudComponent {
   }
 
 
-  createRespuesta(isSolicitud: any) {
-    forkJoin({
-      tipoServicio: this.solicitudesService.tiposServicios(),
-      tipoMantenimiento: this.solicitudesService.tiposMantenimientos()
-    }).subscribe({
-      next: (result) => {
-        const modalRef = this.modalService.open(CrearRespuestaComponent, { centered: true, size: 'mb' });
-        modalRef.componentInstance.idSolicitud = isSolicitud;
-        modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
-        modalRef.componentInstance.tipoServicio = result.tipoServicio;
-        modalRef.componentInstance.user = this.user;
+  createRespuesta(idSolicitud: any) {
+  forkJoin({
+    tipoServicio: this.solicitudesService.tiposServicios(),
+    tipoMantenimiento: this.solicitudesService.tiposMantenimientos(),
+    bitacora: this.solicitudesService.getBitacora(idSolicitud)
+  }).subscribe({
+    next: (result) => {
+      const bitacoraVacia = !result.bitacora || Object.keys(result.bitacora).length === 0;
 
-        modalRef.componentInstance.RespuestaN.subscribe((res: any) => {
-          console.log(res);
-          this.listSolicitudes();
-        });
-      },
-      error: (err) => {
-        console.error('Error al cargar los datos', err);
-        this.toast.error("Error", "Error al cargar datos");
+      const modalSize = bitacoraVacia ? 'md' : 'xl';
+
+      const modalRef = this.modalService.open(CrearRespuestaComponent, {
+        centered: true,
+        size: modalSize
+      });
+
+      modalRef.componentInstance.idSolicitud = idSolicitud;
+      modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
+      modalRef.componentInstance.tipoServicio = result.tipoServicio;
+
+      if (!bitacoraVacia) {
+        modalRef.componentInstance.bitacora = result.bitacora;
+        console.log("bitacora no está vacía");
       }
-    });
-  }
+
+      modalRef.componentInstance.RespuestaN.subscribe((res: any) => {
+        console.log(res);
+        this.listSolicitudes();
+      });
+    },
+    error: (err) => {
+      console.error('Error al cargar los datos', err);
+      this.toast.error("Error", "Error al cargar datos");
+    }
+  });
+}
+
 
   watchRespuesta(idSolicitud: any) {
     forkJoin({

@@ -104,6 +104,15 @@ export class SolicitudService {
     );
   }
 
+  getBitacora(idSolicitud: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/bitacora/buscar/${idSolicitud}`;
+    return this.http.get(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
   editarRespuesta(data: any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });

@@ -13,10 +13,11 @@ export class CrearRespuestaComponent {
   @Input() idSolicitud: any;
   @Input() tipoServicio: any;
   @Input() tipoMantenimiento: any;
-  @Input() user: any;
+  @Input() bitacora: any;
 
   isLoading: any;
 
+  user: any;
   asunto: string = '';
   descripcion: string = '';
   nombreAprovo: string = '';
@@ -26,22 +27,24 @@ export class CrearRespuestaComponent {
 
 
   constructor(
-    
+
     public modal: NgbActiveModal,
     public respuestaService: RespuestaService,
     public toast: ToastrService,
-    
-    
+
+
   ) {
 
   }
 
   ngOnInit(): void {
-    console.log(this.user);
+    const userString = localStorage.getItem('user');
+    this.user = userString ? JSON.parse(userString) : null;
+    console.log(this.bitacora==null);
   }
 
   store() {
-    if (!this.user.full_name) {
+    if (!this.user.full_names) {
       this.toast.error("Validación", "La persona que aprovo es requerida");
       return false;
     }

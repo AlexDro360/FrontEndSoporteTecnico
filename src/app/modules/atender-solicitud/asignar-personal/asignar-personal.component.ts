@@ -46,21 +46,27 @@ export class AsignarPersonalComponent {
   }
 
   asignarTecnicos() {
-  const payload = {
-    personalAtencion: this.personalAtencion
-  };
 
-  this.atenderService.asignarTecnicos(payload, this.solicitud.id).subscribe({
-    next: (resp: any) => {
-      this.toast.success("Éxito", "Se asignaron los técnicos correctamente");
-      this.AsigTec.emit(resp);
-      this.modal.close();
-    },
-    error: (err: any) => {
+    if (this.personalAtencion.length===0) {
+      this.toast.warning("Advertencia", "Seleccione al menos un técnico");
+      return false;
+    }
+
+    const payload = {
+      personalAtencion: this.personalAtencion
+    };
+
+    this.atenderService.asignarTecnicos(payload, this.solicitud.id).subscribe({
+      next: (resp: any) => {
+        this.toast.success("Éxito", "Se asignaron los técnicos correctamente");
+        this.AsigTec.emit(resp);
+        this.modal.close();
+      },
+      error: (err: any) => {
         this.toast.error("Error", "Ocurrió un error al asignar técnicos");
         console.error(err);
-    }
-  });
-}
+      }
+    });
+  }
 
 }
