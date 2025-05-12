@@ -1,0 +1,16 @@
+.text-eliminar {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 20px;
+    text-align: center;
+  
+    &::before {
+      content: "⚠️"; // ícono de advertencia
+      font-size: 6.5rem;
+    }
+  }
