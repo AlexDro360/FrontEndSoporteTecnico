@@ -14,6 +14,9 @@ export class VerBitacoraComponent {
   @Output() BitacoraV: EventEmitter<any> = new EventEmitter();
   @Input() bitacora: any;
 
+  horas: number = 0;
+  minutos: number = 0;
+
   isLoading: any;
 
   constructor(
@@ -21,6 +24,11 @@ export class VerBitacoraComponent {
     public bitacoraService: BitacoraService,
     public toast: ToastrService,
   ) {
+  }
+
+  ngOnInit(): void {
+    this.horas = Math.floor(this.bitacora.duracion / 60);
+    this.minutos = this.bitacora.duracion % 60;
   }
 }
 

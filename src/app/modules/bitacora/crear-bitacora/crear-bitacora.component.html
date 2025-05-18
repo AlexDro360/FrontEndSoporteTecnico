@@ -41,8 +41,10 @@
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Descripción de la Falla/Error</label>
                         <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Describe la solución" [(ngModel)]="falla"
-                            rows="5"></textarea>
+                            placeholder="Describe la solución" [(ngModel)]="falla" rows="5"></textarea>
+                        <div *ngIf="estadoDF" class="alert alert-danger" role="alert">
+                            Es necesario describir la falla
+                        </div>
                     </div>
                 </div>
 
@@ -50,8 +52,10 @@
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Descripción de la Solución</label>
                         <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Describe la solución" [(ngModel)]="solucion"
-                            rows="5"></textarea>
+                            placeholder="Describe la solución" [(ngModel)]="solucion" rows="5"></textarea>
+                        <div *ngIf="estadoDS" class="alert alert-danger" role="alert">
+                            Es necesario describir la solución
+                        </div>
                     </div>
                 </div>
 
@@ -59,8 +63,31 @@
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Materiales Requeridos</label>
                         <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Describe la solución" [(ngModel)]="materiales"
-                            rows="3"></textarea>
+                            placeholder="Describe la solución" [(ngModel)]="materiales" rows="3"></textarea>
+                        <div *ngIf="estadoDM" class="alert alert-danger" role="alert">
+                            Es necesario escribir los materiales utilizados
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fv-row row my-1">
+                    <label class="required fw-bold fs-6 mb-2">Duración</label>
+                    <div class="col-6 d-flex align-items-center">
+                        <label class=" fw-bold fs-6 mb-2 me-2">Horas: </label>
+                        <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0" name="horas"
+                            [(ngModel)]="horas" />
+
+                    </div>
+
+                    <div class="col-6 d-flex align-items-center">
+                        <label class="fw-bold fs-6 mb-2 me-2">Minutos: </label>
+                        <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0" name="minutos"
+                            [(ngModel)]="minutos" />
+                    </div>
+                    <div class="col-12" >
+                        <div *ngIf="estadoD" class="alert alert-danger" role="alert">
+                            Es necesario especificar la duración del mantenimiento
+                        </div>
                     </div>
                 </div>
 
@@ -75,7 +102,7 @@
 
                     <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
                     <span class="indicator-progress">Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                 </button>
             </div>
             <!--end::Actions-->

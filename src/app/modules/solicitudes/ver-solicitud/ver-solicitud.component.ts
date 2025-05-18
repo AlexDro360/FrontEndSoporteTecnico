@@ -30,20 +30,50 @@ export class VerSolicitudComponent {
   ) {
   }
   verPdf(): void {
-    // Método para abrir PDF
+    this.solicitudService.obtenerPDF(this.solicitud.id).subscribe({
+      next: (resp) => {
+        const fileURL = URL.createObjectURL(resp);
+        window.open(fileURL);
+      },
+      error: (err) => {
+        console.log(err);
+        console.error('Error al generar el pdf', err);
+        this.toast.error('Error al abrir el pdf', 'Error');
+      }
+    })
   }
 
   responder(): void {
     forkJoin({
       tipoServicio: this.solicitudService.tiposServicios(),
-      tipoMantenimiento: this.solicitudService.tiposMantenimientos()
+      tipoMantenimiento: this.solicitudService.tiposMantenimientos(),
+      bitacora: this.solicitudService.getBitacora(this.solicitud.id),
+      jefe: this.solicitudService.obtenerJefe(),
     }).subscribe({
       next: (result) => {
-        const modalRef = this.modalService.open(CrearRespuestaComponent, { centered: true, size: 'mb' });
-        modalRef.componentInstance.idSolicitud = this.solicitud.id;
+
+        const bitacoraVacia = !result.bitacora || Object.keys(result.bitacora).length === 0;
+        const jefeVacio = !result.jefe || Object.keys(result.jefe).length === 0;
+
+        const modalSize = bitacoraVacia ? 'md' : 'xl';
+
+        const modalRef = this.modalService.open(CrearRespuestaComponent, {
+          centered: true,
+          size: modalSize
+        });
+
+        modalRef.componentInstance.solicitud = this.solicitud;
         modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
         modalRef.componentInstance.tipoServicio = result.tipoServicio;
-        modalRef.componentInstance.user = this.user;
+
+        if (!bitacoraVacia) {
+          modalRef.componentInstance.bitacora = result.bitacora;
+          console.log("bitacora no está vacía");
+        }
+        if (!jefeVacio) {
+          modalRef.componentInstance.jefeCC = result.jefe;
+        }
+        
 
         modalRef.componentInstance.RespuestaN.subscribe((resp: any) => {
           this.SolicitudV.emit(resp);
@@ -69,6 +99,7 @@ export class VerSolicitudComponent {
         modalRef.componentInstance.respuesta = result.respuesta;
         modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
         modalRef.componentInstance.tipoServicio = result.tipoServicio;
+        modalRef.componentInstance.solicitud = this.solicitud;
 
         modalRef.componentInstance.RespuestaV.subscribe((res: any) => {
         })

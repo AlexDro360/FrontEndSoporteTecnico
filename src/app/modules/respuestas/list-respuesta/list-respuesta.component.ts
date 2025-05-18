@@ -66,7 +66,7 @@ export class ListRespuestaComponent {
     }).subscribe({
       next: (result) => {
         const modalRef = this.modalService.open(CrearRespuestaComponent, { centered: true, size: 'mb' });
-        modalRef.componentInstance.idSolicitud = this.solicitud;
+        modalRef.componentInstance.solicitud = this.solicitud;
         modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
         modalRef.componentInstance.tipoServicio = result.tipoServicio;
         modalRef.componentInstance.user = this.user;

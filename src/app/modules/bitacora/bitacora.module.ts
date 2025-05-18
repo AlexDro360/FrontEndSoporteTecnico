@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     VerBitacoraComponent,
   ],
   imports: [
+    SharedModule,
     CommonModule,
     BitacoraRoutingModule,
 

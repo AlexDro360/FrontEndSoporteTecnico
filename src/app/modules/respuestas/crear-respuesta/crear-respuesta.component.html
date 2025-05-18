@@ -43,9 +43,9 @@
 
                     <div class="fv-row row my-1">
                         <div class="col-6">
-                            <label class="fw-bold fs-6 mb-2"># Solicitud</label>
+                            <label class="fw-bold fs-6 mb-2">Folio de Solicitud</label>
                             <p type="text" class="form-control form-control-outline mb-3 mb-lg-0" value="1">{{
-                                bitacora.idSolicitud}}</p>
+                                bitacora.solicitud.folio | rellenaZero:3 }}</p>
                         </div>
 
 
@@ -67,7 +67,8 @@
                     <div class="fv-row row my-1">
                         <div class="col-12">
                             <label class="fw-bold fs-6 mb-2">Descripción de la Solución</label>
-                            <p class="form-control form-control-outline mb-3 mb-lg-0" rows="3">{{ bitacora.descSolucion }}
+                            <p class="form-control form-control-outline mb-3 mb-lg-0" rows="3">{{ bitacora.descSolucion
+                                }}
                             </p>
                         </div>
                     </div>
@@ -75,7 +76,26 @@
                     <div class="fv-row row my-1">
                         <div class="col-12">
                             <label class="fw-bold fs-6 mb-2">Material Requerido</label>
-                            <p class="form-control form-control-outline mb-3 mb-lg-0" rows="2">{{ bitacora.materialReq }}
+                            <p class="form-control form-control-outline mb-3 mb-lg-0" rows="2">{{ bitacora.materialReq
+                                }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row my-1">
+                        <label class="fw-bold fs-6 mb-2">Duración</label>
+                        <div class="col-6 d-flex align-items-center">
+                            <label class=" fw-bold fs-6 mb-2 me-2">Horas: </label>
+                            <p class="form-control form-control-outline mb-3 mb-lg-0" rows="2">
+                                {{horas}}
+                            </p>
+
+                        </div>
+
+                        <div class="col-6 d-flex align-items-center">
+                            <label class="fw-bold fs-6 mb-2 me-2">Minutos: </label>
+                            <p class="form-control form-control-outline mb-3 mb-lg-0" rows="2">
+                                {{minutos}}
                             </p>
                         </div>
                     </div>
@@ -95,10 +115,30 @@
 
                     <div class="fv-row row my-1">
                         <div class="col-12">
-                            <label class="required fw-bold fs-6 mb-2">Nombre de quien aprobo</label>
-                            <input type="text" class="form-control form-control-solid mb-3 mb-lg-0" name="aprovo"
-                                placeholder="Nombre de la persona que aprobo..." [(ngModel)]="user.full_names">
+                            <label class="required fw-bold fs-6 mb-2">Nombre de quien verificó</label>
+                            <input type="text" class="form-control form-control-solid mb-3 mb-lg-0" name="verifico"
+                                placeholder="Nombre de la persona que verificó..." [(ngModel)]="user.full_names">
+                            <div *ngIf="estadoNV" class="alert alert-danger" role="alert">
+                                El nombre de quien verificó es requerido
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="fw-bold fs-6 mb-2">Nombre de quien aprobó </label><span
+                                style="font-style: italic;"><br> Automatico de acuerdo al jefe del Centro de Cómputo
+                                activo actualmente</span>
+                            <input type="text" class="form-control form-control-outline mb-3 mb-lg-0" name="aprobo"
+                                readOnly [(ngModel)]="jefeCC.nombreC">
+                            <div *ngIf="!jefeCC" class="alert alert-danger" role="alert">
+                                Primero debe dar de alta a un Jefe de Departamento de Centro de Cómputo en
+                                <a routerLinkActive="active" routerLink="/config-adicionales/"
+                                    (click)="modal.dismiss()">
+                                    Gestión Solicitudes > Configuraciones Adicionales
+                                </a>
+                                para poder realizar una respuesta
+                            </div>
                         </div>
                     </div>
 
@@ -107,6 +147,9 @@
                             <label class="required fw-bold fs-6 mb-2">Asunto</label>
                             <textarea name="asunto" class="form-control form-control-solid mb-3 mb-lg-0"
                                 placeholder="Asunto..." [(ngModel)]="asunto" rows="2"></textarea>
+                            <div *ngIf="estadoA" class="alert alert-danger" role="alert">
+                                El asunto es requerido
+                            </div>
                         </div>
                     </div>
 
@@ -115,10 +158,13 @@
                             <label class="required fw-bold fs-6 mb-2">Descripción</label>
                             <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
                                 placeholder="Describe la solución" [(ngModel)]="descripcion" rows="5"></textarea>
+                            <div *ngIf="estadoD" class="alert alert-danger" role="alert">
+                                La descripción es requerida
+                            </div>
                         </div>
                     </div>
 
-                    <div class="fv-row row my-1">
+                    <div *ngIf="!!bitacora" class="fv-row row my-1">
                         <div class="col-12">
                             <label class="required fw-bold fs-6 mb-2">Tipo de Servicio </label>
                             <select class="form-control form-select-solid fw-bolder" name="tipo_servicio_selected"
@@ -131,10 +177,13 @@
                                 </ng-container>
 
                             </select>
+                            <div *ngIf="estadoTS" class="alert alert-danger" role="alert">
+                                El tipo de servicio es requerido
+                            </div>
                         </div>
                     </div>
 
-                    <div class="fv-row row my-1">
+                    <div *ngIf="!!bitacora" class="fv-row row my-1">
                         <div class="col-12">
                             <label class="required fw-bold fs-6 mb-2">Tipo de Mantenimiento </label>
                             <select class="form-control form-select-solid fw-bolder" name="tipo_mantenimiento_selected"
@@ -147,6 +196,9 @@
                                 </ng-container>
 
                             </select>
+                            <div *ngIf="estadoTM" class="alert alert-danger" role="alert">
+                                El tipo de mantenimiento es requerido
+                            </div>
                         </div>
                     </div>
 

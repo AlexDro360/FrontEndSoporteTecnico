@@ -74,14 +74,31 @@
                                 {{ tecnico.name }} {{ tecnico.surname }}
                             </label>
                         </div>
+                        <div *ngIf="estadoPA" class="alert alert-danger" role="alert">
+                            Selcciones los técnicos que atenderan la solicitud
+                        </div>
                     </div>
                 </div>
 
+                <div class="fv-row row my-1">
+                    <div class="col-6">
+                        <label class="required fw-bold fs-6 mb-2">Fecha de atención: </label>
+                        <input type="date" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Fecha de atención" [(ngModel)]="fechaAtencion" />
+                        <div *ngIf="estadoFA" class="alert alert-danger" role="alert">
+                            La fecha de atención es requerida
+                        </div>
+                    </div>
 
-                
-
-
-
+                    <div class="col-6">
+                        <label class="required fw-bold fs-6 mb-2">Hora de atencón: </label>
+                        <input type="time" name="surnameP" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Hora de atención" [(ngModel)]="horaAtencion" />
+                        <div *ngIf="estadoHA" class="alert alert-danger" role="alert">
+                            La hora de atención es requerida
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--end::Scroll-->
 

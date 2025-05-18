@@ -79,7 +79,7 @@ export class ListSolicitudComponent {
 
     modalRef.componentInstance.SolicitudC.subscribe((tipo: any) => {
       console.log(tipo);
-      this.SOLICITUDES.unshift(tipo);
+      this.listSolicitudes();
     });
   }
 
@@ -114,49 +114,56 @@ export class ListSolicitudComponent {
   }
 
 
-  createRespuesta(idSolicitud: any) {
-  forkJoin({
-    tipoServicio: this.solicitudesService.tiposServicios(),
-    tipoMantenimiento: this.solicitudesService.tiposMantenimientos(),
-    bitacora: this.solicitudesService.getBitacora(idSolicitud)
-  }).subscribe({
-    next: (result) => {
-      const bitacoraVacia = !result.bitacora || Object.keys(result.bitacora).length === 0;
-
-      const modalSize = bitacoraVacia ? 'md' : 'xl';
-
-      const modalRef = this.modalService.open(CrearRespuestaComponent, {
-        centered: true,
-        size: modalSize
-      });
-
-      modalRef.componentInstance.idSolicitud = idSolicitud;
-      modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
-      modalRef.componentInstance.tipoServicio = result.tipoServicio;
-
-      if (!bitacoraVacia) {
-        modalRef.componentInstance.bitacora = result.bitacora;
-        console.log("bitacora no está vacía");
-      }
-
-      modalRef.componentInstance.RespuestaN.subscribe((res: any) => {
-        console.log(res);
-        this.listSolicitudes();
-      });
-    },
-    error: (err) => {
-      console.error('Error al cargar los datos', err);
-      this.toast.error("Error", "Error al cargar datos");
-    }
-  });
-}
-
-
-  watchRespuesta(idSolicitud: any) {
+  createRespuesta(solicitud: any) {
     forkJoin({
       tipoServicio: this.solicitudesService.tiposServicios(),
       tipoMantenimiento: this.solicitudesService.tiposMantenimientos(),
-      respuesta: this.solicitudesService.getRespuesta(idSolicitud)
+      bitacora: this.solicitudesService.getBitacora(solicitud.id),
+      jefe: this.solicitudesService.obtenerJefe(),
+    }).subscribe({
+      next: (result) => {
+        const bitacoraVacia = !result.bitacora || Object.keys(result.bitacora).length === 0;
+        const jefeVacio = !result.jefe || Object.keys(result.jefe).length === 0;
+
+        const modalSize = bitacoraVacia ? 'md' : 'xl';
+
+        const modalRef = this.modalService.open(CrearRespuestaComponent, {
+          centered: true,
+          size: modalSize
+        });
+
+        modalRef.componentInstance.solicitud = solicitud;
+        modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
+        modalRef.componentInstance.tipoServicio = result.tipoServicio;
+        // modalRef.componentInstance.jefeCC = result.jefe ?? null;
+
+
+        if (!bitacoraVacia) {
+          modalRef.componentInstance.bitacora = result.bitacora;
+          console.log("bitacora no está vacía");
+        }
+        if (!jefeVacio) {
+          modalRef.componentInstance.jefeCC = result.jefe;
+        }
+
+        modalRef.componentInstance.RespuestaN.subscribe((res: any) => {
+          console.log(res);
+          this.listSolicitudes();
+        });
+      },
+      error: (err) => {
+        console.error('Error al cargar los datos', err);
+        this.toast.error("Error", "Error al cargar datos");
+      }
+    });
+  }
+
+
+  watchRespuesta(solicitud: any) {
+    forkJoin({
+      tipoServicio: this.solicitudesService.tiposServicios(),
+      tipoMantenimiento: this.solicitudesService.tiposMantenimientos(),
+      respuesta: this.solicitudesService.getRespuesta(solicitud.id)
     }).subscribe({
       next: (result) => {
         console.log(result.respuesta);
@@ -164,6 +171,7 @@ export class ListSolicitudComponent {
         modalRef.componentInstance.respuesta = result.respuesta;
         modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
         modalRef.componentInstance.tipoServicio = result.tipoServicio;
+        modalRef.componentInstance.solicitud = solicitud;
 
         modalRef.componentInstance.RespuestaV.subscribe((res: any) => {
         })
@@ -190,4 +198,9 @@ export class ListSolicitudComponent {
       this.tipos = resp.tipos;
     })
   }
+
+  padFolio(folio: number): string {
+    return folio.toString().padStart(3, '0');
+  }
+
 }

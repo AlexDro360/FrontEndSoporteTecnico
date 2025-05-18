@@ -15,6 +15,7 @@ export class VerRespuestaComponent {
   @Input() tipoServicio: any;
   @Input() tipoMantenimiento: any;
   @Input() respuesta: any;
+  @Input() solicitud: any;
 
   isLoading: any;
 

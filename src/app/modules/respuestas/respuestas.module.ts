@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { VerRespuestaComponent } from './ver-respuesta/ver-respuesta.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { VerRespuestaComponent } from './ver-respuesta/ver-respuesta.component';
     VerRespuestaComponent,
   ],
   imports: [
+    SharedModule,
     CommonModule,
     RespuestasRoutingModule,
 

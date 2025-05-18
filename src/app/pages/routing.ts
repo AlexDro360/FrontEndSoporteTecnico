@@ -68,6 +68,14 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/bitacora/bitacora.module').then((m) => m.BitacoraModule),
   },
   {
+    path: 'config-adicionales',
+    loadChildren: () => import('../modules/config-adicionales/config-adicionales.module').then((m) => m.ConfigAdicionalesModule),
+  },
+  {
+    path: 'mis-solicitudes',
+    loadChildren: () => import('../modules/mis-solicitudes/mis-solicitudes.module').then((m) => m.MisSolicitudesModule),
+  },
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',

@@ -14,6 +14,7 @@ import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { VerSolicitudComponent } from './ver-solicitud/ver-solicitud.component';
 import { RechazarSolicitudComponent } from './rechazar-solicitud/rechazar-solicitud.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -25,9 +26,10 @@ import { RechazarSolicitudComponent } from './rechazar-solicitud/rechazar-solici
     SolicitudesComponent,
     AsignarPersonalComponent,
     VerSolicitudComponent,
-    RechazarSolicitudComponent
+    RechazarSolicitudComponent,
   ],
   imports: [
+    SharedModule,
     CommonModule,
     SolicitudesRoutingModule,
     

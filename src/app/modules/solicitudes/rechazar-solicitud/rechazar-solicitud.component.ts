@@ -14,7 +14,7 @@ export class RechazarSolicitudComponent {
 
   @Output() SolicitudR: EventEmitter<any> = new EventEmitter();
   @Input() solicitud: any;
-  
+
   name: string = '';
   isLoading: any;
 
@@ -28,7 +28,7 @@ export class RechazarSolicitudComponent {
   }
 
   ngOnInit(): void {
-    
+
 
   }
 
@@ -41,16 +41,31 @@ export class RechazarSolicitudComponent {
         forkJoin({
           tipoServicio: this.solicitudService.tiposServicios(),
           tipoMantenimiento: this.solicitudService.tiposMantenimientos(),
-          bitacora: this.solicitudService.getBitacora(this.solicitud.id)
+          bitacora: this.solicitudService.getBitacora(this.solicitud.id),
+          jefe: this.solicitudService.obtenerJefe(),
         }).subscribe({
           next: (result) => {
-            const modalRef = this.modalService.open(CrearRespuestaComponent, { centered: true, size: 'md' });
-            modalRef.componentInstance.idSolicitud = this.solicitud.id;
+            const bitacoraVacia = !result.bitacora || Object.keys(result.bitacora).length === 0;
+            const jefeVacio = !result.jefe || Object.keys(result.jefe).length === 0;
+
+            const modalSize = bitacoraVacia ? 'md' : 'xl';
+
+            const modalRef = this.modalService.open(CrearRespuestaComponent, {
+              centered: true,
+              size: modalSize
+            });
+
+            modalRef.componentInstance.solicitud = this.solicitud;
             modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
             modalRef.componentInstance.tipoServicio = result.tipoServicio;
-            if (!(result.bitacora && Object.keys(result.bitacora).length === 0)) {
+
+
+            if (!bitacoraVacia) {
               modalRef.componentInstance.bitacora = result.bitacora;
-              console.log("entro");
+              console.log("bitacora no está vacía");
+            }
+            if (!jefeVacio) {
+              modalRef.componentInstance.jefeCC = result.jefe;
             }
 
             modalRef.componentInstance.RespuestaN.subscribe((res: any) => {

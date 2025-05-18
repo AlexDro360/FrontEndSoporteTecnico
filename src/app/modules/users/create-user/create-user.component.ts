@@ -116,8 +116,8 @@ export class CreateUserComponent {
 
       let formData = new FormData();
       formData.append("name",this.name);
-      formData.append("surname",this.surnameP);
-      formData.append("surname",this.surnameM);
+      formData.append("surnameP",this.surnameP);
+      formData.append("surnameM",this.surnameM);
       formData.append("email",this.email);
       formData.append("phone",this.phone);
       formData.append("role_id",this.role_id);
@@ -127,11 +127,6 @@ export class CreateUserComponent {
 
       formData.append("imagen",this.file_name);
       formData.append("password",this.password);
-
-
-
-
-  
       
       this.userService.registerUser(formData).subscribe((resp:any) => {
         if(resp.message == 403){

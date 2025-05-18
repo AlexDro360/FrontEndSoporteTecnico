@@ -24,9 +24,25 @@
     <div class="d-flex flex-column">
 
       <div class="row mb-3">
+        <div class="col-6">
+          <label class="fw-bold fs-6">Folio de respuesta:</label>
+          <p class="form-control form-control-solid">
+            {{ respuesta.folio | rellenaZero:3}}
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-3">
         <div class="col-12">
-          <label class="fw-bold fs-6">Nombre de quien aprobó:</label>
-          <p class="form-control form-control-solid">{{ respuesta.nombreAprovo }}</p>
+          <label class="fw-bold fs-6">Nombre de quien verificó</label>
+          <p class="form-control form-control-solid">{{ respuesta.nombreVerifico }}</p>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12">
+          <label class="fw-bold fs-6">Nombre de quien aprobó</label>
+          <p class="form-control form-control-solid">{{ respuesta.aprobo.nombreCompleto }}</p>
         </div>
       </div>
 
@@ -39,14 +55,14 @@
 
       <div class="row mb-3">
         <div class="col-12">
-          <label class="fw-bold fs-6">Descripción de la solución:</label>
+          <label class="fw-bold fs-6">Descripción:</label>
           <p class="form-control form-control-solid text-justify">
             {{ respuesta.descripcion }}
           </p>
         </div>
       </div>
 
-      <div class="row mb-3">
+      <div *ngIf="solicitud.idEstado != 2" class="row mb-3">
         <div class="col-6">
           <label class="fw-bold fs-6">Tipo de Servicio:</label>
           <p class="form-control form-control-solid">
@@ -70,9 +86,9 @@
         </div>
 
         <div class="col-6">
-          <label class="fw-bold fs-6">Solicitud Asociada:</label>
+          <label class="fw-bold fs-6">Folio de Solicitud Asociada:</label>
           <p class="form-control form-control-solid">
-            #{{ respuesta.solicitud?.id || 'Sin solicitud' }}
+            {{ respuesta.solicitud.folio | rellenaZero:3}}
           </p>
         </div>
       </div>

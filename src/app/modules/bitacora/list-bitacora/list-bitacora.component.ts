@@ -70,7 +70,7 @@ export class ListBitacoraComponent {
       const modalRef = this.modalService.open(EditarBitacoraComponent, { centered: true, size: 'md' });
       modalRef.componentInstance.bitacora = JSON.parse(JSON.stringify(bitacora));
       modalRef.componentInstance.descripcion = this.descripcion;  
-      modalRef.componentInstance.BitacoraA.subscribe((res: any) => {
+      modalRef.componentInstance.BitacoraE.subscribe((res: any) => {
         this.listBitacora();
       })
     }
@@ -89,7 +89,7 @@ export class ListBitacoraComponent {
       modalRef.componentInstance.bitacora = bitacora;
       modalRef.componentInstance.descripcion = this.descripcion;
   
-      modalRef.componentInstance.RespuestaV.subscribe((res: any) => {
+      modalRef.componentInstance.BitacoraV.subscribe((res: any) => {
       })
     }
 

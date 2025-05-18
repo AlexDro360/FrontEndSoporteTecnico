@@ -53,7 +53,12 @@
         <table style="width: 100%; border-collapse: collapse;" class="table align-middle fs-6 gy-5 dataTable;"
           id="kt_customers_table" style="width: 100%">
           <thead class="bg-primary">
-            <tr class="text-center rounded text-light fw-bold g-0 align-middle" style="font-size: 18px;">
+            <tr class="text-center rounded fw-bold g-0 align-middle" style="font-size: 18px; color: white;">
+
+              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+                aria-label="Customer Name: Activate to sort" tabindex="0">
+                <span class="dt-column-title" role="button">Folio</span><span class="dt-column-order"></span>
+              </th>
 
               <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
@@ -94,6 +99,10 @@
           <tbody class="fw-semibold text-gray-600">
             <ng-container *ngFor="let SOLICITUD of SOLICITUDES">
               <tr>
+
+                <td style="text-align: center;">
+                  {{ SOLICITUD.folio | rellenaZero:3 }}
+                </td>
 
                 <td>
                   <div class="d-flex align-items-center">
@@ -173,8 +182,9 @@
                     <i class="bi bi-person-plus-fill fs-1"></i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 4 || (SOLICITUD.estado.id === 2 && !SOLICITUD.respuesta)"
-                    (click)="createRespuesta(SOLICITUD.id)"
+                  <a href="#" onclick="return false;"
+                    *ngIf="SOLICITUD.estado.id === 4 || (SOLICITUD.estado.id === 2 && !SOLICITUD.respuesta)"
+                    (click)="createRespuesta(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-success btn-active-success btn-active-color-light btn-color-success btn-sm m-1 btn-con-tooltip"
                     data-label="Responder">
                     <i class="ki-duotone ki-message-text-2 fs-1">
@@ -184,8 +194,9 @@
                     </i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="(SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 5"
-                    (click)="watchRespuesta(SOLICITUD.id)"
+                  <a href="#" onclick="return false;"
+                    *ngIf="(SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 5"
+                    (click)="watchRespuesta(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Respuesta">
                     <i class="ki-duotone ki-directbox-default fs-1">

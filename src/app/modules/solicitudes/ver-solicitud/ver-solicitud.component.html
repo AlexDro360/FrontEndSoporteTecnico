@@ -61,16 +61,25 @@
 
       <div class="row mb-3">
         <div class="col-6">
-          <label class="fw-bold fs-6">Tipo de Solicitud:</label>
+          <label class="fw-bold fs-6">Folio:</label>
           <p class="form-control form-control-solid">
-            {{ solicitud.tipo?.nombre || 'No especificado' }}
+            {{ solicitud.folio | rellenaZero:3}}
           </p>
         </div>
 
         <div class="col-6">
-          <label class="fw-bold fs-6">Número de Solicitud:</label>
+          <label class="fw-bold fs-6">Estado:</label>
           <p class="form-control form-control-solid">
-            #{{ solicitud.id }}
+            {{ solicitud.estado?.nombre || 'Sin estado' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12">
+          <label class="fw-bold fs-6">Tipo de Solicitud:</label>
+          <p class="form-control form-control-solid">
+            {{ solicitud.tipo?.nombre || 'No especificado' }}
           </p>
         </div>
       </div>
@@ -83,17 +92,10 @@
       </div>
 
       <div class="row mb-3">
-        <div class="col-6">
-          <label class="fw-bold fs-6">Fecha de creación:</label>
+        <div class="col-12">
+          <label class="fw-bold fs-6">Fecha:</label>
           <p class="form-control form-control-solid">
             {{ solicitud.created_format_at | date:'medium' }}
-          </p>
-        </div>
-
-        <div class="col-6">
-          <label class="fw-bold fs-6">Estado:</label>
-          <p class="form-control form-control-solid">
-            {{ solicitud.estado?.nombre || 'Sin estado' }}
           </p>
         </div>
       </div>
