@@ -95,14 +95,14 @@ export class CrearRespuestaComponent {
     //   return false;
     // }
 
-    if (!!this.bitacora) {
+    if (!!this.bitacora && !this.idTipoServicio) {
       // this.toast.error("Validación", "El tipo de servicio es requerido");
       // return false;
       error = true;
       this.estadoTS = true;
     }
 
-    if (!!this.bitacora) {
+    if (!!this.bitacora && !this.idTipoMantenimiento) {
       // this.toast.error("Validación", "El tipo de mantenimiento es requerido");
       // return false;
       error = true;
