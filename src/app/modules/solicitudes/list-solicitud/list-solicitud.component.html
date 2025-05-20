@@ -21,7 +21,7 @@
       <!--begin::Toolbar-->
       <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
         <!--begin::Add customer-->
-        <button type="button" style="font-size: 18px;" class="btn btn-primary" (click)="createSolicitud()">
+        <button type="button" style="font-size: 18px;" class="btn btn-primary" (click)="createSolicitud()" *ngIf="isPermission('register_solicitud')">
           + Crear Solicitud
         </button>
         <!--end::Add customer-->
@@ -157,14 +157,14 @@
                       </span><span class="path3"></span><span class="path2"></span>
                       <span class="path5"></span></i>
                   </a> -->
-                  <a href="#" onclick="return false;" (click)="verSolicitud(SOLICITUD)"
+                  <a href="#" onclick="return false;" (click)="verSolicitud(SOLICITUD)" *ngIf="isPermission('view_solicitud')"
                     class="btn btn-icon btn-bg-light btn-hover-dark btn-active-dark btn-active-color-light btn-color-dark btn-sm m-1 btn-con-tooltip"
-                    data-label="Ver Solicitud">
+                    data-label="Ver Solicitud" >
                     <i class="ki-solid ki-eye fs-1"></i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 3"
-                    (click)="crearBitacora(SOLICITUD.id)"
+                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 3 && isPermission('register_bitacora_solicitud')"
+                    (click)="crearBitacora(SOLICITUD.id)" 
                     class="btn btn-icon btn-bg-light btn-hover-warning btn-active-warning btn-active-color-light btn-color-warning btn-sm m-1 btn-con-tooltip"
                     data-label="Agregar Bitácora">
                     <i class="ki-duotone ki-tablet-text-down fs-1">
@@ -175,7 +175,7 @@
                     </i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 1"
+                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 1 && isPermission('asign_tecnico')"
                     (click)="asignarTecnicos(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-primary btn-active-primary btn-active-color-light btn-color-primary btn-sm m-1 btn-con-tooltip"
                     data-label="Asignar Técnicos">
@@ -183,7 +183,7 @@
                   </a>
 
                   <a href="#" onclick="return false;"
-                    *ngIf="SOLICITUD.estado.id === 4 || (SOLICITUD.estado.id === 2 && !SOLICITUD.respuesta)"
+                    *ngIf="(SOLICITUD.estado.id === 4 || (SOLICITUD.estado.id === 2 && !SOLICITUD.respuesta)) && isPermission('response_solicitud')"
                     (click)="createRespuesta(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-success btn-active-success btn-active-color-light btn-color-success btn-sm m-1 btn-con-tooltip"
                     data-label="Responder">
@@ -195,7 +195,7 @@
                   </a>
 
                   <a href="#" onclick="return false;"
-                    *ngIf="(SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 5"
+                    *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 5) && isPermission('view_solicitud')"
                     (click)="watchRespuesta(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Respuesta">
@@ -207,7 +207,7 @@
                     </i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 1"
+                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 1 && isPermission('decline_solicitud')"
                     (click)="rechazarSolicitud(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-active-color-light btn-color-danger btn-sm m-1 btn-con-tooltip"
                     data-label="Rechazar">

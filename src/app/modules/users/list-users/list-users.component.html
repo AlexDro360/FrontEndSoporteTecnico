@@ -150,9 +150,9 @@
                     </i>
                   </a>
 
-                  <a href="#"  onclick="return false;" (click)="isPermission('delete_user') && deleteUser(USER)"
+                  <a href="#"  onclick="return false;" (click)="deleteUser(USER)" 
                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-con-tooltip" data-label="Baja"
-                    *ngIf="USER.id !== 1 && USER.status !== 0">
+                    *ngIf="USER.id !== 1 && USER.status !== 0 && isPermission('delete_user')">
                     <i class="ki-duotone ki-trash fs-2">
                       <span class="path1"></span><span class="path2">
                       </span><span class="path3"></span><span class="path2"></span>

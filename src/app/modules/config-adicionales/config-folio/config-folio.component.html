@@ -3,7 +3,7 @@
     <div class="card-body">
         <div class="row g-5">
             <!-- Tarjeta Folio Respuestas -->
-            <div class="col-md-6">
+            <div class="col-md-6" *ngIf="isPermission('view_extra')" >
                 <div class="card">
                     <div class="card-header border-0 pt-6 bg-primary d-flex justify-content-center">
                         <h3 class="card-title m-0 fw-bold" style="color: white; font-size: 18px;">Folio Respuestas</h3>
@@ -13,7 +13,7 @@
                             <div class="fw-semibold text-gray-600 fs-5">Folio Actual: <span id="FolioRespuesta">{{folios.FolioRespuesta}}</span>
                             </div>
                             <div>
-                                <button type="button"
+                                <button type="button" *ngIf="isPermission('reload_folio_respuesta')"
                                     class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-color-danger btn-sm btn-con-tooltip"
                                     (click)="reiniciarFolioRespuestas()" title="Reiniciar Folio" data-label="Reiniciar Folio">
                                     <i class="ki-duotone ki-arrow-circle-left fs-1">
@@ -21,7 +21,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </button>
-                                <button type="button"
+                                <button type="button" *ngIf="isPermission('reload_folio_respuesta')"
                                     class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-color-info btn-sm me-1 btn-con-tooltip"
                                     (click)="editarFolioRespuestas()" title="Editar Folio" data-label="Editar Folio">
                                     <i class="ki-duotone ki-pencil fs-1">
@@ -35,7 +35,7 @@
             </div>
 
             <!-- Tarjeta Folio Solicitud -->
-            <div class="col-md-6">
+            <div class="col-md-6" *ngIf="isPermission('view_extra')">
                 <div class="card">
                     <div class="card-header border-0 pt-6 bg-primary d-flex justify-content-center">
                         <h3 class="card-title m-0 fw-bold" style="color: white; font-size: 18px;">Folio Solicitud</h3>
@@ -45,7 +45,7 @@
                             <div class="fw-semibold text-gray-600 fs-5">Folio Actual: <span id="FolioSolicitud">{{folios.FolioSolicitud}}</span>
                             </div>
                             <div>
-                                <button type="button" 
+                                <button type="button" *ngIf="isPermission('reload_folio_solicitud')"
                                     class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-color-danger btn-sm btn-con-tooltip"
                                     (click)="reiniciarFolioSolicitud()" title="Reiniciar Folio" data-label="Reiniciar Folio">
                                     <i class="ki-duotone ki-arrow-circle-left fs-1">
@@ -53,7 +53,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </button>
-                                <button type="button"
+                                <button type="button" *ngIf="isPermission('edit_folio_solicitud')"
                                     class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-color-info btn-sm me-1 btn-con-tooltip"
                                     (click)="editarFolioSolicitud()" title="Editar Folio" data-label="Editar Folio">
                                     <i class="ki-duotone ki-pencil fs-1">

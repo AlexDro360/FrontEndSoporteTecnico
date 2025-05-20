@@ -59,36 +59,91 @@ export const SIDEBAR:any = [
           permiso: 'register_solicitud',
         },
         {
-          name:'Editar',
-          permiso: 'edit_solicitud',
+          name:'Asignar Tecnico',
+          permiso: 'asign_tecnico',
         },
         {
-          name:'Eliminar',
-          permiso: 'delete_solicitud',
+          name:'Rechazar',
+          permiso: 'decline_solicitud',
+        },
+        {
+          name:'Responder',
+          permiso: 'response_solicitud',
+        },
+        {
+          name:'Registrar Bitacora',
+          permiso: 'register_bitacora_solicitud',
         }
       ]
     },
     {
-      'name': 'Respuesta',
+      'name': 'Bitacora',
       'permisos': [
         {
           name:'Ver',
-          permiso: 'view_response',
-        },
-        {
-          name:'Registrar',
-          permiso: 'register_response',
+          permiso: 'view_bitacora',
         },
         {
           name:'Editar',
-          permiso: 'edit_response',
-        },
-        {
-          name:'Eliminar',
-          permiso: 'delete_response',
+          permiso: 'edit_bitacora',
         }
       ]
     },
+    {
+      'name': 'Configuraciones Adicionales',
+      'permisos': [
+        {
+          name:'Ver',
+          permiso: 'view_extra',
+        },
+        {
+          name:'Registrar Jefe',
+          permiso: 'add_Jefe',
+        },
+        {
+          name:'Recargar Folio de Respuesta',
+          permiso: 'reload_folio_respuesta',
+        },
+        {
+          name:'Editar Folio de Respuesta',
+          permiso: 'edit_folio_respuesta',
+        },
+        {
+          name:'Recargar Folio de Solicitud',
+          permiso: 'reload_folio_solicitud',
+        },
+        {
+          name:'Editar Folio de Solicitud',
+          permiso: 'edit_folio_solicitud',
+        }
+      ]
+    },
+    {
+      'name': 'Mi Solicitud',
+      'permisos': [
+        {
+          name:'Ver',
+          permiso: 'view_my_solicitudes',
+        },
+        {
+          name:'Registar',
+          permiso: 'register_my_solicitudes',
+        },
+        {
+          name:'Ver Respuesta',
+          permiso: 'view_response_my_solicitudes',
+        }
+      ]
+    },
+    {
+      'name': 'Dashboard',
+      'permisos': [
+        {
+          name:'Ver',
+          permiso: 'view_dashboard',
+        }
+      ]
+    }
 ];
 
 export function isPermission(permission:string){

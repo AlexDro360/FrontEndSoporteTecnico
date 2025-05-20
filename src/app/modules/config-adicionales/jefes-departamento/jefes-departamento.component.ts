@@ -6,6 +6,7 @@ import { AgregarJefeComponent } from '../agregar-jefe/agregar-jefe.component';
 import { EditarJefeComponent } from '../editar-jefe/editar-jefe.component';
 import { AltaJefeComponent } from '../alta-jefe/alta-jefe.component';
 import { BajaJefeComponent } from '../baja-jefe/baja-jefe.component';
+import { isPermission } from 'src/app/config/config';
 
 @Component({
   selector: 'app-jefes-departamento',
@@ -77,4 +78,7 @@ export class JefesDepartamentoComponent {
     })
   }
 
+  isPermission(permission:string){
+    return isPermission(permission);
+  }
 }

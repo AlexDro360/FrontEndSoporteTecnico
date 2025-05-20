@@ -13,6 +13,7 @@ import { VerSolicitudComponent } from '../ver-solicitud/ver-solicitud.component'
 import { Toast } from 'bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { RechazarSolicitudComponent } from '../rechazar-solicitud/rechazar-solicitud.component';
+import { isPermission } from 'src/app/config/config';
 
 @Component({
   selector: 'app-list-solicitud',
@@ -201,6 +202,10 @@ export class ListSolicitudComponent {
 
   padFolio(folio: number): string {
     return folio.toString().padStart(3, '0');
+  }
+
+  isPermission(permission:string){
+        return isPermission(permission);
   }
 
 }

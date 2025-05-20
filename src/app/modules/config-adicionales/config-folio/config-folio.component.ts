@@ -6,6 +6,7 @@ import { ResetRespuestaComponent } from '../reset-respuesta/reset-respuesta.comp
 import { ResetSolicitudComponent } from '../reset-solicitud/reset-solicitud.component';
 import { ActualizarRespuestaComponent } from '../actualizar-respuesta/actualizar-respuesta.component';
 import { ActualizarSolicitudComponent } from '../actualizar-solicitud/actualizar-solicitud.component';
+import { isPermission } from 'src/app/config/config';
 
 @Component({
   selector: 'app-config-folio',
@@ -83,5 +84,8 @@ export class ConfigFolioComponent {
         this.toast.error('Error al obtener los folios', 'Error');
       }
     })
+  }
+  isPermission(permission:string){
+          return isPermission(permission);
   }
 }
