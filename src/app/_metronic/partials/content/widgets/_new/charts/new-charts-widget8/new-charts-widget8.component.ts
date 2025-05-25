@@ -26,7 +26,7 @@ export class NewChartsWidget8Component implements OnInit {
   chart2Options: any = {};
   hadDelay: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.setupCharts();

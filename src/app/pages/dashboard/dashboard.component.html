@@ -1,84 +1,165 @@
-<!--begin::Row-->
-<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
-  <!--begin::Col-->
-  <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-    <app-cards-widget20 cssClass="h-md-50 mb-5 mb-xl-10" description="Active Projects" color="#F1416C"
-      img="./assets/media/patterns/vector-1.png"></app-cards-widget20>
-
-    <app-cards-widget7 cssClass="h-md-50 mb-5 mb-xl-10" [icon]="false" [stats]="357" description="Professionals"
-      labelColor="dark" textColor="gray-300"></app-cards-widget7>
-  </div>
-  <!--end::Col-->
-
-  <!--begin::Col-->
-  <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-    <app-cards-widget17 cssClass="h-md-50 mb-5 mb-xl-10"></app-cards-widget17>
-    <app-lists-widget26 class="h-lg-50"></app-lists-widget26>
-  </div>
-  <!--end::Col-->
+<div *ngIf="!cargando && datos">
 
 
-  <!--begin::Col-->
-  <app-engage-widget10 class="col-xxl-6" cssClass="h-md-100"></app-engage-widget10>
-  <!--end::Col-->
-</div>
-<!--end::Row-->
+  <div class="row g-5 g-xl-5 mb-10">
+    <div class="col-12">
+      <div class="card shadow-sm p-4">
+        <div class="row align-items-end g-3">
+          <!-- Filtro por texto -->
+          <div class="col-md-6">
+            <label for="search" class="form-label fw-bold">Departamento</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="ki-duotone ki-filter fs-1 text-primary">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+              </span>
+              <select id="categoria" class="form-select" [(ngModel)]="filtroDep">
+                <option value="">Todos</option>
+                <option *ngFor="let depto of filtro.departamentos" [value]="depto.id">
+                  {{ depto.nombre }}
+                </option>
+              </select>
+            </div>
+          </div>
 
-<!--begin::Row-->
-<div class="row gx-5 gx-xl-10">
-  <!--begin::Col-->
-  <div class="col-xxl-6 mb-5 mb-xl-10">
-    <app-new-charts-widget8 cssClass="h-xl-100" chartHeight="275px" [chartHeightNumber]="275"></app-new-charts-widget8>
-  </div>
-  <!--end::Col-->
 
-  <!--begin::Col-->
-  <div class="col-xxl-6 mb-5 mb-xl-10">
-    <app-cards-widget18 cssClass="h-xl-100" image="./assets/media/stock/600x600/img-65.jpg"></app-cards-widget18>
-  </div>
-  <!--end::Col-->
-</div>
-<!--end::Row-->
+          <!-- Filtro por categoría (select) -->
+          <div class="col-md-6">
+            <label for="search" class="form-label fw-bold">Tipo solicitud</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="ki-duotone ki-filter fs-1 text-primary">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+              </span>
+              <select id="categoria" class="form-select" [(ngModel)]="filtroTipo">
+                <option value="">Todos</option>
+                <option *ngFor="let tipo of filtro.tiposSoli" [value]="tipo.id">
+                  {{ tipo.nombre }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row g-3 align-items-end">
+          <!-- Fecha inicio -->
+          <div class="col-md-4">
+            <label for="fechaInicio" class="form-label">Desde</label>
+            <input type="date" id="fechaInicio" class="form-control" [(ngModel)]="fechaInicio" name="fechaInicio"
+              (change)="validarFechas()" />
+          </div>
 
-<!-- begin::Row -->
-<div class="row gy-5 gx-xl-8">
-  <div class="col-xxl-4">
-    <app-lists-widget3 class="card card-xxl-stretch mb-xl-3"></app-lists-widget3>
-  </div>
-  <div class="col-xl-8">
-    <app-tables-widget10 class="card card-xxl-stretch mb-5 mb-xl-8"></app-tables-widget10>
-  </div>
-</div>
-<!-- end::Row -->
+          <!-- Fecha fin -->
+          <div class="col-md-4">
+            <label for="fechaFin" class="form-label">Hasta</label>
+            <input type="date" id="fechaFin" class="form-control" [(ngModel)]="fechaFin" name="fechaFin"
+              (change)="validarFechas()" />
+          </div>
 
-<!-- begin::Row -->
-<div class="row gy-5 g-xl-8">
-  <div class="col-xl-4">
-    <app-lists-widget2 class="card card-xl-stretch mb-xl-8"></app-lists-widget2>
-  </div>
-  <div class="col-xl-4">
-    <app-lists-widget6 class="card card-xl-stretch mb-xl-8"></app-lists-widget6>
-  </div>
-  <div class="col-xl-4">
-    <app-lists-widget4 class="card card-xl-stretch mb-5 mb-xl-8"></app-lists-widget4>
-  </div>
-</div>
-<!-- end::Row -->
 
-<div class="row g-5 gx-xxl-8">
-  <div class="col-xxl-4">
-    <app-mixed-widget8 class="card card-xxl-stretch mb-xl-3" chartColor="success" chartHeight="150px">
-    </app-mixed-widget8>
-  </div>
-  <div class="col-xxl-8">
-    <app-tables-widget5 class="card card-xxl-stretch mb-5 mb-xxl-8"></app-tables-widget5>
-  </div>
-</div>
+          <!-- Botón aplicar filtro -->
+          <div class="col-md-4 d-grid">
+            <button class="btn btn-primary" [disabled]="fechaInvalida" (click)="getDatos()">
+              <i class="ki-duotone ki-filter fs-1 text-primary">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </i>
+              Aplicar Filtro
+            </button>
+          </div>
 
-<!-- begin:: Modal example -->
-<!-- <app-modal #modal [modalConfig]="modalConfig">
+          <span *ngIf="fechaInvalida" class="alert alert-danger" role="alert">
+            La fecha de inicio no puede ser mayor que la fecha de fin.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!--begin::Row-->
+  <div class="row g-5 g-xl-5 mb-10">
+    <!--begin::Col-->
+    <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 ">
+      <app-cantidades cssClass=" bg-primary" description="Solicitudes Recibidas" icono="document"
+        colorIcono="text-white" [valor]="datos.cantidades.totalSolicitudes"></app-cantidades>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3  ">
+      <app-cantidades cssClass="  bg-warning" description="Solicitudes En Proceso" icono="update-file"
+        colorIcono="text-white" [valor]="datos.cantidades.soliProceso"></app-cantidades>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 ">
+
+      <app-cantidades cssClass="  bg-success" description="Solicitudes Resueltas" icono="file-added"
+        colorIcono="text-white" [valor]="datos.cantidades.soliFinalizadas"></app-cantidades>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 ">
+
+      <app-cantidades cssClass="  bg-danger" description="Solicitudes Rechazadas" icono="file-deleted"
+        colorIcono="text-white" [valor]="datos.cantidades.soliRechazadas"></app-cantidades>
+
+    </div>
+  </div>
+  <!--end::Row-->
+
+  <div class="row gy-5 gx-xl-8">
+    <div class="col-12 mb-5 mb-xl-10">
+      <app-grafica-fechas cssClass="h-xl-100" chartHeight="350px" [chartHeightNumber]="350" [data]="datos.fecha"
+        nombreLabel="Diario"></app-grafica-fechas>
+    </div>
+  </div>
+
+  <!--begin::Row-->
+  <div class="row gx-5 gx-xl-10">
+    <!--begin::Col-->
+    <div  class="col-xxl-6 mb-5 mb-xl-10">
+      <app-barras cssClass="h-xl-100" chartHeight="650" [chartHeightNumber]="650"
+        [x]="datos.barrasCantSoli.departamento" [y]="datos.barrasCantSoli.cantidadSolicitudes"></app-barras>
+
+    </div>
+    <!--end::Col-->
+
+    <!--begin::Col-->
+    <div class="col-xxl-6 mb-5 mb-xl-10">
+      <app-grafica-tipo-soli cssClass="h-xl-100" chartHeight="650px" [chartHeightNumber]="650"
+        [datos]="datos.grafTipoSoli.cantidadSolicitudes"
+        [categorias]="datos.grafTipoSoli.tiposSolicitudes"></app-grafica-tipo-soli>
+    </div>
+    <!--end::Col-->
+
+    <div class="col-xxl-6 mb-5 mb-xl-10">
+      <app-grafica-frecuencia cssClass="h-xl-100" chartHeight="325px" [chartHeightNumber]="325"
+        [data]="datos.hora.total" [labels]="datos.hora.hora" nombreLabel="Hora"></app-grafica-frecuencia>
+    </div>
+    <div class="col-xl-6 mb-5 mb-xl-10">
+      <app-grafica-frecuencia cssClass="h-xl-100" chartHeight="325px" [chartHeightNumber]="325" [data]="datos.dia.total"
+        [labels]="datos.dia.dia" nombreLabel="Dias de la Semana"></app-grafica-frecuencia>
+    </div>
+    <div class="col-xl-6 mb-5 mb-xl-10">
+      <app-grafica-frecuencia cssClass="h-xl-100" chartHeight="325px" [chartHeightNumber]="325" [data]="datos.mes.total"
+        [labels]="datos.mes.mes" nombreLabel="Mes"></app-grafica-frecuencia>
+    </div>
+  </div>
+  <!--end::Row-->
+
+  <!-- begin::Row -->
+
+
+  <!-- end::Row -->
+
+
+
+  <!-- begin:: Modal example -->
+  <!-- <app-modal #modal [modalConfig]="modalConfig">
   Modal body html
 </app-modal>
 <button class="btn btn-primary" (click)="openModal()">Open modal</button> -->
-<!-- Note: Don't forget import ModalsModule (from _metronic/partials) into your module -->
-<!-- end:: Modal example -->
+  <!-- Note: Don't forget import ModalsModule (from _metronic/partials) into your module -->
+  <!-- end:: Modal example -->
+</div>

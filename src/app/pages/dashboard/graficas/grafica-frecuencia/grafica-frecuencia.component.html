@@ -1,0 +1,37 @@
+<div class="card card-flush" [ngClass]="cssClass">
+    <!--begin::Header-->
+    <div class="card-header pt-5">
+        <!--begin::Title-->
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label fw-bold text-gray-900">Frecuencia de Solicitudes Recibidas</span>
+            <span class="text-gray-500 mt-1 fw-semibold fs-6">Por {{nombreLabel}}</span>
+        </h3>
+        <!--end::Title-->
+        <!--end::Toolbar-->
+    </div>
+    <!--end::Header-->
+
+    <!--begin::Body-->
+    <div class="card-body pt-6">
+
+        <!--begin::Chart-->
+        <div id="kt_chart_widget_8_week_chart" class="ms-n5 min-h-auto" [ngStyle]="{'height': chartHeight}">
+            <ng-container *ngIf="hadDelay">
+                <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+                    [yaxis]="chartOptions.yaxis" [stroke]="chartOptions.stroke" [fill]="chartOptions.fill"
+                    [tooltip]="chartOptions.tooltip" [dataLabels]="chartOptions.dataLabels" [grid]="chartOptions.grid"
+                    [colors]="chartOptions.colors"></apx-chart>
+
+            </ng-container>
+
+
+        </div>
+        <!--end::Chart-->
+
+    </div>
+    <!--end::Tab pane-->
+
+    <!--begin::Tab pane-->
+
+</div>
+<!--end::Chart widget 8-->
