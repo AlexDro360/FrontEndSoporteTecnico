@@ -6,6 +6,7 @@ import { EditRolesComponent } from '../edit-roles/edit-roles.component';
 import { DeleteRolesComponent } from '../delete-roles/delete-roles.component';
 import { isPermission } from 'src/app/config/config';
 import { CommonModule } from '@angular/common';
+import { WatchRolesComponent } from '../watch-roles/watch-roles.component';
 
 
 @Component({
@@ -68,6 +69,11 @@ export class ListRolesComponent {
       }
       //this.ROLES.unshift(role);
     })
+  }
+
+  watchRole(ROL:any){
+    const modalRef = this.modalService.open(WatchRolesComponent,{centered:true, size: 'md'});
+    modalRef.componentInstance.ROLE_SELECTED = ROL;
   }
 
   deleteRole(ROL:any){

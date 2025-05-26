@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModalModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { WatchRolesComponent } from './watch-roles/watch-roles.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     CreateRolesComponent,
     EditRolesComponent,
     ListRolesComponent,
-    DeleteRolesComponent
+    DeleteRolesComponent,
+    WatchRolesComponent
   ],
   imports: [
     CommonModule,
