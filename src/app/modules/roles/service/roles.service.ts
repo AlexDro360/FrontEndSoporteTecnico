@@ -29,10 +29,10 @@ export class RolesService {
     );
   }
 
-  listRoles(page=1,search:string = ''){
+  listRoles(page=1, perPage = 10, search:string = ''){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authservice.token});
-    let URL = URL_SERVICIOS+"/roles?page="+page+"&search="+search;
+    let URL = URL_SERVICIOS+"/roles?page="+page+"&search="+search + "&perPage=" + perPage;
     return this.http.get(URL,{headers: headers}).pipe(
       finalize(()=> this.isLoadingSubject.next(false))
     );

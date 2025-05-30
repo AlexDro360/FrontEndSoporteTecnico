@@ -17,80 +17,85 @@ export class ListBitacoraComponent {
   search: string = '';
   bitacora: any = [];
   isLoading$: any;
-  descripcion:any;
+  descripcion: any;
   user: any;
   solicitud: string = '1';
-  
+
   totalPages: number = 0;
   currentPage: number = 1;
+  pageSize: number = 10;
+
   constructor(
     public modalService: NgbModal,
     public bitacoraService: BitacoraService,
     public toast: ToastrService,
   ) {
-  
-    }
-  
-    ngOnInit(): void {
-      this.isLoading$ = this.bitacoraService.isLoading$;
-      this.listBitacora();
-      this.me();
-    }
-  
-    me() {
-      this.bitacoraService.listme().subscribe((resp: any) => {
-        this.user = resp;
-      })
-    }
-  
-    listBitacora(page = 1) {
-      this.bitacoraService.listarBitacora(page).subscribe((resp: any) => {
-        console.log(resp);
-        this.bitacora = resp;
-      });
-    }
-  
-    loadPage($event: any) {
-      this.listBitacora($event);
-    }
-  
-    createBitacora() {
-      const modalRef = this.modalService.open(CrearBitacoraComponent, { centered: true, size: 'mb' });
-      modalRef.componentInstance.idSolicitud = this.solicitud;
-      modalRef.componentInstance.descripcion = this.descripcion;
-      modalRef.componentInstance.user = this.user;
-  
-      modalRef.componentInstance.BitacoraN.subscribe((res: any) => {
-        console.log(res);
-        this.listBitacora();
-      });
-    }
-  
-    editBitacora(bitacora: any) {
-      const modalRef = this.modalService.open(EditarBitacoraComponent, { centered: true, size: 'md' });
-      modalRef.componentInstance.bitacora = JSON.parse(JSON.stringify(bitacora));
-      modalRef.componentInstance.descripcion = this.descripcion;  
-      modalRef.componentInstance.BitacoraE.subscribe((res: any) => {
-        this.listBitacora();
-      })
-    }
-  
-    deleteBitacora(bitacora: any) {
-      const modalRef = this.modalService.open(BorrarBitacoraComponent, { centered: true, size: 'md' });
-      modalRef.componentInstance.bitacora = bitacora;
-  
-      modalRef.componentInstance.BitacoraE.subscribe((res: any) => {
-        this.listBitacora();
-      })
-    }
-  
-    watchBitacora(bitacora: any) {
-      const modalRef = this.modalService.open(VerBitacoraComponent, { centered: true, size: 'md' });
-      modalRef.componentInstance.bitacora = bitacora;
-      modalRef.componentInstance.descripcion = this.descripcion;
-  
-      modalRef.componentInstance.BitacoraV.subscribe((res: any) => {
-      })
-    }
 
+  }
+
+  ngOnInit(): void {
+    this.isLoading$ = this.bitacoraService.isLoading$;
+    this.listBitacora();
+    this.me();
+  }
+
+  me() {
+    this.bitacoraService.listme().subscribe((resp: any) => {
+      this.user = resp;
+    })
+  }
+
+  listBitacora(page = 1) {
+    this.bitacoraService.listarBitacora(page, this.pageSize).subscribe((resp: any) => {
+      console.log(resp);
+      this.bitacora = resp;
+    });
+  }
+
+  loadPage($event: any) {
+    this.listBitacora($event);
+  }
+
+  createBitacora() {
+    const modalRef = this.modalService.open(CrearBitacoraComponent, { centered: true, size: 'mb' });
+    modalRef.componentInstance.idSolicitud = this.solicitud;
+    modalRef.componentInstance.descripcion = this.descripcion;
+    modalRef.componentInstance.user = this.user;
+
+    modalRef.componentInstance.BitacoraN.subscribe((res: any) => {
+      console.log(res);
+      this.listBitacora();
+    });
+  }
+
+  editBitacora(bitacora: any) {
+    const modalRef = this.modalService.open(EditarBitacoraComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.bitacora = JSON.parse(JSON.stringify(bitacora));
+    modalRef.componentInstance.descripcion = this.descripcion;
+    modalRef.componentInstance.BitacoraE.subscribe((res: any) => {
+      this.listBitacora();
+    })
+  }
+
+  deleteBitacora(bitacora: any) {
+    const modalRef = this.modalService.open(BorrarBitacoraComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.bitacora = bitacora;
+
+    modalRef.componentInstance.BitacoraE.subscribe((res: any) => {
+      this.listBitacora();
+    })
+  }
+
+  watchBitacora(bitacora: any) {
+    const modalRef = this.modalService.open(VerBitacoraComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.bitacora = bitacora;
+    modalRef.componentInstance.descripcion = this.descripcion;
+
+    modalRef.componentInstance.BitacoraV.subscribe((res: any) => {
+    })
+  }
+
+  onChangeItemsPerPage() {
+    this.listBitacora();
+  }
 }

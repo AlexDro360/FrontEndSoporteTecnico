@@ -2,30 +2,30 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ModalConfig, ModalComponent } from '../../_metronic/partials';
 import { DashboardServiceService } from './service/dashboard.service.service';
 
-  const mesesES: { [key: string]: string } = {
-    January: 'Enero',
-    February: 'Febrero',
-    March: 'Marzo',
-    April: 'Abril',
-    May: 'Mayo',
-    June: 'Junio',
-    July: 'Julio',
-    August: 'Agosto',
-    September: 'Septiembre',
-    October: 'Octubre',
-    November: 'Noviembre',
-    December: 'Diciembre'
-  };
+const mesesES: { [key: string]: string } = {
+  January: 'Enero',
+  February: 'Febrero',
+  March: 'Marzo',
+  April: 'Abril',
+  May: 'Mayo',
+  June: 'Junio',
+  July: 'Julio',
+  August: 'Agosto',
+  September: 'Septiembre',
+  October: 'Octubre',
+  November: 'Noviembre',
+  December: 'Diciembre'
+};
 
-  const diasES: { [key: string]: string } = {
-    Sunday: 'Domingo',
-    Monday: 'Lunes',
-    Tuesday: 'Martes',
-    Wednesday: 'Miércoles',
-    Thursday: 'Jueves',
-    Friday: 'Viernes',
-    Saturday: 'Sábado'
-  };
+const diasES: { [key: string]: string } = {
+  Sunday: 'Domingo',
+  Monday: 'Lunes',
+  Tuesday: 'Martes',
+  Wednesday: 'Miércoles',
+  Thursday: 'Jueves',
+  Friday: 'Viernes',
+  Saturday: 'Sábado'
+};
 
 @Component({
   selector: 'app-dashboard',
@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
   fechaInicio: string = '';
   fechaFin: string = '';
   fechaInvalida: boolean = false;
+  btnEstado: boolean = false;
   cargando: boolean = true;
 
   modalConfig: ModalConfig = {
@@ -55,13 +56,19 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   validarFechas() {
-    if (this.fechaInicio && this.fechaFin) {
-      const desde = new Date(this.fechaInicio);
-      const hasta = new Date(this.fechaFin);
-      this.fechaInvalida = desde > hasta;
-    } else {
-      this.fechaInvalida = false;
+
+    const desde = new Date(this.fechaInicio);
+    const hasta = new Date(this.fechaFin);
+    this.fechaInvalida = desde > hasta;
+    this.btnEstado = desde > hasta;
+    if (this.fechaInvalida) {
+      setTimeout(() => {
+        this.fechaInvalida = false;
+        this.cdr.detectChanges();
+      }, 3000);
     }
+
+    console.log(this.fechaInvalida);
   }
 
   async openModal() {
@@ -81,6 +88,12 @@ export class DashboardComponent implements OnInit {
   }
 
   getDatos() {
+    console.log(this.fechaInvalida);
+    this.validarFechas();
+    if (this.fechaInvalida) {
+      return null
+    }
+
     this.cargando = true;
     const filtros = {
       idDepartamento: this.filtroDep,
@@ -95,6 +108,7 @@ export class DashboardComponent implements OnInit {
       this.datos = resp;
       this.cargando = false;
       this.cdr.detectChanges();
+      console.log(this.datos)
     })
   }
 }

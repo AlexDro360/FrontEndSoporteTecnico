@@ -28,8 +28,9 @@ export class ListSolicitudComponent {
   tipos: any[];
   user: any;
 
-  totalPages: number = 0;
+  totalElements: number = 0;
   currentPage: number = 1;
+  pageSize: number = 10;
   constructor(
     public modalService: NgbModal,
     public solicitudesService: SolicitudService,
@@ -53,10 +54,10 @@ export class ListSolicitudComponent {
   }
 
   listSolicitudes(page = 1) {
-    this.solicitudesService.listSolicitud(page, this.search).subscribe((resp: any) => {
+    this.solicitudesService.listSolicitud(page, this.pageSize, this.search).subscribe((resp: any) => {
       console.log(resp);
       this.SOLICITUDES = resp.solicitudes;
-      this.totalPages = resp.total;
+      this.totalElements = resp.total;
       this.currentPage = page;
     });
   }
@@ -204,8 +205,13 @@ export class ListSolicitudComponent {
     return folio.toString().padStart(3, '0');
   }
 
-  isPermission(permission:string){
-        return isPermission(permission);
+  isPermission(permission: string) {
+    return isPermission(permission);
+  }
+
+  onChangeItemsPerPage() {
+    console.log(this.pageSize)
+    this.listSolicitudes();
   }
 
 }

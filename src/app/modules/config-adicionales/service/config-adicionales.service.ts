@@ -20,10 +20,10 @@ export class ConfigAdicionalesService {
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
 
-  listarJefes(page = 1) {
+  listarJefes(page = 1, perPage =10) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/jefe_cc/jefes?page=" + page;
+    let URL = URL_SERVICIOS + "/jefe_cc/jefes?page=" + page + "&perPage=" + perPage;
     return this.http.get(URL, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

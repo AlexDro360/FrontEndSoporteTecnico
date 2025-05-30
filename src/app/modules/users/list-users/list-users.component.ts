@@ -22,6 +22,7 @@ export class ListUsersComponent {
 
   totalPages: number = 0;
   currentPage: number = 1;
+  pageSize: number = 10;
   constructor(
     public modalService: NgbModal,
     public usersService: UsersService,
@@ -35,9 +36,13 @@ export class ListUsersComponent {
     this.configAll();
   }
 
+  onChangeItemsPerPage() {
+    this.listUsers();
+  }
+
   listUsers(page = 1) {
 
-    this.usersService.listUsers(page, this.search).subscribe((resp: any) => {
+    this.usersService.listUsers(page, this.pageSize, this.search).subscribe((resp: any) => {
       console.log(resp);
       this.USERS = resp.users;
       this.totalPages = resp.total;

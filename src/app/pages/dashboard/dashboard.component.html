@@ -7,7 +7,7 @@
         <div class="row align-items-end g-3">
           <!-- Filtro por texto -->
           <div class="col-md-6">
-            <label for="search" class="form-label fw-bold">Departamento</label>
+            <label for="search" class="form-label fw-bold fs-2">Departamento</label>
             <div class="input-group">
               <span class="input-group-text">
                 <i class="ki-duotone ki-filter fs-1 text-primary">
@@ -15,7 +15,7 @@
                   <span class="path2"></span>
                 </i>
               </span>
-              <select id="categoria" class="form-select" [(ngModel)]="filtroDep">
+              <select id="categoria" class="form-select fs-2" [(ngModel)]="filtroDep">
                 <option value="">Todos</option>
                 <option *ngFor="let depto of filtro.departamentos" [value]="depto.id">
                   {{ depto.nombre }}
@@ -27,7 +27,7 @@
 
           <!-- Filtro por categoría (select) -->
           <div class="col-md-6">
-            <label for="search" class="form-label fw-bold">Tipo solicitud</label>
+            <label for="search" class="form-label fw-bold fs-2">Tipo solicitud</label>
             <div class="input-group">
               <span class="input-group-text">
                 <i class="ki-duotone ki-filter fs-1 text-primary">
@@ -35,7 +35,7 @@
                   <span class="path2"></span>
                 </i>
               </span>
-              <select id="categoria" class="form-select" [(ngModel)]="filtroTipo">
+              <select id="categoria" class="form-select fs-2" [(ngModel)]="filtroTipo">
                 <option value="">Todos</option>
                 <option *ngFor="let tipo of filtro.tiposSoli" [value]="tipo.id">
                   {{ tipo.nombre }}
@@ -47,22 +47,22 @@
         <div class="row g-3 align-items-end">
           <!-- Fecha inicio -->
           <div class="col-md-4">
-            <label for="fechaInicio" class="form-label">Desde</label>
-            <input type="date" id="fechaInicio" class="form-control" [(ngModel)]="fechaInicio" name="fechaInicio"
+            <label for="fechaInicio" class="form-label fs-2">Desde</label>
+            <input type="date" id="fechaInicio" class="form-control fs-2" [(ngModel)]="fechaInicio" name="fechaInicio"
               (change)="validarFechas()" />
           </div>
 
           <!-- Fecha fin -->
           <div class="col-md-4">
-            <label for="fechaFin" class="form-label">Hasta</label>
-            <input type="date" id="fechaFin" class="form-control" [(ngModel)]="fechaFin" name="fechaFin"
+            <label for="fechaFin" class="form-label fs-2">Hasta</label>
+            <input type="date" id="fechaFin" class="form-control fs-2" [(ngModel)]="fechaFin" name="fechaFin"
               (change)="validarFechas()" />
           </div>
 
 
           <!-- Botón aplicar filtro -->
           <div class="col-md-4 d-grid">
-            <button class="btn btn-primary" [disabled]="fechaInvalida" (click)="getDatos()">
+            <button class="btn btn-primary fs-2" [disabled]="btnEstado" (click)="getDatos()">
               <i class="ki-duotone ki-filter fs-1 text-primary">
                 <span class="path1"></span>
                 <span class="path2"></span>
@@ -71,7 +71,7 @@
             </button>
           </div>
 
-          <span *ngIf="fechaInvalida" class="alert alert-danger" role="alert">
+          <span *ngIf="fechaInvalida" class="alert alert-danger fs-2 fade show" role="alert">
             La fecha de inicio no puede ser mayor que la fecha de fin.
           </span>
         </div>

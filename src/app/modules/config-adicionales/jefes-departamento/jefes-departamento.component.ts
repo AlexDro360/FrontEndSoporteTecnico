@@ -24,6 +24,8 @@ export class JefesDepartamentoComponent {
 
   totalPages: number = 0;
   currentPage: number = 1;
+  pageSize:number = 10;
+
   constructor(
     public modalService: NgbModal,
     public configService: ConfigAdicionalesService,
@@ -34,10 +36,13 @@ export class JefesDepartamentoComponent {
     this.isLoading$ = this.configService.isLoading$;
     this.listJefes();
   }
+
+  onChangeItemsPerPage() {
+    this.listJefes();
+  }
+
   listJefes(page = 1) {
-    this.configService.listarJefes(page).subscribe((resp: any) => {
-      console.log(resp);
-      console.log("holaa");
+    this.configService.listarJefes(page, this.pageSize).subscribe((resp: any) => {
       this.jefes = resp;
     });
   }

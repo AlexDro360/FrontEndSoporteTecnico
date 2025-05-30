@@ -20,10 +20,10 @@ export class MisSolicitudesService {
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
 
-  listSolicitud(page = 1, search: string = '', id: any) {
+  listSolicitud(page = 1, perPage=10, search: string = '', id: any) {
     this.isLoadingSubject.next(true);
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    const URL = `${URL_SERVICIOS}/solicitud/mis-solicitudes/${id}?page=${page}&search=${search}`;
+    const URL = `${URL_SERVICIOS}/solicitud/mis-solicitudes/${id}?page=${page}&search=${search}&perPage=${perPage}`;
 
     return this.http.get(URL, { headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))

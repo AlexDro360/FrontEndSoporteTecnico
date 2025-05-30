@@ -168,8 +168,17 @@
           <tfoot></tfoot>
         </table>
       </div>
-      <ngb-pagination [collectionSize]="totalPages" [(page)]="currentPage" [pageSize]="25" [rotate]="true"
-        [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+      <div class="d-flex align-items-center justify-content-center">
+        <!-- <div class="fw-semibold text-gray-700 me-2">Elementos por página:</div> -->
+        <select id="categoria" class="form-control w-55px" [(ngModel)]="pageSize" (change)="onChangeItemsPerPage()">
+          <option [ngValue]=10>10</option>
+          <option [ngValue]=25>25</option>
+          <option [ngValue]=50>50 </option>
+          <option [ngValue]=100>100 </option>
+        </select>
+        <ngb-pagination [collectionSize]="totalPages" [(page)]="currentPage" [pageSize]="pageSize" [rotate]="true"
+          [boundaryLinks]="true" (pageChange)="loadPage($event)" [maxSize]="5" [ellipses]="false"></ngb-pagination>
+      </div>
     </div>
     <!--end::Table-->
   </div>

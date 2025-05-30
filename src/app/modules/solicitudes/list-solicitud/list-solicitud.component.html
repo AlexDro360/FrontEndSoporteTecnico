@@ -21,7 +21,8 @@
       <!--begin::Toolbar-->
       <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
         <!--begin::Add customer-->
-        <button type="button" style="font-size: 18px;" class="btn btn-primary" (click)="createSolicitud()" *ngIf="isPermission('register_solicitud')">
+        <button type="button" style="font-size: 18px;" class="btn btn-primary" (click)="createSolicitud()"
+          *ngIf="isPermission('register_solicitud')">
           + Crear Solicitud
         </button>
         <!--end::Add customer-->
@@ -130,7 +131,25 @@
                 </td>
 
                 <td>
-                  {{SOLICITUD.estado.nombre}}
+                  <div *ngIf="SOLICITUD.estado.id === 1" class="rounded-pill bg-primary text-center fw-bold text-gray-100 p-2">
+                    {{SOLICITUD.estado.nombre}}
+                  </div>
+
+                  <div *ngIf="SOLICITUD.estado.id === 2" class="rounded-pill bg-danger text-center fw-bold text-gray-100 p-2">
+                    {{SOLICITUD.estado.nombre}}
+                  </div>
+
+                  <div *ngIf="SOLICITUD.estado.id === 3" class="rounded-pill bg-warning text-center fw-bold text-gray-100 p-2">
+                    {{SOLICITUD.estado.nombre}}
+                  </div>
+
+                  <div *ngIf="SOLICITUD.estado.id === 4" class="rounded-pill bg-info text-center fw-bold text-gray-100 p-2">
+                    {{SOLICITUD.estado.nombre}}
+                  </div>
+
+                  <div *ngIf="SOLICITUD.estado.id === 5" class="rounded-pill bg-success text-center fw-bold text-gray-100 p-2">
+                    {{SOLICITUD.estado.nombre}}
+                  </div>
                 </td>
 
                 <td>
@@ -157,14 +176,16 @@
                       </span><span class="path3"></span><span class="path2"></span>
                       <span class="path5"></span></i>
                   </a> -->
-                  <a href="#" onclick="return false;" (click)="verSolicitud(SOLICITUD)" *ngIf="isPermission('view_solicitud')"
+                  <a href="#" onclick="return false;" (click)="verSolicitud(SOLICITUD)"
+                    *ngIf="isPermission('view_solicitud')"
                     class="btn btn-icon btn-bg-light btn-hover-dark btn-active-dark btn-active-color-light btn-color-dark btn-sm m-1 btn-con-tooltip"
-                    data-label="Ver Solicitud" >
+                    data-label="Ver Solicitud">
                     <i class="ki-solid ki-eye fs-1"></i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 3 && isPermission('register_bitacora_solicitud')"
-                    (click)="crearBitacora(SOLICITUD.id)" 
+                  <a href="#" onclick="return false;"
+                    *ngIf="SOLICITUD.estado.id === 3 && isPermission('register_bitacora_solicitud')"
+                    (click)="crearBitacora(SOLICITUD.id)"
                     class="btn btn-icon btn-bg-light btn-hover-warning btn-active-warning btn-active-color-light btn-color-warning btn-sm m-1 btn-con-tooltip"
                     data-label="Agregar Bitácora">
                     <i class="ki-duotone ki-tablet-text-down fs-1">
@@ -207,7 +228,8 @@
                     </i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 1 && isPermission('decline_solicitud')"
+                  <a href="#" onclick="return false;"
+                    *ngIf="SOLICITUD.estado.id === 1 && isPermission('decline_solicitud')"
                     (click)="rechazarSolicitud(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-active-color-light btn-color-danger btn-sm m-1 btn-con-tooltip"
                     data-label="Rechazar">
@@ -224,10 +246,21 @@
           <tfoot></tfoot>
         </table>
       </div>
-      <ngb-pagination [collectionSize]="totalPages" [(page)]="currentPage" [pageSize]="25" [rotate]="true"
-        [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+      <div class="d-flex align-items-center justify-content-center">
+        <!-- <div class="fw-semibold text-gray-700 me-2">Elementos por página:</div> -->
+        <select id="categoria" class="form-control w-55px" [(ngModel)]="pageSize" (change)="onChangeItemsPerPage()">
+          <option [ngValue]=10>10</option>
+          <option [ngValue]=25>25</option>
+          <option [ngValue]=50>50 </option>
+          <option [ngValue]=100>100 </option>
+        </select>
+        <ngb-pagination [collectionSize]="totalElements" [(page)]="currentPage" [pageSize]="pageSize" [rotate]="true"
+          [boundaryLinks]="true" (pageChange)="loadPage($event)" [maxSize]="5" [ellipses]="false"></ngb-pagination>
+      </div>
+
     </div>
-    <!--end::Table-->
+
   </div>
-  <!--end::Card body-->
+  <!--end::Table-->
 </div>
+<!--end::Card body-->

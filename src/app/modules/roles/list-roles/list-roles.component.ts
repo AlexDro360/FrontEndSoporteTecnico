@@ -23,6 +23,8 @@ export class ListRolesComponent {
 
   totalPages:number = 0 ;
   currentPage:number = 1 ;
+  pageSize: number = 10;
+
   constructor(
     public modalService: NgbModal,
     public rolesService: RolesService,
@@ -36,9 +38,12 @@ export class ListRolesComponent {
     this.myRole();
   }
 
-  listRoles(page =1){
+  onChangeItemsPerPage() {
+    this.listRoles();
+  }
 
-    this.rolesService.listRoles(page,this.search).subscribe((resp:any) => {
+  listRoles(page =1){
+    this.rolesService.listRoles(page, this.pageSize, this.search).subscribe((resp:any) => {
       console.log(resp);
       this.ROLES = resp.roles;
       this.totalPages = resp.total;

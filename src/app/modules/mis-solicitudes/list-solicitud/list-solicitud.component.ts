@@ -24,6 +24,8 @@ export class ListSolicitudComponent {
 
   totalPages: number = 0;
   currentPage: number = 1;
+  pageSize: number = 10;
+
   constructor(
     public modalService: NgbModal,
     public solicitudesService: MisSolicitudesService,
@@ -43,8 +45,12 @@ export class ListSolicitudComponent {
     
   }
 
+  onChangeItemsPerPage() {
+    this.listSolicitudes();
+  }
+
   listSolicitudes(page = 1) {
-    this.solicitudesService.listSolicitud(page, this.search, this.user.id,).subscribe((resp: any) => {
+    this.solicitudesService.listSolicitud(page, this.pageSize, this.search, this.user.id,).subscribe((resp: any) => {
       console.log(resp);
       this.SOLICITUDES = resp.solicitudes;
       this.totalPages = resp.total;
