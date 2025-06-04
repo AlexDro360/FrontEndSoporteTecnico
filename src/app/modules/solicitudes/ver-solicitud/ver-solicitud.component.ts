@@ -9,6 +9,7 @@ import { CrearRespuestaComponent } from '../../respuestas/crear-respuesta/crear-
 import { VerRespuestaComponent } from '../../respuestas/ver-respuesta/ver-respuesta.component';
 import { VerBitacoraComponent } from '../../bitacora/ver-bitacora/ver-bitacora.component';
 import { RechazarSolicitudComponent } from '../rechazar-solicitud/rechazar-solicitud.component';
+import { isPermission } from 'src/app/config/config';
 
 @Component({
   selector: 'app-ver-solicitud',
@@ -73,7 +74,7 @@ export class VerSolicitudComponent {
         if (!jefeVacio) {
           modalRef.componentInstance.jefeCC = result.jefe;
         }
-        
+
 
         modalRef.componentInstance.RespuestaN.subscribe((resp: any) => {
           this.SolicitudV.emit(resp);
@@ -160,6 +161,10 @@ export class VerSolicitudComponent {
         this.modal.close();
       }
     })
+  }
+
+  isPermission(permission: string) {
+    return isPermission(permission);
   }
 
 }

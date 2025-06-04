@@ -71,7 +71,7 @@
                                 [checked]="personalAtencion.includes(tecnico.id)" id="tecnico-{{tecnico.id}}" />
                             <label class="form-check-label flex-grow-1 py-2 px-3 form-control form-control-solid"
                                 [for]="'tecnico-' + tecnico.id">
-                                {{ tecnico.name }} {{ tecnico.surname }}
+                                {{ tecnico.name }} {{ tecnico.surnameP }} {{ tecnico.surnameM }}
                             </label>
                         </div>
                         <div *ngIf="estadoPA" class="alert alert-danger" role="alert">

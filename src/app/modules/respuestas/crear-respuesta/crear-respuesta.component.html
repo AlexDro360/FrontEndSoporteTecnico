@@ -126,9 +126,8 @@
 
                     <div class="fv-row row my-1">
                         <div class="col-12">
-                            <label class="fw-bold fs-6 mb-2">Nombre de quien aprobó </label><span
-                                style="font-style: italic;"><br> Automatico de acuerdo al jefe del Centro de Cómputo
-                                activo actualmente</span>
+                            <label class="fw-bold fs-6 mb-2">Nombre de quien aprobó </label>
+                            <span style="font-style: italic;"><br> Automatico de acuerdo al jefe del Centro de Cómputo activo actualmente</span>
                             <input type="text" class="form-control form-control-outline mb-3 mb-lg-0" name="aprobo"
                                 readOnly [(ngModel)]="jefeCC.nombreC">
                             <div *ngIf="!jefeCC" class="alert alert-danger" role="alert">

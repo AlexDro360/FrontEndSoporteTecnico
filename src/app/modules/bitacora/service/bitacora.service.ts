@@ -38,6 +38,15 @@ export class BitacoraService {
     );
   }
 
+  noSolucionada(idSolicitud: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/solicitud/nosolucion/${idSolicitud}`;
+    return this.http.put(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
   borrarBitacora(data: any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });

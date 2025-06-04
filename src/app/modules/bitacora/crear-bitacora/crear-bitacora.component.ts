@@ -16,6 +16,8 @@ export class CrearBitacoraComponent {
 
   isLoading: any;
 
+  estadoSolucion: boolean = true;
+
   falla: string = '';
   solucion: string = '';
   materiales: string = '';
@@ -45,69 +47,67 @@ export class CrearBitacoraComponent {
   }
 
   store() {
-    this.duracion = (this.horas * 60) + this.minutos;
-    this.reiniciarAlertas();
-    let error: boolean = false;
-    if (!this.falla) {
-      // this.toast.error("Validación", "Es necesario describir la falla");
-      // return false;
-      error = true;
-      this.estadoDF = true;
-    }
-
-    if (this.duracion == 0) {
-      // this.toast.error("Validación", "Es necesario describir la falla");
-      // return false;
-      error = true;
-      this.estadoD = true;
-    }
-
-    if (!this.solucion) {
-      // this.toast.error("Validación", "Es necesario describir la solución");
-      // return false;
-      error = true;
-      this.estadoDS = true;
-    }
-
-    if (!this.materiales) {
-      // this.toast.error("Validación", "Es necesario escribir los materiales ocupados");
-      // return false;
-      error = true;
-      this.estadoDM = true;
-    }
-
-    if (error) {
-      return false;
-    }
-
-    let formData = new FormData();
-    formData.append('descFalla', this.falla)
-    formData.append('descSolucion', this.solucion);
-    formData.append('materialReq', this.materiales);
-    formData.append('duracion', this.duracion.toString());
-    formData.append('idSolicitud', this.idSolicitud);
-
-    this.bitacoraService.crearBitacora(formData).subscribe({
-      next: (resp) => {
-        this.toast.success("Éxito", "Se creo la bitacora correctamente");
-        this.BitacoraN.emit(resp);
-        this.modal.close();
-      },
-      error: (err) => {
-        console.log(err);
-        console.error('Error al cargar los datos', err);
-        this.toast.error('Error al guardar los datos', 'Error');
+    if (this.estadoSolucion) {
+      this.duracion = (this.horas * 60) + this.minutos;
+      this.reiniciarAlertas();
+      let error: boolean = false;
+      if (!this.falla) {
+        error = true;
+        this.estadoDF = true;
       }
-    })
+
+      if (this.duracion == 0) {
+        error = true;
+        this.estadoD = true;
+      }
+
+      if (!this.solucion) {
+        error = true;
+        this.estadoDS = true;
+      }
+
+      if (!this.materiales) {
+        error = true;
+        this.estadoDM = true;
+      }
+
+      if (error) {
+        return false;
+      }
+
+      let formData = new FormData();
+      formData.append('descFalla', this.falla)
+      formData.append('descSolucion', this.solucion);
+      formData.append('materialReq', this.materiales);
+      formData.append('duracion', this.duracion.toString());
+      formData.append('idSolicitud', this.idSolicitud);
+
+      this.bitacoraService.crearBitacora(formData).subscribe({
+        next: (resp) => {
+          this.toast.success("Éxito", "Se creo la bitacora correctamente");
+          this.BitacoraN.emit(resp);
+          this.modal.close();
+        },
+        error: (err) => {
+          console.log(err);
+          console.error('Error al cargar los datos', err);
+          this.toast.error('Error al guardar los datos', 'Error');
+        }
+      })
+    } else {
+      this.bitacoraService.noSolucionada(this.idSolicitud).subscribe({
+        next: (resp) => {
+          this.toast.success("Éxito", "Solicitud asignada como no solucionada");
+          this.BitacoraN.emit(resp);
+          this.modal.close();
+        },
+        error: (err) => {
+          console.log(err);
+          console.error('Error al cambiar el estado de la solicitud', err);
+          this.toast.error('Error al guardar los datos', 'Error');
+        }
+      })
+    }
   }
+
 }
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-crear-bitacora',
-//   templateUrl: './crear-bitacora.component.html',
-//   styleUrls: ['./crear-bitacora.component.scss']
-// })
-// export class CrearBitacoraComponent {
-
-// }

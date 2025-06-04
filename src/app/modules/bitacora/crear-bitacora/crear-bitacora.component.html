@@ -37,59 +37,74 @@
                 data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
                 <!--begin::Input group-->
 
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Descripción de la Falla/Error</label>
-                        <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Describe la solución" [(ngModel)]="falla" rows="5"></textarea>
-                        <div *ngIf="estadoDF" class="alert alert-danger" role="alert">
-                            Es necesario describir la falla
+                <div class="mb-3">
+                    <label for="estadoSolicitud" class="form-label">¿Solicitud solucionada?</label>
+                    <select class="form-select" id="estadoSolicitud" name="estadoSolucion" [(ngModel)]="estadoSolucion">
+                        <!-- <option >Selecciona una opción</option> -->
+                        <option  [ngValue]="true">Sí, solucionada</option>
+                        <option [ngValue]="false">No, no solucionada</option>
+                    </select>
+                </div>
+
+
+                <!-- Formulario condicional -->
+                <div *ngIf="estadoSolucion === true" class="mt-3">
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Descripción de la Falla/Error</label>
+                            <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Describe la solución" [(ngModel)]="falla" rows="5"></textarea>
+                            <div *ngIf="estadoDF" class="alert alert-danger" role="alert">
+                                Es necesario describir la falla
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Descripción de la Solución</label>
+                            <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Describe la solución" [(ngModel)]="solucion" rows="5"></textarea>
+                            <div *ngIf="estadoDS" class="alert alert-danger" role="alert">
+                                Es necesario describir la solución
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Materiales Requeridos</label>
+                            <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Describe la solución" [(ngModel)]="materiales" rows="3"></textarea>
+                            <div *ngIf="estadoDM" class="alert alert-danger" role="alert">
+                                Es necesario escribir los materiales utilizados
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row my-1">
+                        <label class="required fw-bold fs-6 mb-2">Duración</label>
+                        <div class="col-6 d-flex align-items-center">
+                            <label class=" fw-bold fs-6 mb-2 me-2">Horas: </label>
+                            <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0"
+                                name="horas" [(ngModel)]="horas" />
+
+                        </div>
+
+                        <div class="col-6 d-flex align-items-center">
+                            <label class="fw-bold fs-6 mb-2 me-2">Minutos: </label>
+                            <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0"
+                                name="minutos" [(ngModel)]="minutos" />
+                        </div>
+                        <div class="col-12">
+                            <div *ngIf="estadoD" class="alert alert-danger" role="alert">
+                                Es necesario especificar la duración del mantenimiento
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Descripción de la Solución</label>
-                        <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Describe la solución" [(ngModel)]="solucion" rows="5"></textarea>
-                        <div *ngIf="estadoDS" class="alert alert-danger" role="alert">
-                            Es necesario describir la solución
-                        </div>
-                    </div>
-                </div>
 
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Materiales Requeridos</label>
-                        <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Describe la solución" [(ngModel)]="materiales" rows="3"></textarea>
-                        <div *ngIf="estadoDM" class="alert alert-danger" role="alert">
-                            Es necesario escribir los materiales utilizados
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fv-row row my-1">
-                    <label class="required fw-bold fs-6 mb-2">Duración</label>
-                    <div class="col-6 d-flex align-items-center">
-                        <label class=" fw-bold fs-6 mb-2 me-2">Horas: </label>
-                        <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0" name="horas"
-                            [(ngModel)]="horas" />
-
-                    </div>
-
-                    <div class="col-6 d-flex align-items-center">
-                        <label class="fw-bold fs-6 mb-2 me-2">Minutos: </label>
-                        <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0" name="minutos"
-                            [(ngModel)]="minutos" />
-                    </div>
-                    <div class="col-12" >
-                        <div *ngIf="estadoD" class="alert alert-danger" role="alert">
-                            Es necesario especificar la duración del mantenimiento
-                        </div>
-                    </div>
-                </div>
 
             </div>
             <!--end::Scroll-->

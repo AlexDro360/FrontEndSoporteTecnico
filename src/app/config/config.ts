@@ -159,3 +159,9 @@ export function isPermission(permission:string){
   }
   return false;
 }
+
+export function myRol(){
+  let USER_AUTH = JSON.parse(localStorage.getItem('user') ?? '');
+  
+  return USER_AUTH.role_id;
+}

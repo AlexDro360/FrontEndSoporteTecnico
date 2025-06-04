@@ -29,10 +29,10 @@ export class ConfigAdicionalesService {
     );
   }
 
-  listarFolios() {
+  listarFolios(page = 1, perPage =10, search: string = '') {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/config-adicionales/folios";
+    let URL = URL_SERVICIOS + "/config-adicionales/folios?page=" + page + "&perPage=" + perPage + "&search=" + search;
     return this.http.get(URL, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
@@ -59,7 +59,7 @@ export class ConfigAdicionalesService {
   editarFolio(data: any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = `${URL_SERVICIOS}/config-adicionales/folios/update`;
+    let URL = `${URL_SERVICIOS}/config-adicionales/folios/actualizar/${data.id}`;
     return this.http.put(URL, data, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
@@ -74,10 +74,10 @@ export class ConfigAdicionalesService {
     );
   }
 
-  resetSolicitud() {
+  resetSolicitud(idFolio: any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = `${URL_SERVICIOS}/config-adicionales/folios/reset/solicitud`;
+    let URL = `${URL_SERVICIOS}/config-adicionales/folios/reiniciar/${idFolio}`;
     return this.http.post(URL, {}, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

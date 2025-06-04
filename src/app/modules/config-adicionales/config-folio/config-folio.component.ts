@@ -16,7 +16,12 @@ import { isPermission } from 'src/app/config/config';
 export class ConfigFolioComponent {
 
   isLoading$: any;
-  folios: any;
+  folios: any = [];
+  search: string = '';
+
+  totalPages: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 10;
 
   constructor(
     public modalService: NgbModal,
@@ -29,63 +34,62 @@ export class ConfigFolioComponent {
     this.listFolios();
   }
 
-  listFolios() {
-    this.configService.listarFolios().subscribe((resp: any) => {
+  listFolios(page = 1) {
+    this.configService.listarFolios(page, this.pageSize, this.search).subscribe((resp: any) => {
       console.log(resp);
       this.folios = resp;
       console.log(this.folios)
     });
   }
 
-  reiniciarFolioRespuestas() {
-    const modalRef = this.modalService.open(ResetRespuestaComponent, { centered: true, size: 'md' });
-    modalRef.componentInstance.ResetR.subscribe((res: any) => {
-      this.listFolios();
-    })
-  }
+  // reiniciarFolioRespuestas() {
+  //   const modalRef = this.modalService.open(ResetRespuestaComponent, { centered: true, size: 'md' });
+  //   modalRef.componentInstance.ResetR.subscribe((res: any) => {
+  //     this.listFolios();
+  //   })
+  // }
 
-  editarFolioRespuestas() {
-    this.configService.listarFolios().subscribe({
-      next: (resp) => {
-        const modalRef = this.modalService.open(ActualizarRespuestaComponent, { centered: true, size: 'md' });
-        modalRef.componentInstance.folios = resp;
-        modalRef.componentInstance.FolioR.subscribe((res: any) => {
-          this.listFolios();
-        })
-      },
-      error: (err) => {
-        console.log(err);
-        console.error('Error al obtener los folios', err);
-        this.toast.error('Error al obtener los folios', 'Error');
-      }
-    })
-  }
+  // editarFolioRespuestas() {
+  //   // this.configService.listarFolios().subscribe({
+  //   //   next: (resp) => {
+  //   //     const modalRef = this.modalService.open(ActualizarRespuestaComponent, { centered: true, size: 'md' });
+  //   //     modalRef.componentInstance.folios = resp;
+  //   //     modalRef.componentInstance.FolioR.subscribe((res: any) => {
+  //   //       this.listFolios();
+  //   //     })
+  //   //   },
+  //   //   error: (err) => {
+  //   //     console.log(err);
+  //   //     console.error('Error al obtener los folios', err);
+  //   //     this.toast.error('Error al obtener los folios', 'Error');
+  //   //   }
+  //   // })
+  // }
 
-  reiniciarFolioSolicitud() {
+  reiniciarFolioSolicitud(folio: any) {
     const modalRef = this.modalService.open(ResetSolicitudComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.folio = folio;
     modalRef.componentInstance.ResetS.subscribe((res: any) => {
       this.listFolios();
     })
   }
 
 
-  editarFolioSolicitud() {
-    this.configService.listarFolios().subscribe({
-      next: (resp) => {
-        const modalRef = this.modalService.open(ActualizarSolicitudComponent, { centered: true, size: 'md' });
-        modalRef.componentInstance.folios = resp;
-        modalRef.componentInstance.FolioS.subscribe((res: any) => {
-          this.listFolios();
-        })
-      },
-      error: (err) => {
-        console.log(err);
-        console.error('Error al obtener los folios', err);
-        this.toast.error('Error al obtener los folios', 'Error');
-      }
+  editarFolioSolicitud(folio: any) {
+    const modalRef = this.modalService.open(ActualizarSolicitudComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.folio = folio;
+    modalRef.componentInstance.FolioS.subscribe((res: any) => {
+      this.listFolios();
     })
   }
-  isPermission(permission:string){
-          return isPermission(permission);
+  isPermission(permission: string) {
+    return isPermission(permission);
+  }
+
+  onChangeItemsPerPage() {
+    this.listFolios();
+  }
+  loadPage($event: any) {
+    this.listFolios($event);
   }
 }

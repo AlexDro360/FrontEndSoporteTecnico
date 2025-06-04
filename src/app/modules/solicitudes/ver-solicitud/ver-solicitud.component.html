@@ -113,14 +113,17 @@
       </button>
 
       <!-- Responder (estado 4) -->
-      <button *ngIf="solicitud.estado.id === 4 || (solicitud.estado.id === 2 && !solicitud.respuesta)" type="button" class="btn btn-success m-1" (click)="responder()">
+      <button
+        *ngIf="(solicitud.estado.id === 5 || (solicitud.estado.id === 2 && !solicitud.respuesta)) && isPermission('response_solicitud')"
+        type="button" class="btn btn-success m-1" (click)="responder()">
         <span class="indicator-label">Responder</span>
         <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
       </button>
 
       <!-- Ver respuesta (estado 2 o 5) -->
-      <button *ngIf="(solicitud.estado.id === 2 && solicitud.respuesta)  || solicitud.estado.id === 5" type="button"
-        class="btn btn-info m-1 text-white" (click)="verRespuesta()">
+      <button
+        *ngIf="((solicitud.estado.id === 2 && solicitud.respuesta)  || solicitud.estado.id === 6) && isPermission('response_solicitud')"
+        type="button" class="btn btn-info m-1 text-white" (click)="verRespuesta()">
         <span class="indicator-label">Ver respuesta</span>
         <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
       </button>
@@ -132,13 +135,15 @@
       </button>
 
       <!-- Asignar Técnicos (estado 1) -->
-      <button *ngIf="solicitud.estado.id === 1" type="button" class="btn btn-primary m-1" (click)="asignarTecnicos()">
+      <button *ngIf="(solicitud.estado.id === 1 || solicitud.estado.id === 4) && isPermission('asign_tecnico')"
+        type="button" class="btn btn-primary m-1" (click)="asignarTecnicos()">
         <span class="indicator-label">Asignar Técnicos</span>
         <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
       </button>
 
       <!-- Rechazar (estado 1) -->
-      <button *ngIf="solicitud.estado.id === 1" type="button" class="btn btn-danger m-1" (click)="rechazar()">
+      <button *ngIf="solicitud.estado.id === 1 && isPermission('decline_solicitud')" type="button"
+        class="btn btn-danger m-1" (click)="rechazar()">
         <span class="indicator-label">Rechazar</span>
         <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
       </button>

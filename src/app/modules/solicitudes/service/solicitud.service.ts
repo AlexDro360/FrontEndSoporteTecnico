@@ -29,11 +29,22 @@ export class SolicitudService {
     );
   }
 
-  listSolicitud(page = 1, perPage = 10, search: string = '') {
+  listSolicitud(page = 1, perPage = 10, search: string = '', filtroEst:number = 0) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/solicitudes?page=" + page + "&search=" + search + "&perPage=" + perPage;
+    let URL = URL_SERVICIOS + "/solicitudes?page=" + page + "&search=" + search + "&perPage=" + perPage + "&filtroEstatus=" + filtroEst;
     return this.http.get(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+
+  misSolicitudesAtendidas(page = 1, perPage=10, search: string = '', id: any) {
+    this.isLoadingSubject.next(true);
+    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    const URL = `${URL_SERVICIOS}/solicitud/mis-solicitudes-atendidas/${id}?page=${page}&search=${search}&perPage=${perPage}`;
+
+    return this.http.get(URL, { headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
@@ -51,6 +62,15 @@ export class SolicitudService {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/tipos";
+    return this.http.get(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  getEstatus() {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS + "/config-adicionales/estatus";
     return this.http.get(URL, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

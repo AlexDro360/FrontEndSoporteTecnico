@@ -9,7 +9,7 @@ import { ConfigAdicionalesService } from '../service/config-adicionales.service'
   styleUrls: ['./actualizar-solicitud.component.scss']
 })
 export class ActualizarSolicitudComponent {
-  @Input() folios: any;
+  @Input() folio: any;
   @Output() FolioS: EventEmitter<any> = new EventEmitter();
 
    isLoading: any;
@@ -31,9 +31,7 @@ export class ActualizarSolicitudComponent {
   guardar() {
     this.reiniciarAlertas();
     let error: boolean = false;
-    if (!this.folios.FolioSolicitud) {
-      // this.toast.error("Validación", "Es necesario describir la falla");
-      // return false;
+    if (!this.folio.folio) {
       error = true;
       this.estadoF = true;
     }
@@ -42,9 +40,9 @@ export class ActualizarSolicitudComponent {
       return false;
     }
 
-    this.configService.editarFolio(this.folios).subscribe({
+    this.configService.editarFolio(this.folio).subscribe({
       next: (resp) => {
-        this.toast.success("Éxito", "Se edito el folio de solicitud correctamente");
+        this.toast.success("Éxito", "Se edito el folio para el depertamento " + this.folio.nombre + " correctamente");
         this.FolioS.emit(resp);
         this.modal.close();
       },

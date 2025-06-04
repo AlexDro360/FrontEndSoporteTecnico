@@ -51,6 +51,11 @@
   
                 <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                   aria-label="Customer Name: Activate to sort" tabindex="0">
+                  <span class="dt-column-title" role="button">Folio Solicitud</span><span class="dt-column-order"></span>
+                </th>
+
+                <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+                  aria-label="Customer Name: Activate to sort" tabindex="0">
                   <span class="dt-column-title" role="button">Número de Bitácora</span><span class="dt-column-order"></span>
                 </th>
   
@@ -65,11 +70,6 @@
                     class="dt-column-order"></span>
                 </th>
   
-                <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
-                  aria-label="Customer Name: Activate to sort" tabindex="0">
-                  <span class="dt-column-title" role="button">Folio Solicitud</span><span class="dt-column-order"></span>
-                </th>
-  
                 <th class="min-w-70px dt-orderable-none" data-dt-column="2" rowspan="1" colspan="1"
                   aria-label="Actions">
                   <span class="dt-column-title">Acciones</span><span class="dt-column-order"></span>
@@ -81,6 +81,11 @@
                 <tr>
   
                   <td style="text-align: center;">
+                    {{Bitacora.solicitud.user.departamento.abreviatura}}/{{Bitacora.solicitud.folio | rellenaZero}}
+                    
+                  </td>
+
+                  <td style="text-align: center;">
                     {{Bitacora.id | rellenaZero}}
                   </td>
   
@@ -91,10 +96,7 @@
                   <td>
                     {{Bitacora.descFalla}}
                   </td>
-  
-                  <td style="text-align: center;">
-                    {{Bitacora.solicitud.folio | rellenaZero}}
-                  </td>
+
   
                   <td class="">
 
@@ -104,13 +106,13 @@
                       <i class="ki-solid ki-eye fs-1"></i>
                     </a>
                     
-                    <a href="#" onclick="return false;" (click)="editBitacora(Bitacora)"
+                    <!-- <a href="#" onclick="return false;" (click)="editBitacora(Bitacora)"
                       class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
                       data-label="Editar">
                       <i class="ki-duotone ki-pencil fs-1">
                         <span class="path1"></span><span class="path2"></span>
                       </i>
-                    </a>
+                    </a> -->
   
                     
                   </td>

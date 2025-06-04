@@ -10,6 +10,7 @@ import { ConfigAdicionalesService } from '../service/config-adicionales.service'
 })
 export class ResetSolicitudComponent {
 
+  @Input() folio: any;
   @Output() ResetS: EventEmitter<any> = new EventEmitter();
   
     isLoading: any;
@@ -24,9 +25,9 @@ export class ResetSolicitudComponent {
     }
   
     reiniciar() {
-      this.configService.resetSolicitud().subscribe({
+      this.configService.resetSolicitud(this.folio.id).subscribe({
         next: (resp) => {
-          this.toast.success("Éxito", "Se reinicio el folio para Solicitud correctamente");
+          this.toast.success("Éxito", "Se reinicio el folio de solicitudes para el departemento: " + this.folio.nombre + " correctamente");
           this.ResetS.emit(resp);
           this.modal.close();
         },

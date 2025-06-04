@@ -12,6 +12,27 @@
           data-kt-customer-table-filter="search" style="font-size: 18px;"
           class="form-control form-control-solid w-250px ps-12" placeholder="Buscar Solicitud" />
       </div>
+
+      <div *ngIf="myRole() != 2" class="d-flex align-items-center position-relative my-1 ms-5">
+
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="ki-duotone ki-filter fs-1 text-primary">
+              <span class="path1"></span>
+              <span class="path2"></span>
+            </i>
+            <label for="search" class="fw-bold align-middle ms-2" style="font-size: 16px;"> Estatus</label>
+          </span>
+          <select name="estatus" id="estatus" class="form-select" style="font-size: 16px;" [(ngModel)]="estatu"
+            (change)="listSolicitudes()">
+            <option [value]="0">Todos</option>
+            <option *ngFor="let estado of estatus" [value]="estado.id">
+              {{ estado.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+
       <!--end::Search-->
     </div>
     <!--begin::Card title-->
@@ -86,12 +107,6 @@
                 <span class="dt-column-title" role="button">Tipo de Problema</span><span class="dt-column-order"></span>
               </th>
 
-              <!-- <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="5" rowspan="1" colspan="1"
-                  aria-label="Created Date: Activate to sort" tabindex="0">
-                  <span class="dt-column-title" role="button">Fecha de Fin</span><span
-                    class="dt-column-order"></span>
-                </th> -->
-
               <th class="min-w-70px dt-orderable-none" data-dt-column="2" rowspan="1" colspan="1" aria-label="Actions">
                 <span class="dt-column-title">Acciones</span><span class="dt-column-order"></span>
               </th>
@@ -102,7 +117,7 @@
               <tr>
 
                 <td style="text-align: center;">
-                  {{ SOLICITUD.folio | rellenaZero:3 }}
+                  {{SOLICITUD.user.departamentoC.abreviatura}}/{{ SOLICITUD.folio | rellenaZero:3 }}
                 </td>
 
                 <td>
@@ -131,23 +146,34 @@
                 </td>
 
                 <td>
-                  <div *ngIf="SOLICITUD.estado.id === 1" class="rounded-pill bg-primary text-center fw-bold text-gray-100 p-2">
+                  <div *ngIf="SOLICITUD.estado.id === 1"
+                    class="w-125px rounded-pill bg-primary text-center fw-bold text-gray-100 p-2">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
-                  <div *ngIf="SOLICITUD.estado.id === 2" class="rounded-pill bg-danger text-center fw-bold text-gray-100 p-2">
+                  <div *ngIf="SOLICITUD.estado.id === 2"
+                    class="w-125px rounded-pill bg-danger text-center fw-bold text-gray-100 p-2">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
-                  <div *ngIf="SOLICITUD.estado.id === 3" class="rounded-pill bg-warning text-center fw-bold text-gray-100 p-2">
+                  <div *ngIf="SOLICITUD.estado.id === 3"
+                    class="w-125px rounded-pill bg-warning text-center fw-bold text-gray-100 p-2">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
-                  <div *ngIf="SOLICITUD.estado.id === 4" class="rounded-pill bg-info text-center fw-bold text-gray-100 p-2">
+                  <div *ngIf="SOLICITUD.estado.id === 4"
+                    class="w-125px rounded-pill text-center fw-bold text-gray-100 p-2"
+                    style="background-color: #fd7e14;">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
-                  <div *ngIf="SOLICITUD.estado.id === 5" class="rounded-pill bg-success text-center fw-bold text-gray-100 p-2">
+                  <div *ngIf="SOLICITUD.estado.id === 5"
+                    class="w-125px rounded-pill bg-info text-center fw-bold text-gray-100 p-2">
+                    {{SOLICITUD.estado.nombre}}
+                  </div>
+
+                  <div *ngIf="SOLICITUD.estado.id === 6"
+                    class="w-125px rounded-pill bg-success text-center fw-bold text-gray-100 p-2">
                     {{SOLICITUD.estado.nombre}}
                   </div>
                 </td>
@@ -155,27 +181,8 @@
                 <td>
                   {{SOLICITUD.tipo.nombre}}
                 </td>
-                <!--   
-                  <td>
-                    {{SOLICITUD.fechaSolucion == null ? 'Sin fecha' : SOLICITUD.fechaSolucion}}
-                  </td> -->
 
                 <td class="">
-                  <!-- <a href="#" onclick="return false;" (click)="editSolicitud(SOLICITUD)"
-                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 btn-con-tooltip"
-                    data-label="Baja">
-                    <i class="ki-duotone ki-pencil fs-2">
-                      <span class="path1"></span><span class="path2"></span>
-                    </i>
-                  </a>
-
-                  <a href="#" onclick="return false;" (click)="deleteRole(SOLICITUD)"
-                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                    <i class="ki-duotone ki-trash fs-2">
-                      <span class="path1"></span><span class="path2">
-                      </span><span class="path3"></span><span class="path2"></span>
-                      <span class="path5"></span></i>
-                  </a> -->
                   <a href="#" onclick="return false;" (click)="verSolicitud(SOLICITUD)"
                     *ngIf="isPermission('view_solicitud')"
                     class="btn btn-icon btn-bg-light btn-hover-dark btn-active-dark btn-active-color-light btn-color-dark btn-sm m-1 btn-con-tooltip"
@@ -196,7 +203,8 @@
                     </i>
                   </a>
 
-                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id === 1 && isPermission('asign_tecnico')"
+                  <a href="#" onclick="return false;"
+                    *ngIf="(SOLICITUD.estado.id === 1 || SOLICITUD.estado.id === 4) && isPermission('asign_tecnico')"
                     (click)="asignarTecnicos(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-primary btn-active-primary btn-active-color-light btn-color-primary btn-sm m-1 btn-con-tooltip"
                     data-label="Asignar Técnicos">
@@ -204,7 +212,7 @@
                   </a>
 
                   <a href="#" onclick="return false;"
-                    *ngIf="(SOLICITUD.estado.id === 4 || (SOLICITUD.estado.id === 2 && !SOLICITUD.respuesta)) && isPermission('response_solicitud')"
+                    *ngIf="(SOLICITUD.estado.id === 5 || (SOLICITUD.estado.id === 2 && !SOLICITUD.respuesta)) && isPermission('response_solicitud')"
                     (click)="createRespuesta(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-success btn-active-success btn-active-color-light btn-color-success btn-sm m-1 btn-con-tooltip"
                     data-label="Responder">
@@ -216,7 +224,7 @@
                   </a>
 
                   <a href="#" onclick="return false;"
-                    *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 5) && isPermission('view_solicitud')"
+                    *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 6) && isPermission('response_solicitud')"
                     (click)="watchRespuesta(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Respuesta">
@@ -234,6 +242,27 @@
                     class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-active-color-light btn-color-danger btn-sm m-1 btn-con-tooltip"
                     data-label="Rechazar">
                     <i class="ki-duotone ki-cross-circle fs-1">
+                      <span class="path1"></span>
+                      <span class="path2"></span>
+                    </i>
+                  </a>
+
+                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id >= 5 && isPermission('view_bitacora')"
+                    (click)="verBitacora(SOLICITUD)"
+                    class="btn btn-icon btn-bg-light btn-hover-primary btn-active-primary btn-active-color-light btn-color-primary btn-sm m-1 btn-con-tooltip"
+                    data-label="Ver Bitacora">
+                    <i class="ki-duotone ki-tablet-ok fs-1">
+                      <span class="path1"></span>
+                      <span class="path2"></span>
+                      <span class="path3"></span>
+                    </i>
+                  </a>
+
+                  <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id >= 5 && isPermission('edit_bitacora')"
+                    (click)="editarBitacora(SOLICITUD)"
+                    class="btn btn-icon btn-active-secondary btn-sm m-1 btn-con-tooltip"
+                    data-label="Editar Bitacora">
+                    <i class="ki-duotone ki-notepad-edit fs-1">
                       <span class="path1"></span>
                       <span class="path2"></span>
                     </i>

@@ -14,6 +14,9 @@ import { Toast } from 'bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { RechazarSolicitudComponent } from '../rechazar-solicitud/rechazar-solicitud.component';
 import { isPermission } from 'src/app/config/config';
+import { myRol } from 'src/app/config/config';
+import { VerBitacoraComponent } from '../../bitacora/ver-bitacora/ver-bitacora.component';
+import { EditarBitacoraComponent } from '../../bitacora/editar-bitacora/editar-bitacora.component';
 
 @Component({
   selector: 'app-list-solicitud',
@@ -22,10 +25,12 @@ import { isPermission } from 'src/app/config/config';
 })
 export class ListSolicitudComponent {
   search: string = '';
+  estatu: number = 0;
   SOLICITUDES: any = [];
   isLoading$: any;
 
   tipos: any[];
+  estatus: any[];
   user: any;
 
   totalElements: number = 0;
@@ -41,25 +46,39 @@ export class ListSolicitudComponent {
 
   ngOnInit(): void {
     this.isLoading$ = this.solicitudesService.isLoading$;
-    this.listSolicitudes();
-    this.configAll();
     this.me();
+    
+    this.configAll();
+    this.configFiltro();
+    
   }
 
   me() {
     this.solicitudesService.listme().subscribe((resp: any) => {
       //console.log(resp);
       this.user = resp;
+      this.listSolicitudes();
     })
   }
 
   listSolicitudes(page = 1) {
-    this.solicitudesService.listSolicitud(page, this.pageSize, this.search).subscribe((resp: any) => {
-      console.log(resp);
-      this.SOLICITUDES = resp.solicitudes;
-      this.totalElements = resp.total;
-      this.currentPage = page;
-    });
+    // console.log(this.estatu)
+    if (myRol() != 2) {
+      this.solicitudesService.listSolicitud(page, this.pageSize, this.search, this.estatu).subscribe((resp: any) => {
+        console.log(resp);
+        this.SOLICITUDES = resp.solicitudes;
+        this.totalElements = resp.total;
+        this.currentPage = page;
+      });
+    } else {
+      console.log(this.user);
+      this.solicitudesService.misSolicitudesAtendidas(page, this.pageSize, this.search, this.user.id).subscribe((resp: any) => {
+        console.log(resp);
+        this.SOLICITUDES = resp.solicitudes;
+        this.totalElements = resp.total;
+        this.currentPage = page;
+      });
+    }
   }
 
   loadPage($event: any) {
@@ -71,6 +90,34 @@ export class ListSolicitudComponent {
     modalRef.componentInstance.idSolicitud = id;
     modalRef.componentInstance.BitacoraN.subscribe((resp: any) => {
       this.listSolicitudes();
+    });
+  }
+
+  verBitacora(solicitud: any) {
+    this.solicitudesService.getBitacora(solicitud.id).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        const modalRef = this.modalService.open(VerBitacoraComponent, { centered: true, size: 'md' });
+        modalRef.componentInstance.bitacora = resp;
+      },
+      error: (err) => {
+        console.error('Error al obtener la bitácora:', err);
+        this.toast.error("Error", "Error al obtener datos de la bitácora");
+      }
+    });
+  }
+
+  editarBitacora(solicitud: any) {
+    this.solicitudesService.getBitacora(solicitud.id).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        const modalRef = this.modalService.open(EditarBitacoraComponent, { centered: true, size: 'md' });
+        modalRef.componentInstance.bitacora = resp;
+      },
+      error: (err) => {
+        console.error('Error al obtener la bitácora:', err);
+        this.toast.error("Error", "Error al obtener datos de la bitácora");
+      }
     });
   }
 
@@ -201,12 +248,22 @@ export class ListSolicitudComponent {
     })
   }
 
+  configFiltro() {
+    this.solicitudesService.getEstatus().subscribe((resp: any) => {
+      this.estatus = resp;
+    })
+  }
+
   padFolio(folio: number): string {
     return folio.toString().padStart(3, '0');
   }
 
   isPermission(permission: string) {
     return isPermission(permission);
+  }
+
+  myRole() {
+    return myRol();
   }
 
   onChangeItemsPerPage() {

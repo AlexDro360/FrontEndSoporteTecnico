@@ -1,72 +1,114 @@
-<div class="card"  *ngIf="folios">
+<div class="card " style="height: 50vh;">
     <!--begin::Card header-->
-    <div class="card-body">
-        <div class="fw-bold text-center" style="font-size: 18px;">Configuración de Folios de Solicitud y Respuesta</div>
-        <div class="mb-3 text-gray-600" style="font-style: italic; font-size: 16px;"><br>La proxima solicitud o respuesta creada tomara el folio especificado en este apartado</div>
-        <div class="row g-5">
-            <!-- Tarjeta Folio Respuestas -->
-            <div class="col-md-6" *ngIf="isPermission('view_extra')" >
-                <div class="card">
-                    <div class="card-header border-0 pt-6 bg-primary d-flex justify-content-center">
-                        <h3 class="card-title m-0 fw-bold" style="color: white; font-size: 18px;">Folio Respuestas</h3>
-                    </div>
-                    <div class="card-body ">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="fw-semibold text-gray-600 fs-5">Folio Actual: <span id="FolioRespuesta">{{folios.FolioRespuesta}}</span>
-                            </div>
-                            <div>
-                                <button type="button" *ngIf="isPermission('reload_folio_respuesta')"
-                                    class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-color-danger btn-sm btn-con-tooltip m-1"
-                                    (click)="reiniciarFolioRespuestas()" title="Reiniciar Folio" data-label="Reiniciar Folio">
-                                    <i class="ki-duotone ki-arrow-circle-left fs-1">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </button>
-                                <button type="button" *ngIf="isPermission('reload_folio_respuesta')"
-                                    class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-color-info btn-sm me-1 btn-con-tooltip m-1"
-                                    (click)="editarFolioRespuestas()" title="Editar Folio" data-label="Editar Folio">
-                                    <i class="ki-duotone ki-pencil fs-1">
-                                        <span class="path1"></span><span class="path2"></span>
-                                    </i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="fw-bold mt-5 text-center" style="font-size: 18px;">Configuración de folios por departamento
+    </div>
+    <div class="card-header border-0">
 
-            <!-- Tarjeta Folio Solicitud -->
-            <div class="col-md-6" *ngIf="isPermission('view_extra')">
-                <div class="card">
-                    <div class="card-header border-0 pt-6 bg-primary d-flex justify-content-center">
-                        <h3 class="card-title m-0 fw-bold" style="color: white; font-size: 18px;">Folio Solicitud</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="fw-semibold text-gray-600 fs-5">Folio Actual: <span id="FolioSolicitud">{{folios.FolioSolicitud}}</span>
-                            </div>
-                            <div>
-                                <button type="button" *ngIf="isPermission('reload_folio_solicitud')"
-                                    class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-color-danger btn-sm btn-con-tooltip m-1"
-                                    (click)="reiniciarFolioSolicitud()" title="Reiniciar Folio" data-label="Reiniciar Folio">
-                                    <i class="ki-duotone ki-arrow-circle-left fs-1">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </button>
-                                <button type="button" *ngIf="isPermission('edit_folio_solicitud')"
-                                    class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-color-info btn-sm me-1 btn-con-tooltip m-1"
-                                    (click)="editarFolioSolicitud()" title="Editar Folio" data-label="Editar Folio">
-                                    <i class="ki-duotone ki-pencil fs-1">
-                                        <span class="path1"></span><span class="path2"></span>
-                                    </i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!--begin::Card title-->
+        <div class="card-title">
+            <!--begin::Search-->
+            <div class="d-flex align-items-center position-relative my-1">
+                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                    <span class="path1"></span><span class="path2"></span>
+                </i>
+                <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listFolios()"
+                    data-kt-customer-table-filter="search" style="font-size: 18px;"
+                    class="form-control form-control-solid w-250px ps-12" placeholder="Buscar folio" />
+            </div>
+            <!--end::Search-->
+        </div>
+        <!--begin::Card title-->
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    </div>
+    <!--end::Card header-->
+
+    <!--begin::Card body-->
+    <div class="card-body pt-0" style="overflow-y: auto;">
+        <!--begin::Table-->
+        <div id="kt_customers_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
+            <div id="" style="border-radius: 0.475rem;" class="table-responsive">
+                <table style="width: 100%; border-collapse: collapse;" class="table align-middle fs-6 gy-5 dataTable;"
+                    id="kt_customers_table" style="width: 100%">
+                    <thead class="bg-primary">
+                        <tr class="text-center rounded text-light fw-bold g-0 align-middle" style="font-size: 18px;">
+
+                            <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1"
+                                colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
+                                <span class="dt-column-title" role="button">Departamento</span><span
+                                    class="dt-column-order"></span>
+                            </th>
+
+                            <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1"
+                                colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
+                                <span class="dt-column-title" role="button">Abreviatura</span><span
+                                    class="dt-column-order"></span>
+                            </th>
+
+                            <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1"
+                                colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
+                                <span class="dt-column-title" role="button">Folio</span><span
+                                    class="dt-column-order"></span>
+
+                            <th class="min-w-70px dt-orderable-none" data-dt-column="2" rowspan="1" colspan="1"
+                                aria-label="Actions">
+                                <span class="dt-column-title">Acciones</span><span class="dt-column-order"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="fw-semibold text-gray-600">
+                        <ng-container *ngFor="let folio of folios.data">
+                            <tr>
+
+                                <td>
+                                    {{folio.nombre}}
+                                </td>
+
+                                <td>
+                                    {{folio.abreviatura}}
+                                </td>
+
+                                <td>
+                                    {{folio.folio}}
+                                </td>
+
+                                <td class="">
+                                    <button type="button" *ngIf="isPermission('reload_folio_solicitud')"
+                                        class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-color-danger btn-sm btn-con-tooltip m-1"
+                                        (click)="reiniciarFolioSolicitud(folio)" title="Reiniciar Folio"
+                                        data-label="Reiniciar Folio">
+                                        <i class="ki-duotone ki-arrow-circle-left fs-1">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </button>
+                                    <button type="button" *ngIf="isPermission('edit_folio_solicitud')"
+                                        class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-color-info btn-sm me-1 btn-con-tooltip m-1"
+                                        (click)="editarFolioSolicitud(folio)" title="Editar Folio" data-label="Editar Folio">
+                                        <i class="ki-duotone ki-pencil fs-1">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-container>
+
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
             </div>
         </div>
+        <!--end::Table-->
+    </div>
+    <!--end::Card body-->
+    <div class="d-flex align-items-center justify-content-center mb-5">
+        <!-- <div class="fw-semibold text-gray-700 me-2">Elementos por página:</div> -->
+        <select id="categoria" class="form-control w-55px" [(ngModel)]="pageSize" (change)="onChangeItemsPerPage()">
+            <option [ngValue]=10>10</option>
+            <option [ngValue]=25>25</option>
+            <option [ngValue]=50>50 </option>
+            <option [ngValue]=100>100 </option>
+        </select>
+        <ngb-pagination [collectionSize]="totalPages" [(page)]="currentPage" [pageSize]="pageSize" [rotate]="true"
+            [boundaryLinks]="true" (pageChange)="loadPage($event)" [maxSize]="5" [ellipses]="false"></ngb-pagination>
     </div>
 </div>

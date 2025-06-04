@@ -39,10 +39,10 @@
 
                 <div class="fv-row row my-1">
                     <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Nuevo Folio Solicitud: </label>
+                        <label class="required fw-bold fs-6 mb-2">Folio de solicitudes para el departamento: {{folio.nombre}} </label>
                         <span style="font-style: italic;"><br>La proxima solicitud que se cree tomara el folio que ingrese</span>
                         <input type="number" min="0" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Folio de solicitud" [(ngModel)]="folios.FolioSolicitud" />
+                            placeholder="Folio de solicitud" [(ngModel)]="folio.folio" />
                         <div *ngIf="estadoF" class="alert alert-danger" role="alert">
                             Es necesario el folio
                         </div>
