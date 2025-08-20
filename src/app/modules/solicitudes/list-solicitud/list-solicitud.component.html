@@ -70,44 +70,42 @@
   <!--begin::Card body-->
   <div class="card-body pt-0">
     <!--begin::Table-->
-    <div id="kt_customers_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
-      <div id="" style="border-radius: 0.475rem;" class="table-responsive">
-        <table style="width: 100%; border-collapse: collapse;" class="table align-middle fs-6 gy-5 dataTable;"
-          id="kt_customers_table" style="width: 100%">
-          <thead class="bg-primary">
-            <tr class="text-center rounded fw-bold g-0 align-middle" style="font-size: 18px; color: white;">
+      <div style="overflow:auto;">
+        <table style="border-collapse: separate; border-spacing: 0; border-radius: 0.475rem;" class="table align-middle fs-6 gy-5 dataTable;">
+          <thead>
+            <tr class="text-center fw-bold fs-3 g-0 align-middle" style=" color: white; border-radius: 0.475rem;"> 
 
-              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+              <th class="min-w-125px bg-primary" style="border-top-left-radius: 0.475rem;" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
                 <span class="dt-column-title" role="button">Folio</span><span class="dt-column-order"></span>
               </th>
 
-              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+              <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc " data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
                 <span class="dt-column-title" role="button">Solicitante</span><span class="dt-column-order"></span>
               </th>
 
-              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+              <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
                 <span class="dt-column-title" role="button"> departamento</span><span class="dt-column-order"></span>
               </th>
 
-              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+              <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
                 <span class="dt-column-title" role="button"> Fecha</span><span class="dt-column-order"></span>
               </th>
 
-              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+              <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
                 <span class="dt-column-title" role="button">Estatus</span><span class="dt-column-order"></span>
               </th>
 
-              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+              <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
                 <span class="dt-column-title" role="button">Tipo de Problema</span><span class="dt-column-order"></span>
               </th>
 
-              <th class="min-w-70px dt-orderable-none" data-dt-column="2" rowspan="1" colspan="1" aria-label="Actions">
+              <th class="min-w-70px bg-primary dt-orderable-none" style="border-top-right-radius: 0.475rem;" data-dt-column="2" rowspan="1" colspan="1" aria-label="Actions">
                 <span class="dt-column-title">Acciones</span><span class="dt-column-order"></span>
               </th>
             </tr>
@@ -147,33 +145,33 @@
 
                 <td>
                   <div *ngIf="SOLICITUD.estado.id === 1"
-                    class="w-125px rounded-pill bg-primary text-center fw-bold text-gray-100 p-2">
+                    class="w-125px rounded-pill bg-primary text-center fw-bold text-white p-2">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
                   <div *ngIf="SOLICITUD.estado.id === 2"
-                    class="w-125px rounded-pill bg-danger text-center fw-bold text-gray-100 p-2">
+                    class="w-125px rounded-pill bg-danger text-center fw-bold text-white p-2">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
                   <div *ngIf="SOLICITUD.estado.id === 3"
-                    class="w-125px rounded-pill bg-warning text-center fw-bold text-gray-100 p-2">
+                    class="w-125px rounded-pill bg-warning text-center fw-bold text-white p-2">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
                   <div *ngIf="SOLICITUD.estado.id === 4"
-                    class="w-125px rounded-pill text-center fw-bold text-gray-100 p-2"
+                    class="w-125px rounded-pill text-center fw-bold text-white p-2"
                     style="background-color: #fd7e14;">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
                   <div *ngIf="SOLICITUD.estado.id === 5"
-                    class="w-125px rounded-pill bg-info text-center fw-bold text-gray-100 p-2">
+                    class="w-125px rounded-pill bg-info text-center fw-bold text-white p-2">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
                   <div *ngIf="SOLICITUD.estado.id === 6"
-                    class="w-125px rounded-pill bg-success text-center fw-bold text-gray-100 p-2">
+                    class="w-125px rounded-pill bg-success text-center fw-bold text-white p-2">
                     {{SOLICITUD.estado.nombre}}
                   </div>
                 </td>
@@ -185,7 +183,7 @@
                 <td class="">
                   <a href="#" onclick="return false;" (click)="verSolicitud(SOLICITUD)"
                     *ngIf="isPermission('view_solicitud')"
-                    class="btn btn-icon btn-bg-light btn-hover-dark btn-active-dark btn-active-color-light btn-color-dark btn-sm m-1 btn-con-tooltip"
+                    class="btn btn-icon bg-gray-400 btn-hover-dark btn-active-dark btn-active-color-white btn-color-dark btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Solicitud">
                     <i class="ki-solid ki-eye fs-1"></i>
                   </a>
@@ -193,7 +191,7 @@
                   <a href="#" onclick="return false;"
                     *ngIf="SOLICITUD.estado.id === 3 && isPermission('register_bitacora_solicitud')"
                     (click)="crearBitacora(SOLICITUD.id)"
-                    class="btn btn-icon btn-bg-light btn-hover-warning btn-active-warning btn-active-color-light btn-color-warning btn-sm m-1 btn-con-tooltip"
+                    class="btn btn-icon bg-gray-400 btn-hover-warning btn-active-warning btn-active-color-white btn-color-warning btn-sm m-1 btn-con-tooltip"
                     data-label="Agregar Bitácora">
                     <i class="ki-duotone ki-tablet-text-down fs-1">
                       <span class="path1"></span>
@@ -206,7 +204,7 @@
                   <a href="#" onclick="return false;"
                     *ngIf="(SOLICITUD.estado.id === 1 || SOLICITUD.estado.id === 4) && isPermission('asign_tecnico')"
                     (click)="asignarTecnicos(SOLICITUD)"
-                    class="btn btn-icon btn-bg-light btn-hover-primary btn-active-primary btn-active-color-light btn-color-primary btn-sm m-1 btn-con-tooltip"
+                    class="btn btn-icon bg-gray-400 btn-hover-primary btn-active-primary btn-color-primary btn-active-color-white btn-sm m-1 btn-con-tooltip"
                     data-label="Asignar Técnicos">
                     <i class="bi bi-person-plus-fill fs-1"></i>
                   </a>
@@ -214,7 +212,7 @@
                   <a href="#" onclick="return false;"
                     *ngIf="(SOLICITUD.estado.id === 5 || (SOLICITUD.estado.id === 2 && !SOLICITUD.respuesta)) && isPermission('response_solicitud')"
                     (click)="createRespuesta(SOLICITUD)"
-                    class="btn btn-icon btn-bg-light btn-hover-success btn-active-success btn-active-color-light btn-color-success btn-sm m-1 btn-con-tooltip"
+                    class="btn btn-icon bg-gray-400 btn-hover-success btn-active-success btn-color-success btn-active-color-white btn-sm m-1 btn-con-tooltip"
                     data-label="Responder">
                     <i class="ki-duotone ki-message-text-2 fs-1">
                       <span class="path1"></span>
@@ -226,7 +224,7 @@
                   <a href="#" onclick="return false;"
                     *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 6) && isPermission('response_solicitud')"
                     (click)="watchRespuesta(SOLICITUD)"
-                    class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
+                    class="btn btn-icon bg-gray-400 btn-hover-info btn-active-info btn-color-info btn-active-color-white btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Respuesta">
                     <i class="ki-duotone ki-directbox-default fs-1">
                       <span class="path1"></span>
@@ -239,7 +237,7 @@
                   <a href="#" onclick="return false;"
                     *ngIf="SOLICITUD.estado.id === 1 && isPermission('decline_solicitud')"
                     (click)="rechazarSolicitud(SOLICITUD)"
-                    class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-active-color-light btn-color-danger btn-sm m-1 btn-con-tooltip"
+                    class="btn btn-icon bg-gray-400 btn-hover-danger btn-active-danger btn-color-danger btn-active-color-white btn-sm m-1 btn-con-tooltip"
                     data-label="Rechazar">
                     <i class="ki-duotone ki-cross-circle fs-1">
                       <span class="path1"></span>
@@ -249,7 +247,7 @@
 
                   <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id >= 5 && isPermission('view_bitacora')"
                     (click)="verBitacora(SOLICITUD)"
-                    class="btn btn-icon btn-bg-light btn-hover-primary btn-active-primary btn-active-color-light btn-color-primary btn-sm m-1 btn-con-tooltip"
+                    class="btn btn-icon bg-gray-400 btn-hover-primary btn-active-primary btn-color-primary btn-active-color-white btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Bitacora">
                     <i class="ki-duotone ki-tablet-ok fs-1">
                       <span class="path1"></span>
@@ -260,7 +258,7 @@
 
                   <a href="#" onclick="return false;" *ngIf="SOLICITUD.estado.id >= 5 && isPermission('edit_bitacora')"
                     (click)="editarBitacora(SOLICITUD)"
-                    class="btn btn-icon btn-active-secondary btn-sm m-1 btn-con-tooltip"
+                    class="btn btn-icon bg-gray-400 btn-hover-secondary btn-active-secondary btn-color-secondary btn-active-color-white btn-sm m-1 btn-con-tooltip"
                     data-label="Editar Bitacora">
                     <i class="ki-duotone ki-notepad-edit fs-1">
                       <span class="path1"></span>
@@ -286,8 +284,6 @@
         <ngb-pagination [collectionSize]="totalElements" [(page)]="currentPage" [pageSize]="pageSize" [rotate]="true"
           [boundaryLinks]="true" (pageChange)="loadPage($event)" [maxSize]="5" [ellipses]="false"></ngb-pagination>
       </div>
-
-    </div>
 
   </div>
   <!--end::Table-->

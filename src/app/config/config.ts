@@ -165,3 +165,9 @@ export function myRol(){
   
   return USER_AUTH.role_id;
 }
+
+export function myId(){
+  let USER_AUTH = JSON.parse(localStorage.getItem('user') ?? '');
+  
+  return USER_AUTH.id;
+}
