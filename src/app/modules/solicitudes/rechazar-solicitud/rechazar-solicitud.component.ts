@@ -62,7 +62,6 @@ export class RechazarSolicitudComponent {
 
             if (!bitacoraVacia) {
               modalRef.componentInstance.bitacora = result.bitacora;
-              console.log("bitacora no está vacía");
             }
             if (!jefeVacio) {
               modalRef.componentInstance.jefeCC = result.jefe;

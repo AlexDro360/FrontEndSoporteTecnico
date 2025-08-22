@@ -43,14 +43,12 @@ export class ListRespuestaComponent {
 
   me() {
     this.respuestaService.listme().subscribe((resp: any) => {
-      //console.log(resp);
       this.user = resp;
     })
   }
 
   listRespuestas(page = 1) {
     this.respuestaService.listarRespuestas(page).subscribe((resp: any) => {
-      console.log(resp);
       this.respuesta = resp;
     });
   }
@@ -72,7 +70,6 @@ export class ListRespuestaComponent {
         modalRef.componentInstance.user = this.user;
 
         modalRef.componentInstance.RespuestaN.subscribe((res: any) => {
-          console.log(res);
           this.listRespuestas();
         });
       },
@@ -145,7 +142,6 @@ export class ListRespuestaComponent {
         window.open(fileURL);
       },
       error: (err) => {
-        console.log(err);
         console.error('Error al generar el pdf', err);
         this.toast.error('Error al abrir el pdf', 'Error');
       }

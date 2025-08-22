@@ -69,7 +69,7 @@ export class EditarRespuestaComponent {
         this.modal.close();
       },
       error: (err) => {
-        console.log(err);
+
         console.error('Error al cargar los datos', err);
         this.toast.error('Error al actualizar los datos', 'Error');
       }

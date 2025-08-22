@@ -36,35 +36,9 @@ export class ConfigFolioComponent {
 
   listFolios(page = 1) {
     this.configService.listarFolios(page, this.pageSize, this.search).subscribe((resp: any) => {
-      console.log(resp);
       this.folios = resp;
-      console.log(this.folios)
     });
   }
-
-  // reiniciarFolioRespuestas() {
-  //   const modalRef = this.modalService.open(ResetRespuestaComponent, { centered: true, size: 'md' });
-  //   modalRef.componentInstance.ResetR.subscribe((res: any) => {
-  //     this.listFolios();
-  //   })
-  // }
-
-  // editarFolioRespuestas() {
-  //   // this.configService.listarFolios().subscribe({
-  //   //   next: (resp) => {
-  //   //     const modalRef = this.modalService.open(ActualizarRespuestaComponent, { centered: true, size: 'md' });
-  //   //     modalRef.componentInstance.folios = resp;
-  //   //     modalRef.componentInstance.FolioR.subscribe((res: any) => {
-  //   //       this.listFolios();
-  //   //     })
-  //   //   },
-  //   //   error: (err) => {
-  //   //     console.log(err);
-  //   //     console.error('Error al obtener los folios', err);
-  //   //     this.toast.error('Error al obtener los folios', 'Error');
-  //   //   }
-  //   // })
-  // }
 
   reiniciarFolioSolicitud(folio: any) {
     const modalRef = this.modalService.open(ResetSolicitudComponent, { centered: true, size: 'md' });

@@ -34,8 +34,6 @@ export class DashboardServiceService {
       .set('fechaInicio', filtros.fechaInicio || '')
       .set('fechaFin', filtros.fechaFin || '');
 
-    console.log(params.toString());
-
     const URL = `${URL_SERVICIOS}/reporte/datos-graficas`;
 
     return this.http.get(URL, { headers: headers, params: params }).pipe(

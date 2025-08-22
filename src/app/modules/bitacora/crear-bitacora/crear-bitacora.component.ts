@@ -36,7 +36,7 @@ export class CrearBitacoraComponent {
     public toast: ToastrService) { }
 
   ngOnInit(): void {
-    console.log(this.user);
+  
   }
 
   reiniciarAlertas() {
@@ -89,7 +89,6 @@ export class CrearBitacoraComponent {
           this.modal.close();
         },
         error: (err) => {
-          console.log(err);
           console.error('Error al cargar los datos', err);
           this.toast.error('Error al guardar los datos', 'Error');
         }
@@ -102,7 +101,6 @@ export class CrearBitacoraComponent {
           this.modal.close();
         },
         error: (err) => {
-          console.log(err);
           console.error('Error al cambiar el estado de la solicitud', err);
           this.toast.error('Error al guardar los datos', 'Error');
         }

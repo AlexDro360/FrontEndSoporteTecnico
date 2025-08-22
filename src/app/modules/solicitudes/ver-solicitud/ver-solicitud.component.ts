@@ -37,7 +37,6 @@ export class VerSolicitudComponent {
         window.open(fileURL);
       },
       error: (err) => {
-        console.log(err);
         console.error('Error al generar el pdf', err);
         this.toast.error('Error al abrir el pdf', 'Error');
       }
@@ -69,7 +68,6 @@ export class VerSolicitudComponent {
 
         if (!bitacoraVacia) {
           modalRef.componentInstance.bitacora = result.bitacora;
-          console.log("bitacora no está vacía");
         }
         if (!jefeVacio) {
           modalRef.componentInstance.jefeCC = result.jefe;
@@ -95,7 +93,6 @@ export class VerSolicitudComponent {
       respuesta: this.solicitudService.getRespuesta(this.solicitud.id)
     }).subscribe({
       next: (result) => {
-        console.log(result.respuesta);
         const modalRef = this.modalService.open(VerRespuestaComponent, { centered: true, size: 'md' });
         modalRef.componentInstance.respuesta = result.respuesta;
         modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
@@ -121,14 +118,7 @@ export class VerSolicitudComponent {
     });
   }
 
-  verBitacora(): void {
-    // const modalRef = this.modalService.open(VerBitacoraComponent, { centered: true, size: 'md' });
-    // modalRef.componentInstance.bitacora = bitacora;
-    // modalRef.componentInstance.descripcion = this.descripcion;
-
-    // modalRef.componentInstance.RespuestaV.subscribe((res: any) => {
-    // })
-  }
+  verBitacora(): void {}
 
   asignarTecnicos(): void {
     this.solicitudService.listTecnicos().subscribe({

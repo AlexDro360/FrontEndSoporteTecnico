@@ -31,7 +31,6 @@ export class VerSolicitudComponent {
         window.open(fileURL);
       },
       error: (err) => {
-        console.log(err);
         console.error('Error al generar el pdf', err);
         this.toast.error('Error al abrir el pdf', 'Error');
       }
@@ -45,7 +44,6 @@ export class VerSolicitudComponent {
       respuesta: this.solicitudService.getRespuesta(this.solicitud.id)
     }).subscribe({
       next: (result) => {
-        console.log(result.respuesta);
         const modalRef = this.modalService.open(VerRespuestaComponent, { centered: true, size: 'md' });
         modalRef.componentInstance.respuesta = result.respuesta;
         modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;

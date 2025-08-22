@@ -23,9 +23,7 @@ export class BorrarRespuestaComponent {
 
   }
 
-  ngOnInit(): void {
-    console.log(this.respuesta.id)
-  }
+  ngOnInit(): void {}
 
   delete() {
     this.respuestaService.borrarRespuesta(this.respuesta.id).subscribe({
@@ -35,7 +33,6 @@ export class BorrarRespuestaComponent {
         this.modal.close();
       },
       error: (err) => {
-        console.log(err);
         console.error('Error al cargar los datos', err);
         this.toast.error('Error al eliminar la respuesta', 'Error');
       }

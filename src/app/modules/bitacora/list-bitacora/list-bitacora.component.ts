@@ -47,7 +47,6 @@ export class ListBitacoraComponent {
 
   listBitacora(page = 1) {
     this.bitacoraService.listarBitacora(page, this.pageSize).subscribe((resp: any) => {
-      console.log(resp);
       this.bitacora = resp;
     });
   }
@@ -63,7 +62,6 @@ export class ListBitacoraComponent {
     modalRef.componentInstance.user = this.user;
 
     modalRef.componentInstance.BitacoraN.subscribe((res: any) => {
-      console.log(res);
       this.listBitacora();
     });
   }

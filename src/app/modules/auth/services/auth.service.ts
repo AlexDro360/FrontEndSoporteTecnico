@@ -52,7 +52,7 @@ export class AuthService implements OnDestroy {
   // public methods
   login(email: string, password: string): Observable<any> {
     
-    console.log(URL_SERVICIOS);
+    
     this.isLoadingSubject.next(true);
   
     return this.http.post(URL_SERVICIOS + "/auth/login", { email, password }).pipe(

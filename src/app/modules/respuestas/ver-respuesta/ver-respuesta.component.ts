@@ -32,7 +32,6 @@ export class VerRespuestaComponent {
         window.open(fileURL);
       },
       error: (err) => {
-        console.log(err);
         console.error('Error al generar el pdf', err);
         this.toast.error('Error al abrir el pdf', 'Error');
       }

@@ -55,25 +55,20 @@ export class ListSolicitudComponent {
 
   me() {
     this.solicitudesService.listme().subscribe((resp: any) => {
-      //console.log(resp);
       this.user = resp;
       this.listSolicitudes();
     })
   }
 
   listSolicitudes(page = 1) {
-    // console.log(this.estatu)
     if (myRol() != 2) {
       this.solicitudesService.listSolicitud(page, this.pageSize, this.search, this.estatu).subscribe((resp: any) => {
-        console.log(resp);
         this.SOLICITUDES = resp.solicitudes;
         this.totalElements = resp.total;
         this.currentPage = page;
       });
     } else {
-      console.log(this.user);
       this.solicitudesService.misSolicitudesAtendidas(page, this.pageSize, this.search, this.user.id).subscribe((resp: any) => {
-        console.log(resp);
         this.SOLICITUDES = resp.solicitudes;
         this.totalElements = resp.total;
         this.currentPage = page;
@@ -96,7 +91,6 @@ export class ListSolicitudComponent {
   verBitacora(solicitud: any) {
     this.solicitudesService.getBitacora(solicitud.id).subscribe({
       next: (resp: any) => {
-        console.log(resp);
         const modalRef = this.modalService.open(VerBitacoraComponent, { centered: true, size: 'md' });
         modalRef.componentInstance.bitacora = resp;
       },
@@ -110,7 +104,6 @@ export class ListSolicitudComponent {
   editarBitacora(solicitud: any) {
     this.solicitudesService.getBitacora(solicitud.id).subscribe({
       next: (resp: any) => {
-        console.log(resp);
         const modalRef = this.modalService.open(EditarBitacoraComponent, { centered: true, size: 'md' });
         modalRef.componentInstance.bitacora = resp;
       },
@@ -127,7 +120,6 @@ export class ListSolicitudComponent {
     modalRef.componentInstance.user = this.user;
 
     modalRef.componentInstance.SolicitudC.subscribe((tipo: any) => {
-      console.log(tipo);
       this.listSolicitudes();
     });
   }
@@ -189,14 +181,12 @@ export class ListSolicitudComponent {
 
         if (!bitacoraVacia) {
           modalRef.componentInstance.bitacora = result.bitacora;
-          console.log("bitacora no está vacía");
         }
         if (!jefeVacio) {
           modalRef.componentInstance.jefeCC = result.jefe;
         }
 
         modalRef.componentInstance.RespuestaN.subscribe((res: any) => {
-          console.log(res);
           this.listSolicitudes();
         });
       },
@@ -215,7 +205,6 @@ export class ListSolicitudComponent {
       respuesta: this.solicitudesService.getRespuesta(solicitud.id)
     }).subscribe({
       next: (result) => {
-        console.log(result.respuesta);
         const modalRef = this.modalService.open(VerRespuestaComponent, { centered: true, size: 'md' });
         modalRef.componentInstance.respuesta = result.respuesta;
         modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
@@ -237,7 +226,6 @@ export class ListSolicitudComponent {
     modalRef.componentInstance.solicitud = solicitud;
 
     modalRef.componentInstance.SolicitudR.subscribe((res: any) => {
-      console.log("actualizap");
       this.listSolicitudes();
     })
   }
@@ -267,7 +255,6 @@ export class ListSolicitudComponent {
   }
 
   onChangeItemsPerPage() {
-    console.log(this.pageSize)
     this.listSolicitudes();
   }
 

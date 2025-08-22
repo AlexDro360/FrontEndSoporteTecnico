@@ -43,7 +43,6 @@ export class ListUsersComponent {
   listUsers(page = 1) {
 
     this.usersService.listUsers(page, this.pageSize, this.search).subscribe((resp: any) => {
-      console.log(resp);
       this.USERS = resp.users;
       this.totalPages = resp.total;
       this.currentPage = page;
@@ -52,7 +51,6 @@ export class ListUsersComponent {
 
   configAll(){
     this.usersService.configAll().subscribe((resp: any) => {
-      console.log(resp);
       this.roles = resp.roles;
     })
   }

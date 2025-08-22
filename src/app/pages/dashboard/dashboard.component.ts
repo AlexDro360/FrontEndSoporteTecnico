@@ -67,8 +67,6 @@ export class DashboardComponent implements OnInit {
         this.cdr.detectChanges();
       }, 3000);
     }
-
-    console.log(this.fechaInvalida);
   }
 
   async openModal() {
@@ -88,7 +86,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getDatos() {
-    console.log(this.fechaInvalida);
     this.validarFechas();
     if (this.fechaInvalida) {
       return null
@@ -108,7 +105,6 @@ export class DashboardComponent implements OnInit {
       this.datos = resp;
       this.cargando = false;
       this.cdr.detectChanges();
-      console.log(this.datos)
     })
   }
 }

@@ -38,7 +38,6 @@ export class ListSolicitudComponent {
     this.isLoading$ = this.solicitudesService.isLoading$;
     this.solicitudesService.listme().subscribe((resp: any) => {
       this.user = resp;
-      console.log(this.user);
       this.listSolicitudes();
     });
     this.configAll();
@@ -51,7 +50,6 @@ export class ListSolicitudComponent {
 
   listSolicitudes(page = 1) {
     this.solicitudesService.listSolicitud(page, this.pageSize, this.search, this.user.id,).subscribe((resp: any) => {
-      console.log(resp);
       this.SOLICITUDES = resp.solicitudes;
       this.totalPages = resp.total;
       this.currentPage = page;
@@ -64,7 +62,6 @@ export class ListSolicitudComponent {
     modalRef.componentInstance.user = this.user;
 
     modalRef.componentInstance.SolicitudC.subscribe((tipo: any) => {
-      console.log(tipo);
       this.listSolicitudes();
     });
   }
@@ -76,7 +73,6 @@ export class ListSolicitudComponent {
         respuesta: this.solicitudesService.getRespuesta(solicitud.id)
       }).subscribe({
         next: (result) => {
-          console.log(result.respuesta);
           const modalRef = this.modalService.open(VerRespuestaComponent, { centered: true, size: 'md' });
           modalRef.componentInstance.respuesta = result.respuesta;
           modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;

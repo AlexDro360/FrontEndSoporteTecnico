@@ -55,7 +55,6 @@ export class JefesDepartamentoComponent {
     const modalRef = this.modalService.open(AgregarJefeComponent, { centered: true, size: 'mb' });
 
     modalRef.componentInstance.JefeA.subscribe((res: any) => {
-      console.log(res);
       this.listJefes();
     });
   }

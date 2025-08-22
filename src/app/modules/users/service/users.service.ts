@@ -80,7 +80,6 @@ export class UsersService {
   me(){
     this.listme().subscribe((data: any) =>{
       this.id = data.id;
-      console.log(this.id);
     });
   }
 

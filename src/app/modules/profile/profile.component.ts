@@ -40,6 +40,6 @@ export class ProfileComponent implements OnInit {
       this.fecha_create = data.created_format_at;
       this.cd.detectChanges();
     });
-    //console.log(this.n_empleado);
+  
   }
 }

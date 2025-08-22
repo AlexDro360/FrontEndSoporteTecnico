@@ -30,7 +30,6 @@ export class ResetRespuestaComponent {
         this.modal.close();
       },
       error: (err) => {
-        console.log(err);
         console.error('Error al cargar los datos', err);
         this.toast.error('Error al guardar los cambios', 'Error');
       }

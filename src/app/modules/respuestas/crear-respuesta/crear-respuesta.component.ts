@@ -47,8 +47,6 @@ export class CrearRespuestaComponent {
     this.user = userString ? JSON.parse(userString) : null;
     this.horas = Math.floor(this.bitacora.duracion / 60);
     this.minutos = this.bitacora.duracion % 60;
-
-    console.log(this.jefeCC);
   }
 
   reiniciarAlertas() {
@@ -132,7 +130,6 @@ export class CrearRespuestaComponent {
         this.modal.close();
       },
       error: (err) => {
-        console.log(err);
         console.error('Error al cargar los datos', err);
         this.toast.error('Error al guardar los datos', 'Error');
       }
@@ -141,8 +138,6 @@ export class CrearRespuestaComponent {
   configAll() {
 
     this.respuestaService.tiposMantenimientos().subscribe((resp: any) => {
-      console.log(resp);
-      console.log("resso");
       this.tipoMantenimiento = resp;
     })
 

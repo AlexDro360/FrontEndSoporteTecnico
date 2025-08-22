@@ -44,7 +44,6 @@ export class ListRolesComponent {
 
   listRoles(page =1){
     this.rolesService.listRoles(page, this.pageSize, this.search).subscribe((resp:any) => {
-      console.log(resp);
       this.ROLES = resp.roles;
       this.totalPages = resp.total;
       this.currentPage = page;

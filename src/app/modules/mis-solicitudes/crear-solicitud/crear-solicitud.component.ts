@@ -31,7 +31,6 @@ export class CrearSolicitudComponent {
     }
   
     ngOnInit(): void {
-      console.log(this.user);
     }
   
     store(){
@@ -57,7 +56,6 @@ export class CrearSolicitudComponent {
       formData.append('idTipo', this.tipo_id);
   
       this.solicitudService.registerSolicitud(formData).subscribe((resp:any) => {
-        console.log(resp); 
         if(resp.message == 403){
           this.toast.error("Validación", resp.message_text);
         }else{
