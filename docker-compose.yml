@@ -7,33 +7,45 @@ services:
     depends_on:
       - backend
 
-  backend:
-    build: ./BackEndSoporteTecnico
-    container_name: backend
+  php-fpm:
+    build:
+      context: ./BackEndSoporteTecnico
+      dockerfile: Dockerfile
+    container_name: php-fpm
     volumes:
       - ./BackEndSoporteTecnico:/var/www
-    ports:
-      - "8000:80"
-    depends_on:
-      - db
+    expose:
+      - "9000"
     environment:
       DB_CONNECTION: mysql
-      DB_HOST: ticketsApi
+      DB_HOST: tickets-db
       DB_PORT: 3306
-      DB_DATABASE: ticketsitos
+      DB_DATABASE: db-tickets
       DB_USERNAME: root
       DB_PASSWORD: T3mp0r4l
 
+  backend:
+    build:
+      context: ./BackEndSoporteTecnico
+      dockerfile: nginx.Dockerfile
+    container_name: backend
+    volumes:
+      - ./BackEndSoporteTecnico:/var/www
+      - ./BackEndSoporteTecnico/nginx-backend.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8000:80"
+    depends_on:
+      - php-fpm
+
   db:
     image: mysql:8
-    container_name: ticketsApi
-    restart: always
+    container_name: tickets-db
     environment:
       MYSQL_ROOT_PASSWORD: T3mp0r4l
-      MYSQL_DATABASE: api_tickets
+      MYSQL_DATABASE: db-tickets
     volumes:
-      - ticketsApi-data:/var/lib/mysql
+      - dbtickets-data:/var/lib/mysql
 
 volumes:
-  ticketsApi-data:
+  dbtickets-data:
     driver: local
