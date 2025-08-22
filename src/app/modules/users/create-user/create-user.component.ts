@@ -40,7 +40,7 @@ export class CreateUserComponent {
   
     ngOnInit():void {
       this.userService.getDepartamentos().subscribe((data)=>{
-        this.departamentos=data.departamento; 
+        this.departamentos=data.departamento;
         const id_dep = this.departamentos.find(d => d.nombre === this.departamento_id);
         if (id_dep) {
           this.departamento_id = id_dep.id;
