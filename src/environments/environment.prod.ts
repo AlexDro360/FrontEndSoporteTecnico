@@ -7,7 +7,7 @@ export const environment = {
   appVersion: 'v8.1.8',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: false,
-  apiUrl: 'http://backend:8000/api',
+  apiUrl: '/api',
   appThemeName: 'Metronic',
   appPurchaseUrl: 'https://1.envato.market/EA4JP',
   appHTMLIntegration: 'https://preview.keenthemes.com/metronic8/demo1/documentation/base/helpers/flex-layouts.html',
@@ -156,7 +156,7 @@ export const environment = {
       'thumbnail': './assets/media/demos/demo20.png'
     },
   },
-  URL_SERVICIOS: 'http://backend:8000/api', 
+  URL_SERVICIOS: '/api', 
   URL_BACKEND: '',       
   URL_FRONTED: '',       
 };
