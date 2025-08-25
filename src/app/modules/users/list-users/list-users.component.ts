@@ -45,6 +45,7 @@ export class ListUsersComponent {
 
     this.usersService.listUsers(page, this.pageSize, this.search).subscribe((resp: any) => {
       this.USERS = resp.users;
+      console.log(this.USERS)
       this.totalPages = resp.total;
       this.currentPage = page;
     })
