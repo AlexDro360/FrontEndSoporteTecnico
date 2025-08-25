@@ -46,7 +46,12 @@ export class ProfileComponent implements OnInit {
     if(this.avatar === 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg'){
       return this.avatar;
     }else{
-      return 'http://10.168.0.108:8000' + this.avatar;
+
+      this.avatar = this.avatar.replace(
+          "http://10.168.0.108/storage",
+          "http://10.168.0.108:8000/storage"
+        );
+      return this.avatar
     }
   }
 }
