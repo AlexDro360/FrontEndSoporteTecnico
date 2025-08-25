@@ -56,10 +56,10 @@ export class BitacoraService {
     );
   }
 
-  listarBitacora(page = 1, perPage = 10) {
+  listarBitacora(page = 1, perPage = 10, search: string = '') {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/bitacora?page=" + page + "&perPage=" + perPage;
+    let URL = URL_SERVICIOS + "/bitacora?page=" + page + "&perPage=" + perPage + "&search=" + search;
     return this.http.get(URL, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

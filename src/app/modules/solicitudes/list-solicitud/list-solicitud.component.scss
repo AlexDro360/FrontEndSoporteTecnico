@@ -1,5 +1,6 @@
 .btn-con-tooltip {
     position: relative;
+    background-color: #dddddd;
     &:hover::after {
       content: attr(data-label);
       position: absolute;
@@ -18,4 +19,3 @@
     }
   }
   
-

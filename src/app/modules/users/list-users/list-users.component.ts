@@ -7,6 +7,7 @@ import { WatchUserComponent } from '../watch-user/watch-user.component';
 import { UsersService } from '../service/users.service';
 import { isPermission } from 'src/app/config/config';
 import { CommonModule } from '@angular/common';
+import { UpUserComponent } from '../up-user/up-user.component';
 
 @Component({
   selector: 'app-list-users',
@@ -83,6 +84,18 @@ export class ListUsersComponent {
 
   deleteUser(USER: any) {
     const modalRef = this.modalService.open(DeleteUserComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.USER_SELECTED = USER;
+
+    modalRef.componentInstance.UserD.subscribe((user: any) => {
+      let INDEX = this.USERS.findIndex((user: any) => user.id == USER.id);
+      if (INDEX != -1) {
+        this.USERS.splice(INDEX, 1);
+      }
+    })
+  }
+
+  altaUser(USER: any) {
+    const modalRef = this.modalService.open(UpUserComponent, { centered: true, size: 'md' });
     modalRef.componentInstance.USER_SELECTED = USER;
 
     modalRef.componentInstance.UserD.subscribe((user: any) => {

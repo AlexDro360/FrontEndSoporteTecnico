@@ -46,7 +46,9 @@ export class ListBitacoraComponent {
   }
 
   listBitacora(page = 1) {
-    this.bitacoraService.listarBitacora(page, this.pageSize).subscribe((resp: any) => {
+
+
+    this.bitacoraService.listarBitacora(page, this.pageSize, this.search).subscribe((resp: any) => {
       this.bitacora = resp;
     });
   }

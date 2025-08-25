@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModalModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { WatchUserComponent } from './watch-user/watch-user.component';
+import { UpUserComponent } from './up-user/up-user.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { WatchUserComponent } from './watch-user/watch-user.component';
     EditUserComponent,
     DeleteUserComponent,
     ListUsersComponent,
-    WatchUserComponent
+    WatchUserComponent,
+    UpUserComponent
   ],
   imports: [
     CommonModule,

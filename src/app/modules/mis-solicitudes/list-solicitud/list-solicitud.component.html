@@ -9,8 +9,8 @@
           <span class="path1"></span><span class="path2"></span>
         </i>
         <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listSolicitudes()"
-          data-kt-customer-table-filter="search" style="font-size: 18px;"
-          class="form-control form-control-solid w-250px ps-12" placeholder="Buscar Solicitud" />
+          data-kt-customer-table-filter="search"
+          class="form-control form-control-solid w-250px ps-12 fs-3" placeholder="Buscar Solicitud" />
       </div>
       <!--end::Search-->
     </div>
@@ -21,7 +21,7 @@
       <!--begin::Toolbar-->
       <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
         <!--begin::Add customer-->
-        <button type="button" style="font-size: 18px;" class="btn btn-primary" (click)="createSolicitud()">
+        <button type="button" class="btn btn-primary fs-3" (click)="createSolicitud()">
           + Crear Solicitud
         </button>
         <!--end::Add customer-->
@@ -53,11 +53,11 @@
         <table style="width: 100%; border-collapse: collapse;" class="table align-middle fs-6 gy-5 dataTable;"
           id="kt_customers_table" style="width: 100%">
           <thead class="bg-primary">
-            <tr class="text-center rounded fw-bold g-0 align-middle" style="font-size: 18px; color: white;">
+            <tr class="text-center rounded fw-bold g-0 align-middle fs-3" style="color: white;">
 
               <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
-                <span class="dt-column-title" role="button">Folio</span><span class="dt-column-order"></span>
+                <span class="dt-column-title" role="button">Folio de Solicitud</span><span class="dt-column-order"></span>
               </th>
 
               <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"

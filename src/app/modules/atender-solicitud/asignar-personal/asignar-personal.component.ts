@@ -21,8 +21,8 @@ export class AsignarPersonalComponent {
   fechaAtencion: any;
 
   estadoPA: boolean = false;
-  estadoFA: boolean = false;
-  estadoHA: boolean = false;
+  estadoFA: boolean = true;
+  estadoHA: boolean = true;
 
   constructor(
     public atenderService: AtenderSolicitudService,
@@ -67,19 +67,19 @@ export class AsignarPersonalComponent {
       this.estadoPA = true;
     }
 
-    if (this.fechaAtencion == null) {
-      // this.toast.warning("Advertencia", "Ingrese la fecha de atención");
-      // return false;
-      error = true;
-      this.estadoFA = true;
-    }
+    // if (this.fechaAtencion == null) {
+    //   // this.toast.warning("Advertencia", "Ingrese la fecha de atención");
+    //   // return false;
+    //   error = true;
+    //   this.estadoFA = true;
+    // }
 
-    if (this.horaAtencion == null) {
-      // this.toast.warning("Advertencia", "Ingrese la hora de atención");
-      // return false;
-      error = true;
-      this.estadoHA = true;
-    }
+    // if (this.horaAtencion == null) {
+    //   // this.toast.warning("Advertencia", "Ingrese la hora de atención");
+    //   // return false;
+    //   error = true;
+    //   this.estadoHA = true;
+    // }
 
     if(error){
       return false;

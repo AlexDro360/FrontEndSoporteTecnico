@@ -154,7 +154,7 @@ export class SolicitudService {
   obtenerPDF(id: any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = `${URL_SERVICIOS}/solicitud/pdf/${id}`;
+    let URL = `${URL_SERVICIOS}/pdf/solicitud/${id}`;
     return this.http.get(URL, { headers: headers, responseType: 'blob'}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

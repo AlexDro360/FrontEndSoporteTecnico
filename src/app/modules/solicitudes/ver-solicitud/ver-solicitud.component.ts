@@ -37,7 +37,7 @@ export class VerSolicitudComponent {
         window.open(fileURL);
       },
       error: (err) => {
-        console.error('Error al generar el pdf', err);
+        console.error('Error al obtener el pdf', err);
         this.toast.error('Error al abrir el pdf', 'Error');
       }
     })

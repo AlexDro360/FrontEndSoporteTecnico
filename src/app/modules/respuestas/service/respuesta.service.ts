@@ -90,7 +90,7 @@ export class RespuestaService {
   obtenerPDF(id: any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = `${URL_SERVICIOS}/pdf/${id}`;
+    let URL = `${URL_SERVICIOS}/pdf/respuesta/${id}`;
     return this.http.get(URL, { headers: headers, responseType: 'blob'}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

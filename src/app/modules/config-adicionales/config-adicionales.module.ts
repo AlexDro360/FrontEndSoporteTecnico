@@ -18,6 +18,7 @@ import { ResetSolicitudComponent } from './reset-solicitud/reset-solicitud.compo
 import { ResetRespuestaComponent } from './reset-respuesta/reset-respuesta.component';
 import { ActualizarRespuestaComponent } from './actualizar-respuesta/actualizar-respuesta.component';
 import { ActualizarSolicitudComponent } from './actualizar-solicitud/actualizar-solicitud.component';
+import { FolioRespuestaComponent } from './folio-respuesta/folio-respuesta.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ActualizarSolicitudComponent } from './actualizar-solicitud/actualizar-
     ResetSolicitudComponent,
     ResetRespuestaComponent,
     ActualizarRespuestaComponent,
-    ActualizarSolicitudComponent
+    ActualizarSolicitudComponent,
+    FolioRespuestaComponent
   ],
   imports: [
     CommonModule,
