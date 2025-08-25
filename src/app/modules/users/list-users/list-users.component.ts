@@ -19,7 +19,7 @@ export class ListUsersComponent {
   search: string = '';
   USERS: any = [];
   isLoading$: any;
-
+  imagen:any[];
   roles: any[];
 
   totalPages: number = 0;
@@ -47,10 +47,19 @@ export class ListUsersComponent {
 
     this.usersService.listUsers(page, this.pageSize, this.search).subscribe((resp: any) => {
       this.USERS = resp.users;
-      console.log(this.USERS)
       this.totalPages = resp.total;
       this.currentPage = page;
     })
+
+    this.USERS.array.forEach((user:any) => {
+       if (user.avatar) {
+      user.avatar = user.avatar.replace(
+        "http://10.168.0.108/storage",
+        "http://10.168.0.108:8000/storage"
+    );
+  }
+      
+    });
   }
 
   configAll() {
