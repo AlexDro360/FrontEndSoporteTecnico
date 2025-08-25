@@ -77,6 +77,13 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  get avatarUrl(){
+    if(this.avatar === 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg'){
+      return this.avatar;
+    }else{
+      return 'http://10.168.0.108:8000' + this.avatar;
+    }
+  }
 }
 
 interface LanguageFlag {
