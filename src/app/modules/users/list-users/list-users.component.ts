@@ -44,23 +44,23 @@ export class ListUsersComponent {
   }
 
   listUsers(page = 1) {
+  this.usersService.listUsers(page, this.pageSize, this.search).subscribe((resp: any) => {
+    this.USERS = resp.users;
+    this.totalPages = resp.total;
+    this.currentPage = page;
 
-    this.usersService.listUsers(page, this.pageSize, this.search).subscribe((resp: any) => {
-      this.USERS = resp.users;
-      this.totalPages = resp.total;
-      this.currentPage = page;
-    })
-
-    this.USERS.forEach((user:any) => {
-       if (user.avatar) {
-      user.avatar = user.avatar.replace(
-        "http://10.168.0.108/storage",
-        "http://10.168.0.108:8000/storage"
-    );
-  }
-      
+    this.USERS.forEach((user: any) => {
+      if (user.avatar) {
+        user.avatar = user.avatar.replace(
+          "http://10.168.0.108/storage",
+          "http://10.168.0.108:8000/storage"
+        );
+      }
     });
-  }
+
+    console.log(this.USERS);
+  });
+}
 
   configAll() {
     this.usersService.configAll().subscribe((resp: any) => {
