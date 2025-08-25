@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { RoleRedirectGuard } from '../modules/auth/services/RoleRedirectGuard';
+import { RoleRedirectComponent } from '../modules/auth/services/role-redirect.component';
 
 const Routing: Routes = [
   {
@@ -77,7 +79,7 @@ const Routing: Routes = [
   },
   {
     path: '',
-    redirectTo: '/dashboard',
+    component: RoleRedirectComponent,
     pathMatch: 'full',
   },
   {
