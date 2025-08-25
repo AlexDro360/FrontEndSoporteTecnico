@@ -75,7 +75,7 @@
 <div class="app-navbar-item" [ngClass]="itemClass">
   <!--begin::Menu wrapper-->
   <div class="cursor-pointer symbol" [ngClass]="userAvatarClass" data-kt-menu-trigger="{default: 'click'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-   <img [src]="avatar ? 'http://10.168.0.108:8000' + avatar : 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg'" />
+   <img [src]="avatarUrl" />
 
   </div>
   <app-user-inner data-kt-menu='true'></app-user-inner>

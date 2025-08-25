@@ -1,4 +1,4 @@
-import { Component, Input, OnInit , ChangeDetectorRef} from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UsersService } from 'src/app/modules/users/service/users.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     public usersService: UsersService,
     private cd: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadUserFromStorage();
@@ -38,4 +38,13 @@ export class NavbarComponent implements OnInit {
       }
     }
   }
+
+  get avatarUrl(){
+    if(this.avatar === 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg'){
+      return this.avatar;
+    }else{
+      return 'http://10.168.0.108:8000' + this.avatar;
+    }
+  }
+
 }
