@@ -51,7 +51,7 @@ export class ListUsersComponent {
       this.currentPage = page;
     })
 
-    this.USERS.array.forEach((user:any) => {
+    this.USERS.forEach((user:any) => {
        if (user.avatar) {
       user.avatar = user.avatar.replace(
         "http://10.168.0.108/storage",
