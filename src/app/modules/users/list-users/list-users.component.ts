@@ -8,6 +8,7 @@ import { UsersService } from '../service/users.service';
 import { isPermission } from 'src/app/config/config';
 import { CommonModule } from '@angular/common';
 import { UpUserComponent } from '../up-user/up-user.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list-users',
@@ -19,7 +20,7 @@ export class ListUsersComponent {
   USERS: any = [];
   isLoading$: any;
 
-  roles:any[];
+  roles: any[];
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -27,6 +28,7 @@ export class ListUsersComponent {
   constructor(
     public modalService: NgbModal,
     public usersService: UsersService,
+    private sanitizer: DomSanitizer,
   ) {
 
   }
@@ -51,7 +53,7 @@ export class ListUsersComponent {
     })
   }
 
-  configAll(){
+  configAll() {
     this.usersService.configAll().subscribe((resp: any) => {
       this.roles = resp.roles;
     })
@@ -112,7 +114,11 @@ export class ListUsersComponent {
     modalRef.componentInstance.USER_SELECTED = USER;
   }
 
-  isPermission(permission:string){
-      return isPermission(permission);
+  isPermission(permission: string) {
+    return isPermission(permission);
+  }
+
+  getSafeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }
