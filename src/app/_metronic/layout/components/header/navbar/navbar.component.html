@@ -75,7 +75,7 @@
 <div class="app-navbar-item" [ngClass]="itemClass">
   <!--begin::Menu wrapper-->
   <div class="cursor-pointer symbol" [ngClass]="userAvatarClass" data-kt-menu-trigger="{default: 'click'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-    <img [src]="avatar" />
+    <img [src]="'http://10.168.0.108:8000' + avatar" />
   </div>
   <app-user-inner data-kt-menu='true'></app-user-inner>
   <!--end::Menu wrapper-->

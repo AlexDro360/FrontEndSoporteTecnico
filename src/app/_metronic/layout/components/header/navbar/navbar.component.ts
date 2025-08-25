@@ -31,11 +31,7 @@ export class NavbarComponent implements OnInit {
     if (userString) {
       try {
         const user = JSON.parse(userString);
-        this.avatar = user.avatar.replace(
-          "http://10.168.0.108:8001/storage",
-          "http://10.168.0.108:8000/storage"
-        );
-        console.log(this.avatar);
+        this.avatar = user.avatar;
         this.cd.detectChanges();
       } catch (e) {
         console.error('Error parsing user from localStorage', e);
