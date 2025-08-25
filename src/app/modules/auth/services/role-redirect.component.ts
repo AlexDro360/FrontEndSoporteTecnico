@@ -15,7 +15,7 @@ export class RoleRedirectComponent {
     if (role === 'Super-Admin') {
       this.router.navigate(['/dashboard']);
     } else {
-      this.router.navigate(['/mis-solicitudes']);
+      this.router.navigate(['/mis-solicitudes/list']);
     }
   }
 }
