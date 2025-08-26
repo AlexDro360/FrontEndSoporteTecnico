@@ -9,8 +9,6 @@ export class RoleRedirectGuard implements CanActivate {
 
   canActivate(): boolean {
     const role = this.authService.user?.role;
-
-    console.log(role)
     if (role === 'Super-Admin') {
       this.router.navigate(['/dashboard']);
     } else {

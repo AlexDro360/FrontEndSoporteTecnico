@@ -11,7 +11,6 @@ export class RoleRedirectComponent {
     const role = this.authService.user?.role_id;
 
     // Redirige según el rol
-    console.log(this.authService.user);
     if (role === 1) {
       this.router.navigate(['/dashboard']);
     } else if ((role === 2)){
