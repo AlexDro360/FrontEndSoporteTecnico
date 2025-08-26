@@ -57,8 +57,6 @@ export class ListUsersComponent {
         );
       }
     });
-
-    console.log(this.USERS);
   });
 }
 
