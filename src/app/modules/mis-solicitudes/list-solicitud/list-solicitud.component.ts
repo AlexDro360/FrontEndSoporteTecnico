@@ -108,4 +108,16 @@ export class ListSolicitudComponent {
   loadPage($event: any) {
     this.listSolicitudes($event);
   }
+  get avatarUrl(){
+    if(this.user.avatar === 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg'){
+      return this.user.avatar;
+    }else{
+
+      this.user.avatar = this.user.avatar.replace(
+          "http://10.168.0.108/storage",
+          "http://10.168.0.108:8000/storage"
+        );
+      return this.user.avatar
+    }
+  }
 }
