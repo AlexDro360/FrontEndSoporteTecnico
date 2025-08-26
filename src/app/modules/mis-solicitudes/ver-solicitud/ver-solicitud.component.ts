@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 import { VerRespuestaComponent } from '../../respuestas/ver-respuesta/ver-respuesta.component';
 import { MisSolicitudesService } from '../service/mis-solicitudes.service';
-
+import { isPermission } from 'src/app/config/config';
 @Component({
   selector: 'app-ver-solicitud',
   templateUrl: './ver-solicitud.component.html',
@@ -59,4 +59,7 @@ export class VerSolicitudComponent {
       }
     });
   }
+  isPermission(permission: string) {
+      return isPermission(permission);
+    }
 }
