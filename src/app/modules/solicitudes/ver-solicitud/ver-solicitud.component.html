@@ -122,7 +122,7 @@
 
       <!-- Ver respuesta (estado 2 o 5) -->
       <button
-        *ngIf="((solicitud.estado.id === 2 && solicitud.respuesta)  || solicitud.estado.id === 6) && isPermission('response_solicitud')"
+        *ngIf="((solicitud.estado.id === 2 && solicitud.respuesta)  || solicitud.estado.id === 6) && (isPermission('response_solicitud')||isPermission('view_response_my_solicitudes'))"
         type="button" class="btn btn-info m-1 text-white" (click)="verRespuesta()">
         <span class="indicator-label">Ver respuesta</span>
         <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
