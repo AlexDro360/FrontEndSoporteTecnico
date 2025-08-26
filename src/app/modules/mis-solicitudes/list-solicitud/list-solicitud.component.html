@@ -149,8 +149,8 @@
                   </a>
 
                   <a href="#" onclick="return false;"
-                    *ngIf="(SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 5"
-                    (click)="watchRespuesta(SOLICITUD)"
+                    *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 6) && isPermission('response_solicitud')"
+                  (click)="watchRespuesta(SOLICITUD)"
                     class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Respuesta">
                     <i class="ki-duotone ki-directbox-default fs-1">

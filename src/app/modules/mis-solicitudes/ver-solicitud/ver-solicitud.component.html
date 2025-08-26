@@ -114,6 +114,7 @@
       </button>
 
       <!-- Ver respuesta (estado 2 o 5) -->
+       
       <button *ngIf="(solicitud.estado.id === 2 && solicitud.respuesta)  || solicitud.estado.id === 5" type="button"
         class="btn btn-info m-1 text-white" (click)="verRespuesta()">
         <span class="indicator-label">Ver respuesta</span>

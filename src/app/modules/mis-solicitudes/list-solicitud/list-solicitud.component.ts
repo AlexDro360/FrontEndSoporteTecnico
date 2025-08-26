@@ -7,6 +7,7 @@ import { MisSolicitudesService } from '../service/mis-solicitudes.service';
 import { CrearSolicitudComponent } from '../crear-solicitud/crear-solicitud.component';
 import { VerSolicitudComponent } from '../ver-solicitud/ver-solicitud.component';
 import { VerRespuestaComponent } from '../../respuestas/ver-respuesta/ver-respuesta.component';
+import { isPermission } from 'src/app/config/config';
 
 @Component({
   selector: 'app-list-solicitud',
@@ -120,4 +121,7 @@ export class ListSolicitudComponent {
       return this.user.avatar
     }
   }
+  isPermission(permission: string) {
+      return isPermission(permission);
+    }
 }
