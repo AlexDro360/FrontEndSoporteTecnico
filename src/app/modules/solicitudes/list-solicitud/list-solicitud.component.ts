@@ -47,16 +47,16 @@ export class ListSolicitudComponent {
   ngOnInit(): void {
     this.isLoading$ = this.solicitudesService.isLoading$;
     this.me();
-    this.user.forEach((use: any) => {
-      if (use.avatar) {
-        use.avatar = use.avatar.replace(
+    this.configAll();
+    this.configFiltro();
+    this.SOLICITUDES.forEach((SOLICITUD: any) => {
+      if (SOLICITUD.user.avatar) {
+        SOLICITUD.user.avatar = SOLICITUD.user.avatar.replace(
           "http://10.168.0.108/storage",
           "http://10.168.0.108:8000/storage"
         );
       }
     });
-    this.configAll();
-    this.configFiltro();
     
   }
 
@@ -264,17 +264,25 @@ export class ListSolicitudComponent {
   onChangeItemsPerPage() {
     this.listSolicitudes();
   }
-  get avatarUrl(){
-    if(this.user.avatar === 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg'){
-      return this.user.avatar;
-    }else{
+  // get avatarUrl(){
+  //   if(this.user.avatar === 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg'){
+  //     return this.user.avatar;
+  //   }else{
 
-      this.user.avatar = this.user.avatar.replace(
-          "http://10.168.0.108/storage",
-          "http://10.168.0.108:8000/storage"
-        );
-      return this.user.avatar
-    }
-  }
+  //     this.user.avatar = this.user.avatar.replace(
+  //         "http://10.168.0.108/storage",
+  //         "http://10.168.0.108:8000/storage"
+  //       );
+  //     return this.user.avatar
+  //   }
+  // }
 
+  // this.user.forEach((use: any) => {
+  //     if (use.avatar) {
+  //       use.avatar = use.avatar.replace(
+  //         "http://10.168.0.108/storage",
+  //         "http://10.168.0.108:8000/storage"
+  //       );
+  //     }
+  //   });
 }
