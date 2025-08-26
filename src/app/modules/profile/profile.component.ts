@@ -35,9 +35,8 @@ export class ProfileComponent implements OnInit {
       this.avatar = data.avatar;
       this.phone = data.phone;
       this.role = data.role_name;
-      this.departamento = data.departamento_id;
+      this.departamento = data.departamento;
       this.n_empleado = data.num_empleado;
-      this.fecha_create = data.created_format_at;
       this.cd.detectChanges();
     });
   
