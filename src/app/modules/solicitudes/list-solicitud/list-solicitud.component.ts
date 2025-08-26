@@ -56,10 +56,15 @@ export class ListSolicitudComponent {
   me() {
     this.solicitudesService.listme().subscribe((resp: any) => {
       this.user = resp;
-      this.user.forEach((user: any) => {
-      this.user.avatar=this.avatarUrl(user.avatar);
-    });
       this.listSolicitudes();
+      this.user.forEach((use: any) => {
+      if (use.avatar) {
+        use.avatar = use.avatar.replace(
+          "http://10.168.0.108/storage",
+          "http://10.168.0.108:8000/storage"
+        );
+      }
+    });
     })
   }
 
