@@ -1,7 +1,27 @@
 <div class="card " style="height: 50vh;">
     <!--begin::Card header-->
-    <div class="fw-bold mt-5 text-center fs-3" >Configuración de folios por departamento
+    <div class="fw-bold mt-5 text-center fs-3">Configuración de folios por departamento
     </div>
+    <div class="config-folio">
+        <div class="card-folio">
+
+            <div>
+                Folio Respuesta
+            </div>
+
+            <div>
+                Folio Respuesta
+            </div>
+
+            <div>
+                Folio Respuesta
+            </div>
+
+
+        </div>
+    </div>
+
+
     <div class="card-header border-0">
 
         <!--begin::Card title-->
@@ -12,8 +32,8 @@
                     <span class="path1"></span><span class="path2"></span>
                 </i>
                 <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listFolios()"
-                    data-kt-customer-table-filter="search"
-                    class="form-control form-control-solid w-250px ps-12 fs-3" placeholder="Buscar Departamento" />
+                    data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12 fs-3"
+                    placeholder="Buscar Departamento" />
             </div>
             <!--end::Search-->
         </div>
@@ -83,7 +103,8 @@
                                     </button>
                                     <button type="button" *ngIf="isPermission('edit_folio_solicitud')"
                                         class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-color-info btn-sm me-1 btn-con-tooltip m-1"
-                                        (click)="editarFolioSolicitud(folio)" title="Editar Folio" data-label="Editar Folio">
+                                        (click)="editarFolioSolicitud(folio)" title="Editar Folio"
+                                        data-label="Editar Folio">
                                         <i class="ki-duotone ki-pencil fs-1">
                                             <span class="path1"></span><span class="path2"></span>
                                         </i>

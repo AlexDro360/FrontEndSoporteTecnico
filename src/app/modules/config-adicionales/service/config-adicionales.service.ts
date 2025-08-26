@@ -69,7 +69,15 @@ export class ConfigAdicionalesService {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/config-adicionales/folios/reset/respuesta`;
-    return this.http.post(URL, {}, { headers: headers }).pipe(
+    return this.http.put(URL, {}, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+  EditRespuesta(data:any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/config-adicionales/folios/update/respuesta`;
+    return this.http.put(URL, data, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
