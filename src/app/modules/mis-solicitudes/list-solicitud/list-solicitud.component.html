@@ -148,18 +148,19 @@
                     <i class="ki-solid ki-eye fs-1"></i>
                   </a>
 
-                  <a href="#" onclick="return false;"
-                    *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 5) && isPermission('response_solicitud')"
+                 <a href="#" onclick="return false;"
+                  *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 6) && isPermission('view_response_my_solicitudes')"
                   (click)="watchRespuesta(SOLICITUD)"
-                    class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
-                    data-label="Ver Respuesta">
-                    <i class="ki-duotone ki-directbox-default fs-1">
-                      <span class="path1"></span>
-                      <span class="path2"></span>
-                      <span class="path3"></span>
-                      <span class="path4"></span>
-                    </i>
-                  </a>                  
+                  class="btn btn-icon bg-gray-400 btn-hover-info btn-active-info btn-color-info btn-active-color-white btn-sm m-1 btn-con-tooltip"
+                  data-label="Ver Respuesta">
+                  <i class="ki-duotone ki-directbox-default fs-1">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    <span class="path4"></span>
+                  </i>
+                </a> 
+
                 </td>
               </tr>
             </ng-container>
