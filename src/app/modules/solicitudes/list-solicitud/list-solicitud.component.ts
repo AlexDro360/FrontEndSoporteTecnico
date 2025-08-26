@@ -48,16 +48,7 @@ export class ListSolicitudComponent {
     this.isLoading$ = this.solicitudesService.isLoading$;
     this.me();
     this.configAll();
-    this.configFiltro();
-    this.SOLICITUDES.forEach((SOLICITUD: any) => {
-      if (SOLICITUD.user.avatar) {
-        SOLICITUD.user.avatar = SOLICITUD.user.avatar.replace(
-          "http://10.168.0.108/storage",
-          "http://10.168.0.108:8000/storage"
-        );
-      }
-    });
-    
+    this.configFiltro();    
   }
 
   me() {
@@ -73,12 +64,28 @@ export class ListSolicitudComponent {
         this.SOLICITUDES = resp.solicitudes;
         this.totalElements = resp.total;
         this.currentPage = page;
+        this.SOLICITUDES.forEach((SOLICITUD: any) => {
+      if (SOLICITUD.user.avatar) {
+        SOLICITUD.user.avatar = SOLICITUD.user.avatar.replace(
+          "http://10.168.0.108/storage",
+          "http://10.168.0.108:8000/storage"
+        );
+      }
+    });
       });
     } else {
       this.solicitudesService.misSolicitudesAtendidas(page, this.pageSize, this.search, this.user.id).subscribe((resp: any) => {
         this.SOLICITUDES = resp.solicitudes;
         this.totalElements = resp.total;
         this.currentPage = page;
+        this.SOLICITUDES.forEach((SOLICITUD: any) => {
+      if (SOLICITUD.user.avatar) {
+        SOLICITUD.user.avatar = SOLICITUD.user.avatar.replace(
+          "http://10.168.0.108/storage",
+          "http://10.168.0.108:8000/storage"
+        );
+      }
+    });
       });
     }
   }
