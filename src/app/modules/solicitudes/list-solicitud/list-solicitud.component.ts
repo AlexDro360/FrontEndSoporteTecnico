@@ -47,7 +47,14 @@ export class ListSolicitudComponent {
   ngOnInit(): void {
     this.isLoading$ = this.solicitudesService.isLoading$;
     this.me();
-    
+    this.user.forEach((use: any) => {
+      if (use.avatar) {
+        use.avatar = use.avatar.replace(
+          "http://10.168.0.108/storage",
+          "http://10.168.0.108:8000/storage"
+        );
+      }
+    });
     this.configAll();
     this.configFiltro();
     
@@ -57,14 +64,6 @@ export class ListSolicitudComponent {
     this.solicitudesService.listme().subscribe((resp: any) => {
       this.user = resp;
       this.listSolicitudes();
-      this.user.forEach((use: any) => {
-      if (use.avatar) {
-        use.avatar = use.avatar.replace(
-          "http://10.168.0.108/storage",
-          "http://10.168.0.108:8000/storage"
-        );
-      }
-    });
     })
   }
 
