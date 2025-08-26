@@ -56,6 +56,9 @@ export class ListSolicitudComponent {
   me() {
     this.solicitudesService.listme().subscribe((resp: any) => {
       this.user = resp;
+      this.user.forEach((user: any) => {
+      this.user.avatar=this.avatarUrl(user.avatar);
+    });
       this.listSolicitudes();
     })
   }
