@@ -18,9 +18,11 @@ export class RoleRedirectComponent {
       this.router.navigate(['/solicitudes/list']);
     } else if (role === 3){
       this.router.navigate(['/mis-solicitudes/list']);
-    } else {
+    } else if(role===4){
+      this.router.navigate(['/dashboard']);
+    }else {
       this.router.navigate(['/auth/login']);
-    }
+    } 
   }
 }
 
