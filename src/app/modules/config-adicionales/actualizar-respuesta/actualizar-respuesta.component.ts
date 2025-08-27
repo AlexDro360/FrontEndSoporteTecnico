@@ -9,7 +9,7 @@ import { ConfigAdicionalesService } from '../service/config-adicionales.service'
   styleUrls: ['./actualizar-respuesta.component.scss']
 })
 export class ActualizarRespuestaComponent {
-  @Input() folios: any;
+  @Input() folios:any;
   @Output() FolioR: EventEmitter<any> = new EventEmitter();
 
    isLoading: any;
@@ -42,7 +42,7 @@ export class ActualizarRespuestaComponent {
       return false;
     }
 
-    this.configService.editarFolio(this.folios).subscribe({
+    this.configService.EditRespuesta(this.folios).subscribe({
       next: (resp) => {
         this.toast.success("Éxito", "Se edito el folio de respuesta correctamente");
         this.FolioR.emit(resp);

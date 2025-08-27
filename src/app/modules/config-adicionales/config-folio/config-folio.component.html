@@ -10,11 +10,27 @@
             </div>
 
             <div>
-                Folio Respuesta
+            Folio de respuesta actual: <strong>{{ FolioRespuesta }}</strong>
+
             </div>
 
             <div>
                 Folio Respuesta
+                <button type="button" *ngIf="isPermission('reload_folio_respuesta')"
+                    class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-color-danger btn-sm btn-con-tooltip m-1"
+                    (click)="reiniciarFolioRespuesta()" title="Reiniciar Folio" data-label="Reiniciar Folio">
+                    <i class="ki-duotone ki-arrow-circle-left fs-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                </button>
+                <button type="button" *ngIf="isPermission('edit_folio_respuesta')"
+                    class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-color-info btn-sm me-1 btn-con-tooltip m-1"
+                    (click)="editarFolioRespuesta()" title="Editar Folio" data-label="Editar Folio">
+                    <i class="ki-duotone ki-pencil fs-1">
+                        <span class="path1"></span><span class="path2"></span>
+                    </i>
+                </button>
             </div>
 
 

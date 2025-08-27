@@ -90,4 +90,14 @@ export class ConfigAdicionalesService {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+
+  getFolioRespuesta() {
+  this.isLoadingSubject.next(true);
+  let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+  let URL = `${URL_SERVICIOS}/config-adicionales/folios/respuesta`;
+  return this.http.get<{folio_respuesta: number}>(URL, { headers }).pipe(
+    finalize(() => this.isLoadingSubject.next(false))
+  );
+}
+
 }

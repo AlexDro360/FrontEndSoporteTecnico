@@ -22,6 +22,7 @@ export class ConfigFolioComponent {
   totalPages: number = 0;
   currentPage: number = 1;
   pageSize: number = 10;
+  FolioRespuesta: number = 0;
 
   constructor(
     public modalService: NgbModal,
@@ -32,6 +33,8 @@ export class ConfigFolioComponent {
   ngOnInit(): void {
     this.isLoading$ = this.configService.isLoading$;
     this.listFolios();
+    this.cargarFolioRespuesta();
+
   }
 
   listFolios(page = 1) {
@@ -56,6 +59,38 @@ export class ConfigFolioComponent {
       this.listFolios();
     })
   }
+
+  reiniciarFolioRespuesta() {
+    const modalRef = this.modalService.open(ResetRespuestaComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.ResetR.subscribe((res: any) => { 
+      this.listFolios();
+      this.cargarFolioRespuesta();
+    });
+  }
+
+  editarFolioRespuesta() {
+    this.configService.getFolioRespuesta().subscribe((resp: any) => {
+      const modalRef = this.modalService.open(ActualizarRespuestaComponent, { centered: true, size: 'md' });
+      modalRef.componentInstance.folios = { FolioRespuesta: this.FolioRespuesta }; 
+      modalRef.componentInstance.FolioR.subscribe((res: any) => {
+        this.listFolios();
+         this.cargarFolioRespuesta();
+      });
+    });
+  }
+
+  cargarFolioRespuesta(): void {
+    this.configService.getFolioRespuesta().subscribe({
+      next: (resp: any) => {
+        this.FolioRespuesta = resp.folio_respuesta; // Guardamos el valor en la propiedad
+      },
+      error: (err) => {
+        console.error("Error al cargar folio de respuesta", err);
+      }
+    });
+  }
+  
+
   isPermission(permission: string) {
     return isPermission(permission);
   }
