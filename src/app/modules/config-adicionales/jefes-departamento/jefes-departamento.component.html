@@ -1,19 +1,18 @@
-<div class="card mt-5" style="max-height: 50vw;">
+<div class="card mt-5">
     <!--begin::Card header-->
     <div class="fw-bold mx-10 mt-5 text-center fs-3">Configuración del Jefe de Departamento Actual
     </div>
     <div class="card-header border-0 ">
-
         <!--begin::Card title-->
-        <div class="card-title" style="display: flex; justify-content: space-between; width: 100%;">
+        <div class="card-title d-flex flex-column flex-md-row w-100 me-0" style=" justify-content: space-between;">
             <!--begin::Search-->
-            <div class="d-flex align-items-center position-relative my-1">
+            <div class="d-flex align-items-center position-relative my-1 w-100 mb-3">
                 <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
                     <span class="path1"></span><span class="path2"></span>
                 </i>
                 <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listJefes()"
                     data-kt-customer-table-filter="search"
-                    class="form-control form-control-solid w-250px ps-12 fs-3" placeholder="Buscar Jefe" />
+                    class="form-control form-control-solid w-100 w-md-250px ps-12 fs-3" placeholder="Buscar Jefe" />
             </div>
 
             <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
@@ -32,7 +31,7 @@
     <!--end::Card header-->
 
     <!--begin::Card body-->
-    <div class="card-body pt-0" style="overflow-y: auto;">
+    <div class="card-body pt-0" style="overflow-y: auto; max-height: 50vw;">
         <!--begin::Table-->
         <div id="kt_customers_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
             <div id="" style="border-radius: 0.475rem;" class="table-responsive">
