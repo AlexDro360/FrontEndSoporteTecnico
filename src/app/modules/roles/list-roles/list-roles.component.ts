@@ -58,7 +58,7 @@ export class ListRolesComponent {
     const modalRef = this.modalService.open(CreateRolesComponent,{centered:true, size: 'md'});
 
     modalRef.componentInstance.RoleC.subscribe((role:any) =>{
-      this.ROLES.unshift(role);
+      this.listRoles();
     })
   }
 
@@ -67,11 +67,7 @@ export class ListRolesComponent {
     modalRef.componentInstance.ROLE_SELECTED = ROL;
 
     modalRef.componentInstance.RoleE.subscribe((role:any) =>{
-      let INDEX = this.ROLES.findIndex((rol:any) => rol.id == ROL.id);
-      if(INDEX != -1){
-        this.ROLES[INDEX] = role;
-      }
-      //this.ROLES.unshift(role);
+      this.listRoles();
     })
   }
 
@@ -85,11 +81,7 @@ export class ListRolesComponent {
     modalRef.componentInstance.ROLE_SELECTED = ROL;
 
     modalRef.componentInstance.RoleD.subscribe((role:any) =>{
-      let INDEX = this.ROLES.findIndex((rol:any) => rol.id == ROL.id);
-      if(INDEX != -1){
-        this.ROLES.splice(INDEX,1);
-      }
-      //this.ROLES.unshift(role);
+      this.listRoles(); 
     })
   }
 
