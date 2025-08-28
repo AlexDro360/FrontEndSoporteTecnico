@@ -34,17 +34,47 @@ export class DeleteRolesComponent {
     
   }
 
-  delete() {
+  delete2() {
 
     this.rolesService.deleteRole(this.ROLE_SELECTED.id).subscribe((resp: any) => {
 
       if (resp.message == 403) {
-        this.toast.error("Validación", resp.message_text);
-      } else {
-        this.toast.success("Exito", "El rol se eliminò correctamente");
+         this.toast.error("Validación", resp.message_text);
+       } 
+      if (resp.status == 200)
+      {
+        this.toast.warning("Exito", "El rol se eliminò correctamente");
+        this.RoleD.emit(resp.role);
+        this.modal.close();
+      }
+      else {
+        this.toast.success("No se elimino ");
         this.RoleD.emit(resp.role);
         this.modal.close();
       }
     })
   }
+
+  delete() {
+  this.rolesService.deleteRole(this.ROLE_SELECTED.id).subscribe({
+    next: (resp: any) => {
+      if (resp.status === 200) {
+        this.toast.success("Éxito se elimino", resp.message);  
+        this.RoleD.emit(resp.role);
+        this.modal.close();
+      } 
+      else if (resp.status === 300) {
+        this.toast.warning("Atención tienes usuarios con este rol", resp.message); 
+        this.RoleD.emit(resp.role);
+        this.modal.close();
+      } 
+      else {
+        this.toast.error("Error", "Ocurrió un problema al eliminar el rol.");
+      }
+    },
+    
+  });
+}
+
+
 }
