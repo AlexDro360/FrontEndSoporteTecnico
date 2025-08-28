@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { RoleRedirectGuard } from '../modules/auth/services/RoleRedirectGuard';
 import { RoleRedirectComponent } from '../modules/auth/services/role-redirect.component';
+import { AuthGuard } from '../modules/auth/services/auth.guard';
 
 const Routing: Routes = [
   {
@@ -79,6 +80,7 @@ const Routing: Routes = [
   },
   {
     path: '',
+    canActivate: [AuthGuard], 
     component: RoleRedirectComponent,
     pathMatch: 'full',
   },

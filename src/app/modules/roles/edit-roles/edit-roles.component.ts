@@ -47,7 +47,6 @@ export class EditRolesComponent {
     }
   
     store(){
-      this.isLoading = true;
       if(!this.name){
         this.toast.error("Validación", "El nombre es requerido");
         return false;
@@ -63,7 +62,7 @@ export class EditRolesComponent {
         permisions: this.permisions,
       }
   
-      
+      this.isLoading = true;
       this.rolesService.updateRole(this.ROLE_SELECTED.id, data)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe((resp:any) => {

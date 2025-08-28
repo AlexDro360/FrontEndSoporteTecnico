@@ -44,7 +44,6 @@ export class CreateRolesComponent {
   }
 
   store() {
-    this.isLoading = true;
     if (!this.name) {
       this.toast.error("Validación", "El nombre es requerido");
       return false;
@@ -60,6 +59,7 @@ export class CreateRolesComponent {
       permisions: this.permisions,
     }
 
+    this.isLoading = true;
     this.rolesService.registerRole(data)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe((resp: any) => {

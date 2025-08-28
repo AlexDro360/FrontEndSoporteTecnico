@@ -64,7 +64,6 @@ export class CreateUserComponent {
 
 
   store() {
-    this.isLoading = true;
     if (!this.name) {
       this.toast.error("Validación", "El nombre es requerido");
       return false;
@@ -130,6 +129,7 @@ export class CreateUserComponent {
     formData.append("imagen", this.file_name);
     formData.append("password", this.password);
 
+    this.isLoading = true;
     this.userService.registerUser(formData)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe((resp: any) => {

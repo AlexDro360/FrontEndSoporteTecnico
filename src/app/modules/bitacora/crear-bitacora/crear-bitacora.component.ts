@@ -48,7 +48,6 @@ export class CrearBitacoraComponent {
   }
 
   store() {
-    this.isLoading = true;
     if (this.estadoSolucion) {
       this.duracion = (this.horas * 60) + this.minutos;
       this.reiniciarAlertas();
@@ -84,6 +83,7 @@ export class CrearBitacoraComponent {
       formData.append('duracion', this.duracion.toString());
       formData.append('idSolicitud', this.idSolicitud);
 
+      this.isLoading = true;
       this.bitacoraService.crearBitacora(formData)
         .pipe(finalize(() => this.isLoading = false))
         .subscribe({

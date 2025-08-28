@@ -75,7 +75,6 @@ export class EditUserComponent {
 
 
   store() {
-    this.isLoading = true;
     if (!this.name) {
       this.toast.error("Validación", "El nombre es requerido");
       return false;
@@ -137,9 +136,7 @@ export class EditUserComponent {
     }
     formData.append("imagen", this.file_name);
 
-
-
-
+    this.isLoading = true;
     this.userService.updateUser(this.USER_SELECTED.id, formData)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe((resp: any) => {
