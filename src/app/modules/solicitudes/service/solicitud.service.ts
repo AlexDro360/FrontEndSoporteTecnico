@@ -21,12 +21,9 @@ export class SolicitudService {
   }
 
   registerSolicitud(data: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/solicitudes";
-    return this.http.post(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.post(URL, data, { headers: headers });
   }
 
   listSolicitud(page = 1, perPage = 10, search: string = '', filtroEst:number = 0) {
@@ -50,12 +47,9 @@ export class SolicitudService {
   }
 
   listTecnicos() {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/atencion_solicitud/tecnicos`;
-    return this.http.get(URL, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.get(URL, { headers: headers });
   }
 
   configAll() {
@@ -86,51 +80,33 @@ export class SolicitudService {
   }
 
   crearRespuestas(data: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/respuesta/agregar";
-    return this.http.post(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.post(URL, data, { headers: headers });
   }
 
   tiposServicios() {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/tiposervicios";
-    return this.http.get(URL, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.get(URL, { headers: headers });
   }
 
   tiposMantenimientos() {
-    this.isLoadingSubject.next(true);
-    // this.setLoading(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/tipomantenimientos";
-    return this.http.get(URL, { headers: headers }).pipe(
-      // finalize(() => this.setLoading(false))
-      finalize(() => this.isLoadingSubject.next(false))
-
-    );
+    return this.http.get(URL, { headers: headers });
   }
 
   getRespuesta(idSolicitud: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/respuesta/buscar/${idSolicitud}`;
-    return this.http.get(URL, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.get(URL, { headers: headers });
   }
 
   getBitacora(idSolicitud: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/bitacora/buscar/${idSolicitud}`;
-    return this.http.get(URL, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.get(URL, { headers: headers });
   }
 
   editarRespuesta(data: any) {
@@ -161,12 +137,9 @@ export class SolicitudService {
   }
 
   obtenerJefe() {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/jefe_cc/jefe-activo`;
-    return this.http.get(URL, { headers: headers}).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.get(URL, { headers: headers});
   }
 
 }

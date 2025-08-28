@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { RespuestaService } from '../service/respuesta.service';
 import { ToastrService } from 'ngx-toastr';
 import { min } from 'moment';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-crear-respuesta',
@@ -17,7 +18,7 @@ export class CrearRespuestaComponent {
   @Input() bitacora: any = "";
   @Input() jefeCC: any = "";
 
-  isLoading: any;
+  isLoading: boolean = false;
 
   user: any;
   asunto: string = '';
@@ -122,18 +123,20 @@ export class CrearRespuestaComponent {
       formData.append('idTipoServicio', this.idTipoServicio);
     }
 
-
-    this.respuestaService.crearRespuestas(formData).subscribe({
-      next: (resp) => {
-        this.toast.success("Éxito", "Se creó la respuesta correctamente");
-        this.RespuestaN.emit(resp);
-        this.modal.close();
-      },
-      error: (err) => {
-        console.error('Error al cargar los datos', err);
-        this.toast.error('Error al guardar los datos', 'Error');
-      }
-    })
+    this.isLoading = true;
+    this.respuestaService.crearRespuestas(formData)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe({
+        next: (resp) => {
+          this.toast.success("Éxito", "Se creó la respuesta correctamente");
+          this.RespuestaN.emit(resp);
+          this.modal.close();
+        },
+        error: (err) => {
+          console.error('Error al cargar los datos', err);
+          this.toast.error('Error al guardar los datos', 'Error');
+        }
+      })
   }
   configAll() {
 

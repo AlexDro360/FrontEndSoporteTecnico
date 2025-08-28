@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UsersService } from '../service/users.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-edit-user',
@@ -12,9 +13,9 @@ export class EditUserComponent {
   @Output() UserE: EventEmitter<any> = new EventEmitter();
   @Input() roles: any[];
   @Input() USER_SELECTED: any;
-  departamentos:any[]=[];
+  departamentos: any[] = [];
 
-  isLoading: any;
+  isLoading: boolean = false;
 
   name: string = '';
   surnameP: string = '';
@@ -23,7 +24,7 @@ export class EditUserComponent {
   phone: string = '';
   role_id: string = '';
   n_empleado: string = '';
-  departamento_id: any=null;
+  departamento_id: any = null;
 
   file_name: any;
   imagen_previzualiza: any;
@@ -49,13 +50,13 @@ export class EditUserComponent {
     this.n_empleado = this.USER_SELECTED.num_empleado;
     this.departamento_id = this.USER_SELECTED.departamento_id;
     this.imagen_previzualiza = this.USER_SELECTED.avatar;
-    this.userService.getDepartamentos().subscribe((data)=>{
-      this.departamentos=data.departamento; 
+    this.userService.getDepartamentos().subscribe((data) => {
+      this.departamentos = data.departamento;
       const id_dep = this.departamentos.find(d => d.nombre === this.departamento_id);
       if (id_dep) {
         this.departamento_id = id_dep.id;
       }
-      
+
     });
   }
 
@@ -74,6 +75,7 @@ export class EditUserComponent {
 
 
   store() {
+    this.isLoading = true;
     if (!this.name) {
       this.toast.error("Validación", "El nombre es requerido");
       return false;
@@ -108,7 +110,7 @@ export class EditUserComponent {
       this.toast.error("Validación", "El Número de empleado es requerido");
       return false;
     }
-  
+
     if (!this.departamento_id) {
       this.toast.error("Validación", "El Departamento es requerido");
       return false;
@@ -133,20 +135,22 @@ export class EditUserComponent {
     if (this.password) {
       formData.append("password", this.password);
     }
-      formData.append("imagen", this.file_name);
-    
+    formData.append("imagen", this.file_name);
 
 
 
-    this.userService.updateUser(this.USER_SELECTED.id, formData).subscribe((resp: any) => {
-      if (resp.message == 403) {
-        this.toast.error("Validación", resp.message_text);
-      } else {
-        this.toast.success("Exito", "El Usuario se editado correctamento");
-        this.UserE.emit(resp.user);
-        this.modal.close();
-        location.reload();
-      }
-    })
+
+    this.userService.updateUser(this.USER_SELECTED.id, formData)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe((resp: any) => {
+        if (resp.message == 403) {
+          this.toast.error("Validación", resp.message_text);
+        } else {
+          this.toast.success("Exito", "El Usuario se editado correctamento");
+          this.UserE.emit(resp.user);
+          this.modal.close();
+          // location.reload();
+        }
+      })
   }
 }

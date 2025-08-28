@@ -51,7 +51,7 @@
                 <div class="fv-row row my-1">
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Apellido Paterno: </label>
-                        <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
+                        <input type="text" name="surnameP" class="form-control form-control-solid mb-3 mb-lg-0"
                             placeholder="Nombre" [(ngModel)]="jefe.apellidoP" />
                         <div *ngIf="estadoAP" class="alert alert-danger" role="alert">
                             Es necesario el apellido paterno
@@ -60,7 +60,7 @@
 
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Apellido Materno </label>
-                        <input type="text" name="surnameP" class="form-control form-control-solid mb-3 mb-lg-0"
+                        <input type="text" name="surnameM" class="form-control form-control-solid mb-3 mb-lg-0"
                             placeholder="Apellido Paterno" [(ngModel)]="jefe.apellidoM" />
                         <div *ngIf="estadoAM" class="alert alert-danger" role="alert">
                             Es necesario el apellido materno
@@ -73,12 +73,12 @@
             <!--begin::Actions-->
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="guardar()" class="btn btn-primary" data-kt-users-modal-action="submit">
-                    <span class="indicator-label">Guardar</span>
+                <button type="button" (click)="guardar()" class="btn btn-primary" [disabled]="isLoading" data-kt-users-modal-action="submit">
+                    <span *ngIf="!isLoading" class="indicator-label">Guardar</span>
 
-                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
-                    <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    <span *ngIf="isLoading">Enviando... 
+                        <span class="spinner-border spinner-border-sm align-middle ms-2" ></span>
+                    </span>
                 </button>
             </div>
             <!--end::Actions-->

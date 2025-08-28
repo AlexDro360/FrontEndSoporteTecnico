@@ -75,7 +75,7 @@ export class ListUsersComponent {
     modalRef.componentInstance.roles = this.roles;
 
     modalRef.componentInstance.UserC.subscribe((role: any) => {
-      this.USERS.unshift(role);
+      this.listUsers();
     })
   }
 
@@ -85,10 +85,7 @@ export class ListUsersComponent {
     modalRef.componentInstance.roles = this.roles;
 
     modalRef.componentInstance.UserE.subscribe((user: any) => {
-      let INDEX = this.USERS.findIndex((user: any) => user.id == USER.id);
-      if (INDEX != -1) {
-        this.USERS[INDEX] = user;
-      }
+      this.listUsers();
     })
   }
 
@@ -97,10 +94,11 @@ export class ListUsersComponent {
     modalRef.componentInstance.USER_SELECTED = USER;
 
     modalRef.componentInstance.UserD.subscribe((user: any) => {
-      let INDEX = this.USERS.findIndex((user: any) => user.id == USER.id);
-      if (INDEX != -1) {
-        this.USERS.splice(INDEX, 1);
-      }
+      // let INDEX = this.USERS.findIndex((user: any) => user.id == USER.id);
+      // if (INDEX != -1) {
+      //   this.USERS.splice(INDEX, 1);
+      // }
+      this.listUsers();
     })
   }
 
@@ -109,10 +107,11 @@ export class ListUsersComponent {
     modalRef.componentInstance.USER_SELECTED = USER;
 
     modalRef.componentInstance.UserD.subscribe((user: any) => {
-      let INDEX = this.USERS.findIndex((user: any) => user.id == USER.id);
-      if (INDEX != -1) {
-        this.USERS.splice(INDEX, 1);
-      }
+      // let INDEX = this.USERS.findIndex((user: any) => user.id == USER.id);
+      // if (INDEX != -1) {
+      //   this.USERS.splice(INDEX, 1);
+      // }
+      this.listUsers();
     })
   }
 

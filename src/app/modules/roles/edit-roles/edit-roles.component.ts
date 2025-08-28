@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SIDEBAR } from 'src/app/config/config';
 import { RolesService } from '../service/roles.service';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-edit-roles',
@@ -17,7 +18,7 @@ export class EditRolesComponent {
   
     name:string = '';
   
-    isLoading:any;
+    isLoading:boolean=false;
   
     SIDEBAR: any =SIDEBAR;
   
@@ -46,6 +47,7 @@ export class EditRolesComponent {
     }
   
     store(){
+      this.isLoading = true;
       if(!this.name){
         this.toast.error("Validación", "El nombre es requerido");
         return false;
@@ -62,7 +64,9 @@ export class EditRolesComponent {
       }
   
       
-      this.rolesService.updateRole(this.ROLE_SELECTED.id, data).subscribe((resp:any) => {
+      this.rolesService.updateRole(this.ROLE_SELECTED.id, data)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe((resp:any) => {
 
         if(resp.message == 403){
           this.toast.error("Validación", resp.message_text);

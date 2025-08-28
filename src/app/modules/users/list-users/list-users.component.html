@@ -14,8 +14,6 @@
       </div>
       <!--end::Search-->
     </div>
-    <!--begin::Card title-->
-    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
     <!--begin::Card toolbar-->
     <div class="card-toolbar">
       <!--begin::Toolbar-->
@@ -94,6 +92,11 @@
             </tr>
           </thead>
           <tbody class="fw-semibold text-gray-600">
+            <tr>
+              <td colspan="10" *ngIf="isLoading$ | async" style="text-align: center;">
+                Cargando... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </td>
+            </tr>
             <ng-container *ngFor="let USER of USERS">
               <tr>
 
@@ -104,10 +107,10 @@
                     </div>
 
                     <div class="d-flex justify-content-start flex-column">
-                      <a href="#" onclick="return false;" (click)="watchUser(USER)"
+                      <!-- <a href="#" onclick="return false;" (click)="watchUser(USER)"
                         class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{USER.full_name}}
                         <i class="ki-solid ki-eye fs-2"></i>
-                      </a>
+                      </a> -->
 
                       <span class="text-muted fw-semibold text-muted d-block fs-7">{{USER.email}}</span>
 
@@ -143,8 +146,8 @@
                 </td>
 
                 <td class="">
-                  <a href="#" onclick="return false;"
-                    (click)="watchUser(USER)"  class="btn btn-icon btn-bg-light btn-hover-dark btn-active-dark btn-active-color-light btn-color-dark btn-sm m-1 btn-con-tooltip"
+                  <a href="#" onclick="return false;" (click)="watchUser(USER)"
+                    class="btn btn-icon btn-bg-light btn-hover-dark btn-active-dark btn-active-color-light btn-color-dark btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Usuario">
                     <i class="ki-solid ki-eye fs-1"></i>
                   </a>

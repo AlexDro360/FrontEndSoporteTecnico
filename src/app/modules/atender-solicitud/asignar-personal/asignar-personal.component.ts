@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AtenderSolicitudService } from '../service/atender-solicitud.service';
 import { Time } from '@angular/common';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-asignar-personal',
@@ -14,7 +15,7 @@ export class AsignarPersonalComponent {
   @Input() tecnicos: any;
   @Input() solicitud: any;
 
-  isLoading: any;
+  isLoading: boolean = false;
 
   personalAtencion: number[] = [];
   horaAtencion: any;
@@ -61,25 +62,9 @@ export class AsignarPersonalComponent {
     let error: boolean = false;
 
     if (this.personalAtencion.length === 0) {
-      // this.toast.warning("Advertencia", "Seleccione al menos un técnico");
-      // return false;
       error = true;
       this.estadoPA = true;
     }
-
-    // if (this.fechaAtencion == null) {
-    //   // this.toast.warning("Advertencia", "Ingrese la fecha de atención");
-    //   // return false;
-    //   error = true;
-    //   this.estadoFA = true;
-    // }
-
-    // if (this.horaAtencion == null) {
-    //   // this.toast.warning("Advertencia", "Ingrese la hora de atención");
-    //   // return false;
-    //   error = true;
-    //   this.estadoHA = true;
-    // }
 
     if(error){
       return false;
@@ -91,7 +76,10 @@ export class AsignarPersonalComponent {
       fechaAtencion: this.fechaAtencion
     };
 
-    this.atenderService.asignarTecnicos(payload, this.solicitud.id).subscribe({
+    this.isLoading = true;
+    this.atenderService.asignarTecnicos(payload, this.solicitud.id)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe({
       next: (resp: any) => {
         this.toast.success("Éxito", "Se asignaron los técnicos correctamente");
         this.AsigTec.emit(resp);

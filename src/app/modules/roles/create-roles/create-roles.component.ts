@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SIDEBAR } from 'src/app/config/config';
 import { RolesService } from '../service/roles.service';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-create-roles',
@@ -13,60 +14,62 @@ export class CreateRolesComponent {
 
   @Output() RoleC: EventEmitter<any> = new EventEmitter();
 
-  name:string = '';
+  name: string = '';
 
-  isLoading:any;
+  isLoading: boolean = false;
 
-  SIDEBAR: any =SIDEBAR;
+  SIDEBAR: any = SIDEBAR;
 
-  permisions:any = [];
+  permisions: any = [];
 
   constructor(
     public modal: NgbActiveModal,
     public rolesService: RolesService,
     public toast: ToastrService,
-  ){
+  ) {
 
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
 
   }
 
-  addPermission(permiso:string){
-    let INDEX = this.permisions.findIndex((perm:string) => perm == permiso);
-    if(INDEX != -1){
-      this.permisions.splice(INDEX,1);
-    }else{
+  addPermission(permiso: string) {
+    let INDEX = this.permisions.findIndex((perm: string) => perm == permiso);
+    if (INDEX != -1) {
+      this.permisions.splice(INDEX, 1);
+    } else {
       this.permisions.push(permiso);
     }
   }
 
-  store(){
-    if(!this.name){
+  store() {
+    this.isLoading = true;
+    if (!this.name) {
       this.toast.error("Validación", "El nombre es requerido");
       return false;
     }
 
-    if(this.permisions.length == 0){
+    if (this.permisions.length == 0) {
       this.toast.error("Validación", "Necesitas seleccionar un permiso por lo menos");
       return false;
     }
-    
+
     let data = {
       name: this.name,
       permisions: this.permisions,
     }
 
-    
-    this.rolesService.registerRole(data).subscribe((resp:any) => {
-      if(resp.message == 403){
-        this.toast.error("Validación", resp.message_text);
-      }else{
-        this.toast.success("Exito", "El rol se registro correctamento");
-        this.RoleC.emit(resp.role);
-        this.modal.close();
-      }
-    })
+    this.rolesService.registerRole(data)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe((resp: any) => {
+        if (resp.message == 403) {
+          this.toast.error("Validación", resp.message_text);
+        } else {
+          this.toast.success("Exito", "El rol se registro correctamento");
+          this.RoleC.emit(resp.role);
+          this.modal.close();
+        }
+      })
   }
 }

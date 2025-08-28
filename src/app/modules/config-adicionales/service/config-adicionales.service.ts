@@ -39,30 +39,21 @@ export class ConfigAdicionalesService {
   }
 
   agregarJefe(data: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/jefe_cc/jefes";
-    return this.http.post(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.post(URL, data, { headers: headers });
   }
 
   editarJefe(data: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/jefe_cc/jefes/${data.id}`;
-    return this.http.put(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.put(URL, data, { headers: headers });
   }
 
   editarFolio(data: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/config-adicionales/folios/actualizar/${data.id}`;
-    return this.http.put(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.put(URL, data, { headers: headers });
   }
 
   resetRespuesta() {
@@ -74,12 +65,9 @@ export class ConfigAdicionalesService {
     );
   }
   EditRespuesta(data:any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/config-adicionales/folios/update/respuesta`;
-    return this.http.put(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.put(URL, data, { headers: headers });
   }
 
   resetSolicitud(idFolio: any) {

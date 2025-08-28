@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BitacoraService } from '../service/bitacora.service';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-crear-bitacora',
@@ -14,7 +15,7 @@ export class CrearBitacoraComponent {
   @Input() user: any;
 
 
-  isLoading: any;
+  isLoading: boolean = false;
 
   estadoSolucion: boolean = true;
 
@@ -36,7 +37,7 @@ export class CrearBitacoraComponent {
     public toast: ToastrService) { }
 
   ngOnInit(): void {
-  
+
   }
 
   reiniciarAlertas() {
@@ -47,6 +48,7 @@ export class CrearBitacoraComponent {
   }
 
   store() {
+    this.isLoading = true;
     if (this.estadoSolucion) {
       this.duracion = (this.horas * 60) + this.minutos;
       this.reiniciarAlertas();
@@ -82,29 +84,33 @@ export class CrearBitacoraComponent {
       formData.append('duracion', this.duracion.toString());
       formData.append('idSolicitud', this.idSolicitud);
 
-      this.bitacoraService.crearBitacora(formData).subscribe({
-        next: (resp) => {
-          this.toast.success("Éxito", "Se creo la bitacora correctamente");
-          this.BitacoraN.emit(resp);
-          this.modal.close();
-        },
-        error: (err) => {
-          console.error('Error al cargar los datos', err);
-          this.toast.error('Error al guardar los datos', 'Error');
-        }
-      })
+      this.bitacoraService.crearBitacora(formData)
+        .pipe(finalize(() => this.isLoading = false))
+        .subscribe({
+          next: (resp) => {
+            this.toast.success("Éxito", "Se creo la bitacora correctamente");
+            this.BitacoraN.emit(resp);
+            this.modal.close();
+          },
+          error: (err) => {
+            console.error('Error al cargar los datos', err);
+            this.toast.error('Error al guardar los datos', 'Error');
+          }
+        })
     } else {
-      this.bitacoraService.noSolucionada(this.idSolicitud).subscribe({
-        next: (resp) => {
-          this.toast.success("Éxito", "Solicitud asignada como no solucionada");
-          this.BitacoraN.emit(resp);
-          this.modal.close();
-        },
-        error: (err) => {
-          console.error('Error al cambiar el estado de la solicitud', err);
-          this.toast.error('Error al guardar los datos', 'Error');
-        }
-      })
+      this.bitacoraService.noSolucionada(this.idSolicitud)
+        .pipe(finalize(() => this.isLoading = false))
+        .subscribe({
+          next: (resp) => {
+            this.toast.success("Éxito", "Solicitud asignada como no solucionada");
+            this.BitacoraN.emit(resp);
+            this.modal.close();
+          },
+          error: (err) => {
+            console.error('Error al cambiar el estado de la solicitud', err);
+            this.toast.error('Error al guardar los datos', 'Error');
+          }
+        })
     }
   }
 

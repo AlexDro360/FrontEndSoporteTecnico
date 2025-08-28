@@ -41,7 +41,7 @@ export class DeleteRolesComponent {
       if (resp.message == 403) {
         this.toast.error("Validación", resp.message_text);
       } else {
-        this.toast.success("Exito", "El rol se edito correctamento");
+        this.toast.success("Exito", "El rol se eliminò correctamente");
         this.RoleD.emit(resp.role);
         this.modal.close();
       }

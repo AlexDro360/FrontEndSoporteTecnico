@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ConfigAdicionalesService } from '../service/config-adicionales.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-editar-jefe',
@@ -13,7 +14,7 @@ export class EditarJefeComponent {
   @Input() jefe: any;
   @Output() JefeE: EventEmitter<any> = new EventEmitter();
 
-  isLoading: any;
+  isLoading: boolean = false;
 
   nombres: string = '';
   apellidoP: string = '';
@@ -65,16 +66,19 @@ export class EditarJefeComponent {
       return false;
     }
 
-    this.configService.editarJefe(this.jefe).subscribe({
-      next: (resp) => {
-        this.toast.success("Éxito", "Se edito la información del jefe correctamente");
-        this.JefeE.emit(resp);
-        this.modal.close();
-      },
-      error: (err) => {
-        console.error('Error al cargar los datos', err);
-        this.toast.error('Error al guardar los datos', 'Error');
-      }
-    })
+    this.isLoading = true;
+    this.configService.editarJefe(this.jefe)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe({
+        next: (resp) => {
+          this.toast.success("Éxito", "Se edito la información del jefe correctamente");
+          this.JefeE.emit(resp);
+          this.modal.close();
+        },
+        error: (err) => {
+          console.error('Error al cargar los datos', err);
+          this.toast.error('Error al guardar los datos', 'Error');
+        }
+      })
   }
 }

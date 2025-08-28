@@ -84,9 +84,11 @@
             <!-- Botones -->
             <div class="text-center pt-15">
                 <button type="button" class="btn btn-light me-3" (click)="modal.dismiss()">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="update()">
-                    <span class="indicator-label">Actualizar</span>
-                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+                <button type="button" class="btn btn-primary" (click)="update()" [disabled]="isLoading">
+                    <span *ngIf="!isLoading" class="indicator-label">Actualizar</span>
+                    <span *ngIf="isLoading">Actualizando... 
+                        <span class="spinner-border spinner-border-sm align-middle ms-2" ></span>
+                    </span>
                 </button>
             </div>
         </form>

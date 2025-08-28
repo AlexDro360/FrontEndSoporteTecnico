@@ -1,4 +1,4 @@
-<div class="card" style="height: 50vh;">
+<div class="card mt-5" style="max-height: 50vw;">
     <!--begin::Card header-->
     <div class="fw-bold mx-10 mt-5 text-center fs-3">Configuración del Jefe de Departamento Actual
     </div>
@@ -27,7 +27,6 @@
             <!--end::Search-->
         </div>
         <!--begin::Card title-->
-        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
 
     </div>
     <!--end::Card header-->
@@ -79,6 +78,12 @@
                         </tr>
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
+                        <tr>
+                            <td colspan="10" *ngIf="isLoading$ | async" style="text-align: center;">
+                                Cargando... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+
+                            </td>
+                        </tr>
                         <ng-container *ngFor="let jefe of jefes.data">
                             <tr>
 

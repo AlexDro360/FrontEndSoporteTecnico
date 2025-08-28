@@ -24,12 +24,9 @@ export class UsersService {
   }
 
   registerUser(data: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/users";
-    return this.http.post(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.post(URL, data, { headers: headers });
   }
 
   listUsers(page = 1, perPage = 10, search: string = '') {

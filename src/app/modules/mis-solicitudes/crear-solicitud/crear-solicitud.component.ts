@@ -16,7 +16,7 @@ export class CrearSolicitudComponent {
     @Input() user: any;
   
     departamentos: any[] = [];
-    isLoading: any;
+    isLoading: boolean = false;
   
     textoUser: string = '';
     phone: string = '';

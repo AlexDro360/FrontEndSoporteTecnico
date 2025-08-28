@@ -21,12 +21,9 @@ export class RolesService {
   }
 
   registerRole(data:any){
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authservice.token});
     let URL = URL_SERVICIOS+"/roles";
-    return this.http.post(URL,data,{headers: headers}).pipe(
-      finalize(()=> this.isLoadingSubject.next(false))
-    );
+    return this.http.post(URL,data,{headers: headers});
   }
 
   listRoles(page=1, perPage = 10, search:string = ''){
@@ -39,12 +36,9 @@ export class RolesService {
   }
 
   updateRole(ID_ROLE:String,data:any){
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authservice.token});
     let URL = URL_SERVICIOS+"/roles/"+ID_ROLE;
-    return this.http.put(URL,data,{headers: headers}).pipe(
-      finalize(()=> this.isLoadingSubject.next(false))
-    );
+    return this.http.put(URL,data,{headers: headers});
   }
 
   deleteRole(ID_ROLE:String){

@@ -21,30 +21,21 @@ export class BitacoraService {
   }
 
   crearBitacora(data: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/bitacora/agregar";
-    return this.http.post(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.post(URL, data, { headers: headers });
   }
 
   editarBitacora(data: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/bitacora/editar/${data.id}`;
-    return this.http.put(URL, data, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.put(URL, data, { headers: headers });
   }
 
   noSolucionada(idSolicitud: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/solicitud/nosolucion/${idSolicitud}`;
-    return this.http.put(URL, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.put(URL, { headers: headers });
   }
 
   borrarBitacora(data: any) {

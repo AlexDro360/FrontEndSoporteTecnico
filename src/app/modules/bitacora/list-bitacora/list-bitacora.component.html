@@ -1,129 +1,131 @@
 <div class="card">
-    <!--begin::Card header-->
-    <div class="card-header border-0 pt-6">
-      <!--begin::Card title-->
-      <div class="card-title">
-        <!--begin::Search-->
-        <div class="d-flex align-items-center position-relative my-1">
-          <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-            <span class="path1"></span><span class="path2"></span>
-          </i>
-          <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listBitacora()"
-            data-kt-customer-table-filter="search" class="fs-3 form-control form-control-solid w-250px ps-12"
-            placeholder="Buscar Bitácora" />
-        </div>
-        <!--end::Search-->
+  <!--begin::Card header-->
+  <div class="card-header border-0 pt-6">
+    <!--begin::Card title-->
+    <div class="card-title">
+      <!--begin::Search-->
+      <div class="d-flex align-items-center position-relative my-1">
+        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+          <span class="path1"></span><span class="path2"></span>
+        </i>
+        <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listBitacora()"
+          data-kt-customer-table-filter="search" class="fs-3 form-control form-control-solid w-250px ps-12"
+          placeholder="Buscar Bitácora" />
       </div>
-      <!--begin::Card title-->
-      <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
-      <!--begin::Card toolbar-->
-      <div class="card-toolbar">
-        <!--begin::Toolbar-->
-      
-        <!--end::Toolbar-->
-  
-        <!--begin::Group actions-->
-        <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
-          <div class="fw-bold me-5">
-            <span class="me-2" data-kt-customer-table-select="selected_count"></span>
-            Selected
-          </div>
-  
-          <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">
-            Delete Selected
-          </button>
-        </div>
-        <!--end::Group actions-->
-      </div>
-      <!--end::Card toolbar-->
+      <!--end::Search-->
     </div>
-    <!--end::Card header-->
-  
-    <!--begin::Card body-->
-    <div class="card-body pt-0">
-      <!--begin::Table-->
-      <div id="kt_customers_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
-        <div id="" style="border-radius: 0.475rem;" class="table-responsive">
-          <table style="width: 100%; border-collapse: collapse;" class="table align-middle fs-6 gy-5 dataTable;"
-            id="kt_customers_table" style="width: 100%">  
-            <thead class="bg-primary">
-              <tr class="text-center rounded text-white fw-bold g-0 align-middle fs-3" style="">
-  
-                <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
-                  aria-label="Customer Name: Activate to sort" tabindex="0">
-                  <span class="dt-column-title" role="button">Folio Solicitud</span><span class="dt-column-order"></span>
-                </th>
+    <!--begin::Card toolbar-->
+    <div class="card-toolbar">
+      <!--begin::Toolbar-->
 
-                <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
-                  aria-label="Customer Name: Activate to sort" tabindex="0">
-                  <span class="dt-column-title" role="button">Número de Bitácora</span><span class="dt-column-order"></span>
-                </th>
-  
-                <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
-                  aria-label="Customer Name: Activate to sort" tabindex="0">
-                  <span class="dt-column-title" role="button">Fecha</span><span class="dt-column-order"></span>
-                </th>
-  
-                <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
-                  aria-label="Customer Name: Activate to sort" tabindex="0">
-                  <span class="dt-column-title" role="button">Falla/Error</span><span
-                    class="dt-column-order"></span>
-                </th>
-  
-                <th class="min-w-70px dt-orderable-none" data-dt-column="2" rowspan="1" colspan="1"
-                  aria-label="Actions">
-                  <span class="dt-column-title">Acciones</span><span class="dt-column-order"></span>
-                </th>
-              </tr>
-            </thead>
-            <tbody class="fw-semibold text-gray-600">
-              <ng-container *ngFor="let Bitacora of bitacora.data">
-                <tr>
-  
-                  <td style="text-align: center;">
-                    {{Bitacora.solicitud.user.departamento.abreviatura}}/{{Bitacora.solicitud.folio | rellenaZero}}
-                    
-                  </td>
+      <!--end::Toolbar-->
 
-                  <td style="text-align: center;">
-                    {{Bitacora.id | rellenaZero}}
-                  </td>
-  
-                  <td>
-                    {{Bitacora.fecha == null ? 'Sin fecha' : Bitacora.fecha}}
-                  </td>
-  
-                  <td>
-                    {{Bitacora.descFalla}}
-                  </td>
+      <!--begin::Group actions-->
+      <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
+        <div class="fw-bold me-5">
+          <span class="me-2" data-kt-customer-table-select="selected_count"></span>
+          Selected
+        </div>
 
-  
-                  <td class="">
+        <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">
+          Delete Selected
+        </button>
+      </div>
+      <!--end::Group actions-->
+    </div>
+    <!--end::Card toolbar-->
+  </div>
+  <!--end::Card header-->
 
-                    <a href="#" onclick="return false;" (click)="watchBitacora(Bitacora)"
-                      class="btn btn-icon btn-bg-light btn-hover-dark btn-active-dark btn-active-color-light btn-color-dark btn-sm m-1 btn-con-tooltip"
-                      data-label="Ver">
-                      <i class="ki-solid ki-eye fs-1"></i>
-                    </a>
-                    
-                    <!-- <a href="#" onclick="return false;" (click)="editBitacora(Bitacora)"
+  <!--begin::Card body-->
+  <div class="card-body pt-0">
+    <!--begin::Table-->
+    <div id="kt_customers_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
+      <div id="" style="border-radius: 0.475rem;" class="table-responsive">
+        <table style="width: 100%; border-collapse: collapse;" class="table align-middle fs-6 gy-5 dataTable;"
+          id="kt_customers_table" style="width: 100%">
+          <thead class="bg-primary">
+            <tr class="text-center rounded text-white fw-bold g-0 align-middle fs-3" style="">
+
+              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+                aria-label="Customer Name: Activate to sort" tabindex="0">
+                <span class="dt-column-title" role="button">Folio Solicitud</span><span class="dt-column-order"></span>
+              </th>
+
+              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+                aria-label="Customer Name: Activate to sort" tabindex="0">
+                <span class="dt-column-title" role="button">Número de Bitácora</span><span
+                  class="dt-column-order"></span>
+              </th>
+
+              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+                aria-label="Customer Name: Activate to sort" tabindex="0">
+                <span class="dt-column-title" role="button">Fecha</span><span class="dt-column-order"></span>
+              </th>
+
+              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+                aria-label="Customer Name: Activate to sort" tabindex="0">
+                <span class="dt-column-title" role="button">Falla/Error</span><span class="dt-column-order"></span>
+              </th>
+
+              <th class="min-w-70px dt-orderable-none" data-dt-column="2" rowspan="1" colspan="1" aria-label="Actions">
+                <span class="dt-column-title">Acciones</span><span class="dt-column-order"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="fw-semibold text-gray-600">
+            <tr>
+              <td colspan="10" *ngIf="isLoading$ | async" style="text-align: center;">
+                Cargando... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </td>
+            </tr>
+            <ng-container *ngFor="let Bitacora of bitacora.data">
+              <tr>
+
+                <td style="text-align: center;">
+                  {{Bitacora.solicitud.user.departamento.abreviatura}}/{{Bitacora.solicitud.folio | rellenaZero}}
+
+                </td>
+
+                <td style="text-align: center;">
+                  {{Bitacora.id | rellenaZero}}
+                </td>
+
+                <td>
+                  {{Bitacora.fecha == null ? 'Sin fecha' : Bitacora.fecha}}
+                </td>
+
+                <td>
+                  {{Bitacora.descFalla}}
+                </td>
+
+
+                <td class="">
+
+                  <a href="#" onclick="return false;" (click)="watchBitacora(Bitacora)"
+                    class="btn btn-icon btn-bg-light btn-hover-dark btn-active-dark btn-active-color-light btn-color-dark btn-sm m-1 btn-con-tooltip"
+                    data-label="Ver">
+                    <i class="ki-solid ki-eye fs-1"></i>
+                  </a>
+
+                  <!-- <a href="#" onclick="return false;" (click)="editBitacora(Bitacora)"
                       class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
                       data-label="Editar">
                       <i class="ki-duotone ki-pencil fs-1">
                         <span class="path1"></span><span class="path2"></span>
                       </i>
                     </a> -->
-  
-                    
-                  </td>
-                </tr>
-              </ng-container>
-  
-            </tbody>
-            <tfoot></tfoot>
-          </table>
-        </div>
-        <div class="d-flex align-items-center justify-content-center">
+
+
+                </td>
+              </tr>
+            </ng-container>
+
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+      </div>
+      <div class="d-flex align-items-center justify-content-center">
         <!-- <div class="fw-semibold text-gray-700 me-2">Elementos por página:</div> -->
         <select id="categoria" class="form-control w-55px" [(ngModel)]="pageSize" (change)="onChangeItemsPerPage()">
           <option [ngValue]=10>10</option>
@@ -134,8 +136,8 @@
         <ngb-pagination [collectionSize]="totalPages" [(page)]="currentPage" [pageSize]="pageSize" [rotate]="true"
           [boundaryLinks]="true" (pageChange)="loadPage($event)" [maxSize]="5" [ellipses]="false"></ngb-pagination>
       </div>
-      </div>
-      <!--end::Table-->
     </div>
-    <!--end::Card body-->
+    <!--end::Table-->
   </div>
+  <!--end::Card body-->
+</div>

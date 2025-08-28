@@ -1,6 +1,6 @@
-<div class="card " style="height: 50vh;">
+<div class="card ">
     <!--begin::Card header-->
-    <div class="fw-bold mt-5 text-center fs-3">Configuración de folios por departamento
+    <div class="fw-bold mt-5 text-center fs-3">Configuración de folios
     </div>
     <div class="config-folio">
         <div class="card-folio">
@@ -10,12 +10,13 @@
             </div>
 
             <div>
-            Folio de respuesta actual: <strong>{{ FolioRespuesta }}</strong>
+                Folio actual: <span *ngIf="!(isLoading$ | async)"><strong>{{ FolioRespuesta }}</strong></span>
+                <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm align-middle ms-2">
+                </span>
 
             </div>
 
             <div>
-                Folio Respuesta
                 <button type="button" *ngIf="isPermission('reload_folio_respuesta')"
                     class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-color-danger btn-sm btn-con-tooltip m-1"
                     (click)="reiniciarFolioRespuesta()" title="Reiniciar Folio" data-label="Reiniciar Folio">
@@ -54,12 +55,11 @@
             <!--end::Search-->
         </div>
         <!--begin::Card title-->
-        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
     </div>
     <!--end::Card header-->
 
     <!--begin::Card body-->
-    <div class="card-body pt-0" style="overflow-y: auto;">
+    <div class="card-body pt-0" style="overflow-y: auto; max-height: 30vw;">
         <!--begin::Table-->
         <div id="kt_customers_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
             <div id="" style="border-radius: 0.475rem;" class="table-responsive">
@@ -92,6 +92,12 @@
                         </tr>
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
+                        <tr>
+                            <td colspan="10" *ngIf="isLoading$ | async" style="text-align: center;">
+                                Cargando... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+
+                            </td>
+                        </tr>
                         <ng-container *ngFor="let folio of folios.data">
                             <tr>
 

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ConfigAdicionalesService } from '../service/config-adicionales.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-actualizar-solicitud',
@@ -12,11 +13,11 @@ export class ActualizarSolicitudComponent {
   @Input() folio: any;
   @Output() FolioS: EventEmitter<any> = new EventEmitter();
 
-   isLoading: any;
+  isLoading: boolean = false;
 
-   estadoF: boolean = false;
+  estadoF: boolean = false;
 
-   constructor(
+  constructor(
     public modal: NgbActiveModal,
     public configService: ConfigAdicionalesService,
     public toast: ToastrService) { }
@@ -40,16 +41,19 @@ export class ActualizarSolicitudComponent {
       return false;
     }
 
-    this.configService.editarFolio(this.folio).subscribe({
-      next: (resp) => {
-        this.toast.success("Éxito", "Se edito el folio para el depertamento " + this.folio.nombre + " correctamente");
-        this.FolioS.emit(resp);
-        this.modal.close();
-      },
-      error: (err) => {
-        console.error('Error al cargar los datos', err);
-        this.toast.error('Error al guardar los datos', 'Error');
-      }
-    })
+    this.isLoading = true;
+    this.configService.editarFolio(this.folio)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe({
+        next: (resp) => {
+          this.toast.success("Éxito", "Se edito el folio para el depertamento " + this.folio.nombre + " correctamente");
+          this.FolioS.emit(resp);
+          this.modal.close();
+        },
+        error: (err) => {
+          console.error('Error al cargar los datos', err);
+          this.toast.error('Error al guardar los datos', 'Error');
+        }
+      })
   }
 }

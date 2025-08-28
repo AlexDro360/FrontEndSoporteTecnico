@@ -9,13 +9,11 @@
           <span class="path1"></span><span class="path2"></span>
         </i>
         <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listSolicitudes()"
-          data-kt-customer-table-filter="search"
-          class="form-control form-control-solid w-250px ps-12 fs-3" placeholder="Buscar Solicitud" />
+          data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12 fs-3"
+          placeholder="Buscar Solicitud" />
       </div>
       <!--end::Search-->
     </div>
-    <!--begin::Card title-->
-    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
     <!--begin::Card toolbar-->
     <div class="card-toolbar">
       <!--begin::Toolbar-->
@@ -57,7 +55,8 @@
 
               <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
                 aria-label="Customer Name: Activate to sort" tabindex="0">
-                <span class="dt-column-title" role="button">Folio de Solicitud</span><span class="dt-column-order"></span>
+                <span class="dt-column-title" role="button">Folio de Solicitud</span><span
+                  class="dt-column-order"></span>
               </th>
 
               <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
@@ -97,6 +96,11 @@
             </tr>
           </thead>
           <tbody class="fw-semibold text-gray-600">
+            <tr>
+              <td colspan="10" *ngIf="isLoading$ | async" style="text-align: center;">
+                Cargando... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </td>
+            </tr>
             <ng-container *ngFor="let SOLICITUD of SOLICITUDES">
               <tr>
 
@@ -148,18 +152,18 @@
                     <i class="ki-solid ki-eye fs-1"></i>
                   </a>
 
-                 <a href="#" onclick="return false;"
-                  *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 6) && isPermission('view_response_my_solicitudes')"
-                  (click)="watchRespuesta(SOLICITUD)"
-                  class="btn btn-icon bg-gray-400 btn-hover-info btn-active-info btn-color-info btn-active-color-white btn-sm m-1 btn-con-tooltip"
-                  data-label="Ver Respuesta">
-                  <i class="ki-duotone ki-directbox-default fs-1">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                    <span class="path3"></span>
-                    <span class="path4"></span>
-                  </i>
-                </a> 
+                  <a href="#" onclick="return false;"
+                    *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 6) && isPermission('view_response_my_solicitudes')"
+                    (click)="watchRespuesta(SOLICITUD)"
+                    class="btn btn-icon bg-gray-400 btn-hover-info btn-active-info btn-color-info btn-active-color-white btn-sm m-1 btn-con-tooltip"
+                    data-label="Ver Respuesta">
+                    <i class="ki-duotone ki-directbox-default fs-1">
+                      <span class="path1"></span>
+                      <span class="path2"></span>
+                      <span class="path3"></span>
+                      <span class="path4"></span>
+                    </i>
+                  </a>
 
                 </td>
               </tr>

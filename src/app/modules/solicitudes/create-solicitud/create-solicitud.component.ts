@@ -15,7 +15,7 @@ export class CreateSolicitudComponent {
   @Input() user: any;
 
   departamentos: any[] = [];
-  isLoading: any;
+  isLoading: boolean = false;
 
   textoUser: string = '';
   phone: string = '';
@@ -52,8 +52,9 @@ export class CreateSolicitudComponent {
     formData.append('idUser', this.user.id);
     formData.append('descripcionUser', this.textoUser);
     formData.append('idTipo', this.tipo_id);
-
+    this.isLoading = true;
     this.solicitudService.registerSolicitud(formData).subscribe((resp:any) => {
+      
       if(resp.message == 403){
         this.toast.error("Validación", resp.message_text);
       }else{
@@ -61,6 +62,7 @@ export class CreateSolicitudComponent {
         this.SolicitudC.emit(resp.solicitud);
         this.modal.close();
       }
+      this.isLoading = false;
     })
   }
 

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ConfigAdicionalesService } from '../service/config-adicionales.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-agregar-jefe',
@@ -12,7 +13,7 @@ export class AgregarJefeComponent {
 
   @Output() JefeA: EventEmitter<any> = new EventEmitter();
 
-  isLoading: any;
+  isLoading: boolean = false;
 
   nombres: string = '';
   apellidoP: string = '';
@@ -69,7 +70,10 @@ export class AgregarJefeComponent {
     formData.append('apellidoP', this.apellidoP);
     formData.append('apellidoM', this.apellidoM);
 
-    this.configService.agregarJefe(formData).subscribe({
+    this.isLoading = true;
+    this.configService.agregarJefe(formData)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe({
       next: (resp) => {
         this.toast.success("Éxito", "Se agregó el nuevo jefe correctamente");
         this.JefeA.emit(resp);

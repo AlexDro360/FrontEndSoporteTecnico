@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ConfigAdicionalesService } from '../service/config-adicionales.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-actualizar-respuesta',
@@ -12,7 +13,7 @@ export class ActualizarRespuestaComponent {
   @Input() folios:any;
   @Output() FolioR: EventEmitter<any> = new EventEmitter();
 
-   isLoading: any;
+   isLoading: boolean = false;
 
    estadoF: boolean = false;
 
@@ -42,7 +43,10 @@ export class ActualizarRespuestaComponent {
       return false;
     }
 
-    this.configService.EditRespuesta(this.folios).subscribe({
+    this.isLoading = true;
+    this.configService.EditRespuesta(this.folios)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe({
       next: (resp) => {
         this.toast.success("Éxito", "Se edito el folio de respuesta correctamente");
         this.FolioR.emit(resp);

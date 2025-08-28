@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BitacoraService } from '../service/bitacora.service';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-editar-bitacora',
@@ -21,7 +22,7 @@ export class EditarBitacoraComponent {
   estadoDM: boolean = false;
   estadoD: boolean = false;
 
-  isLoading: any;
+  isLoading: boolean = false;
 
   constructor(
 
@@ -93,7 +94,10 @@ export class EditarBitacoraComponent {
       return false;
     }
 
-    this.bitacoraService.editarBitacora(this.bitacora).subscribe({
+    this.isLoading = true;
+    this.bitacoraService.editarBitacora(this.bitacora)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe({
       next: (resp) => {
         this.toast.success("Éxito", "Se Actualizó la bitácora correctamente");
         this.BitacoraE.emit(resp);

@@ -37,7 +37,7 @@ export class UpUserComponent {
         this.toast.success("Exito", "El usuario se dio de alta correctamento");
         this.UserD.emit(resp.role);
         this.modal.close();
-        location.reload();
+        // location.reload();
       }
     })
   }

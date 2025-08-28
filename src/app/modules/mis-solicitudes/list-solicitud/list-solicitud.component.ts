@@ -4,10 +4,10 @@ import { forkJoin } from 'rxjs';
 import { Toast } from 'bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { MisSolicitudesService } from '../service/mis-solicitudes.service';
-import { CrearSolicitudComponent } from '../crear-solicitud/crear-solicitud.component';
 import { VerSolicitudComponent } from '../ver-solicitud/ver-solicitud.component';
 import { VerRespuestaComponent } from '../../respuestas/ver-respuesta/ver-respuesta.component';
 import { isPermission } from 'src/app/config/config';
+import { CreateSolicitudComponent } from '../../solicitudes/create-solicitud/create-solicitud.component';
 
 @Component({
   selector: 'app-list-solicitud',
@@ -58,7 +58,7 @@ export class ListSolicitudComponent {
   }
 
   createSolicitud() {
-    const modalRef = this.modalService.open(CrearSolicitudComponent, { centered: true, size: 'md' });
+    const modalRef = this.modalService.open(CreateSolicitudComponent, { centered: true, size: 'md' });
     modalRef.componentInstance.tipos = this.tipos;
     modalRef.componentInstance.user = this.user;
 

@@ -60,33 +60,21 @@ export class MisSolicitudesService {
   }
 
   tiposServicios() {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/tiposervicios";
-    return this.http.get(URL, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.get(URL, { headers: headers });
   }
 
   tiposMantenimientos() {
-    this.isLoadingSubject.next(true);
-    // this.setLoading(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/tipomantenimientos";
-    return this.http.get(URL, { headers: headers }).pipe(
-      // finalize(() => this.setLoading(false))
-      finalize(() => this.isLoadingSubject.next(false))
-
-    );
+    return this.http.get(URL, { headers: headers });
   }
 
   getRespuesta(idSolicitud: any) {
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/respuesta/buscar/${idSolicitud}`;
-    return this.http.get(URL, { headers: headers }).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.get(URL, { headers: headers });
   }
 
   obtenerPDF(id: any) {
