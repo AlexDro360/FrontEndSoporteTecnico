@@ -2,11 +2,14 @@ import { Routes } from '@angular/router';
 import { RoleRedirectGuard } from '../modules/auth/services/RoleRedirectGuard';
 import { RoleRedirectComponent } from '../modules/auth/services/role-redirect.component';
 import { AuthGuard } from '../modules/auth/services/auth.guard';
+import { PermissionGuard } from '../guards/permission.guard';
 
 const Routing: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'view_dashboard' }
   },
   {
     path: 'builder',
@@ -40,10 +43,14 @@ const Routing: Routes = [
   {
     path: 'apps/users',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'view_users' }
   },
   {
     path: 'apps/roles',
     loadChildren: () => import('./role/role.module').then((m) => m.RoleModule),
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'view_role' }
   },
   {
     path: 'apps/permissions',
@@ -53,14 +60,20 @@ const Routing: Routes = [
   {
     path: 'roles',
     loadChildren: () => import('../modules/roles/roles.module').then((m) => m.RolesModule),
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'view_role' }
   },
   {
     path: 'usuarios',
     loadChildren: () => import('../modules/users/users.module').then((m) => m.UsersModule),
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'view_user' }
   },
   {
     path: 'solicitudes',
     loadChildren: () => import('../modules/solicitudes/solicitudes.module').then((m) => m.SolicitudesModule),
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'view_solicitud' }
   },
   {
     path: 'respuestas',
@@ -69,14 +82,20 @@ const Routing: Routes = [
   {
     path: 'bitacora',
     loadChildren: () => import('../modules/bitacora/bitacora.module').then((m) => m.BitacoraModule),
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'view_bitacora' }
   },
   {
     path: 'config-adicionales',
     loadChildren: () => import('../modules/config-adicionales/config-adicionales.module').then((m) => m.ConfigAdicionalesModule),
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'view_extra' }
   },
   {
     path: 'mis-solicitudes',
     loadChildren: () => import('../modules/mis-solicitudes/mis-solicitudes.module').then((m) => m.MisSolicitudesModule),
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'view_my_solicitudes' }
   },
   {
     path: '',
