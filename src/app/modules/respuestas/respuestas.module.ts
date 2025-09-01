@@ -17,7 +17,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [
     RespuestasComponent,
-    CrearRespuestaComponent,
+    // CrearRespuestaComponent,
     ListRespuestaComponent,
     EditarRespuestaComponent,
     BorrarRespuestaComponent,

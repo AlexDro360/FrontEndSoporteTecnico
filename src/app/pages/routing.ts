@@ -11,51 +11,51 @@ const Routing: Routes = [
     canActivate: [AuthGuard, PermissionGuard],
     data: { permission: 'view_dashboard' }
   },
-  {
-    path: 'builder',
-    loadChildren: () => import('./builder/builder.module').then((m) => m.BuilderModule),
-  },
+  // {
+  //   path: 'builder',
+  //   loadChildren: () => import('./builder/builder.module').then((m) => m.BuilderModule),
+  // },
   {
     path: 'crafted/pages/profile',
     loadChildren: () => import('../modules/profile/profile.module').then((m) => m.ProfileModule),
     // data: { layout: 'light-sidebar' },
   },
-  {
-    path: 'crafted/account',
-    loadChildren: () => import('../modules/account/account.module').then((m) => m.AccountModule),
-    // data: { layout: 'dark-header' },
-  },
-  {
-    path: 'crafted/pages/wizards',
-    loadChildren: () => import('../modules/wizards/wizards.module').then((m) => m.WizardsModule),
-    // data: { layout: 'light-header' },
-  },
-  {
-    path: 'crafted/widgets',
-    loadChildren: () => import('../modules/widgets-examples/widgets-examples.module').then((m) => m.WidgetsExamplesModule),
-    // data: { layout: 'light-header' },
-  },
-  {
-    path: 'apps/chat',
-    loadChildren: () => import('../modules/apps/chat/chat.module').then((m) => m.ChatModule),
-    // data: { layout: 'light-sidebar' },
-  },
-  {
-    path: 'apps/users',
-    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
-    canActivate: [AuthGuard, PermissionGuard],
-    data: { permission: 'view_users' }
-  },
-  {
-    path: 'apps/roles',
-    loadChildren: () => import('./role/role.module').then((m) => m.RoleModule),
-    canActivate: [AuthGuard, PermissionGuard],
-    data: { permission: 'view_role' }
-  },
-  {
-    path: 'apps/permissions',
-    loadChildren: () => import('./permission/permission.module').then((m) => m.PermissionModule),
-  },
+  // {
+  //   path: 'crafted/account',
+  //   loadChildren: () => import('../modules/account/account.module').then((m) => m.AccountModule),
+  //   // data: { layout: 'dark-header' },
+  // },
+  // {
+  //   path: 'crafted/pages/wizards',
+  //   loadChildren: () => import('../modules/wizards/wizards.module').then((m) => m.WizardsModule),
+  //   // data: { layout: 'light-header' },
+  // },
+  // {
+  //   path: 'crafted/widgets',
+  //   loadChildren: () => import('../modules/widgets-examples/widgets-examples.module').then((m) => m.WidgetsExamplesModule),
+  //   // data: { layout: 'light-header' },
+  // },
+  // {
+  //   path: 'apps/chat',
+  //   loadChildren: () => import('../modules/apps/chat/chat.module').then((m) => m.ChatModule),
+  //   // data: { layout: 'light-sidebar' },
+  // },
+  // {
+  //   path: 'apps/users',
+  //   loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+  //   canActivate: [AuthGuard, PermissionGuard],
+  //   data: {  }
+  // },
+  // {
+  //   path: 'apps/roles',
+  //   loadChildren: () => import('./role/role.module').then((m) => m.RoleModule),
+  //   canActivate: [AuthGuard, PermissionGuard],
+  //   data: {}
+  // },
+  // {
+  //   path: 'apps/permissions',
+  //   loadChildren: () => import('./permission/permission.module').then((m) => m.PermissionModule),
+  // },
   //MIS MODULOS localhost:4200/roles/list
   {
     path: 'roles',
@@ -75,10 +75,10 @@ const Routing: Routes = [
     canActivate: [AuthGuard, PermissionGuard],
     data: { permission: 'view_solicitud' }
   },
-  {
-    path: 'respuestas',
-    loadChildren: () => import('../modules/respuestas/respuestas.module').then((m) => m.RespuestasModule),
-  },
+  // {
+  //   path: 'respuestas',
+  //   loadChildren: () => import('../modules/respuestas/respuestas.module').then((m) => m.RespuestasModule),
+  // },
   {
     path: 'bitacora',
     loadChildren: () => import('../modules/bitacora/bitacora.module').then((m) => m.BitacoraModule),

@@ -25,7 +25,7 @@ export class PermissionGuard implements CanActivate {
     }
 
     // Usuario no tiene el permiso → redirige a una página de "Acceso denegado"
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/error/permiso-denegado']);
     return false;
   }
 }

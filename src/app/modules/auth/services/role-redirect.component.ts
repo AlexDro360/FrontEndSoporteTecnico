@@ -4,7 +4,7 @@ import { AuthService } from '..';
 
 @Component({
   selector: 'app-role-redirect',
-  template: '' // No renderiza nada
+  template: '' 
 })
 export class RoleRedirectComponent {
   constructor(private authService: AuthService, private router: Router) {
@@ -20,7 +20,7 @@ export class RoleRedirectComponent {
     } else if(role===4){
       this.router.navigate(['/dashboard']);
     }else {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/mis-solicitudes/list']);
     } 
   }
 }

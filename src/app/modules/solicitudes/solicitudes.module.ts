@@ -15,6 +15,8 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { VerSolicitudComponent } from './ver-solicitud/ver-solicitud.component';
 import { RechazarSolicitudComponent } from './rechazar-solicitud/rechazar-solicitud.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CrearRespuestaComponent } from '../respuestas/crear-respuesta/crear-respuesta.component';
+import { VerRespuestaComponent } from '../respuestas/ver-respuesta/ver-respuesta.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AsignarPersonalComponent,
     VerSolicitudComponent,
     RechazarSolicitudComponent,
+    CrearRespuestaComponent,
+    VerRespuestaComponent,
   ],
   imports: [
     SharedModule,
