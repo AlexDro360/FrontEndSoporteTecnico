@@ -20,7 +20,7 @@ export class RoleRedirectComponent {
     } else if(role===4){
       this.router.navigate(['/dashboard']);
     }else {
-      this.router.navigate(['/mis-solicitudes/list']);
+      this.router.navigate(['/bienvenido']);
     } 
   }
 }

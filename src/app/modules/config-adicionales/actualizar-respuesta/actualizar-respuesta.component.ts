@@ -30,18 +30,18 @@ export class ActualizarRespuestaComponent {
   }
 
   guardar() {
-    this.reiniciarAlertas();
-    let error: boolean = false;
-    if (!this.folios.FolioRespuesta) {
-      // this.toast.error("Validación", "Es necesario describir la falla");
-      // return false;
-      error = true;
-      this.estadoF = true;
-    }
+    // this.reiniciarAlertas();
+    // let error: boolean = false;
+    // if (!this.folios.FolioRespuesta) {
+    //   // this.toast.error("Validación", "Es necesario describir la falla");
+    //   // return false;
+    //   error = true;
+    //   this.estadoF = true;
+    // }
 
-    if (error) {
-      return false;
-    }
+    // if (error) {
+    //   return false;
+    // }
 
     this.isLoading = true;
     this.configService.EditRespuesta(this.folios)

@@ -29,12 +29,12 @@
     <!--begin::Modal body-->
     <div class="modal-body scroll-y mx-5 my-3">
         <!--begin::Form-->
-        <div>
+        <!-- <div>
             <label style="justify-items: center;" class="required fw-bold fs-2 mb-3">Todos los datos con</label>
             <span style="justify-items: center;" class=" fw-bold fs-2 mb-3" > son requeridos </span>
             <br>
-        </div>
-        <form id="kt_modal_add_user_form" class="form" action="#">
+        </div> -->
+        <form id="kt_modal_add_user_form" class="form" action="#" #miForm="ngForm">
             <!--begin::Scroll-->
             <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true"
                 data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
@@ -45,13 +45,22 @@
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Nombre: </label>
                         <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Nombre" [(ngModel)]="name" />
+                            placeholder="Nombre" [(ngModel)]="name" #nameControl="ngModel" required maxlength="100" />
+                        <div *ngIf="nameControl.invalid && nameControl.touched" class="alert alert-danger mt-1">
+                            <div *ngIf="nameControl.errors?.required">El nombre es requerido</div>
+                            <div *ngIf="nameControl.errors?.maxlength">Máximo 100 caracteres permitidos</div>
+                        </div>
                     </div>
 
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Apellido Paterno: </label>
                         <input type="text" name="surnameP" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Apellido Paterno" [(ngModel)]="surnameP" />
+                            placeholder="Apellido Paterno" [(ngModel)]="surnameP" #surnamePControl="ngModel" required
+                            maxlength="100" />
+                        <div *ngIf="surnamePControl.invalid && surnamePControl.touched" class="alert alert-danger mt-1">
+                            <div *ngIf="surnamePControl.errors?.required">El apellido paterno es requerido</div>
+                            <div *ngIf="surnamePControl.errors?.maxlength">Máximo 100 caracteres permitidos</div>
+                        </div>
                     </div>
                 </div>
 
@@ -59,27 +68,49 @@
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Apellido Materno: </label>
                         <input type="text" name="surnameM" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Apellido Materno" [(ngModel)]="surnameM" />
+                            placeholder="Apellido Materno" [(ngModel)]="surnameM" #surnameMControl="ngModel" required
+                            maxlength="100" />
+                        <div *ngIf="surnameMControl.invalid && surnameMControl.touched" class="alert alert-danger mt-1">
+                            <div *ngIf="surnameMControl.errors?.required">El apellido materno es requerido</div>
+                            <div *ngIf="surnameMControl.errors?.maxlength">Máximo 100 caracteres permitidos</div>
+                        </div>
                     </div>
 
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Telefono: </label>
                         <input type="number" name="phone" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="951XXXXXXX" [(ngModel)]="phone" />
+                            placeholder="951XXXXXXX" [(ngModel)]="phone" #phoneControl="ngModel" required
+                            pattern="^\d{10}$" />
+
+                        <div *ngIf="phoneControl.invalid && phoneControl.touched " class="alert alert-danger">
+                            <div *ngIf="phoneControl.errors?.required">El teléfono es requerido</div>
+                            <div *ngIf="phoneControl.errors?.pattern">El teléfono debe tener 10 dígitos</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="fv-row row my-1">
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">N° Empleado/Control: </label>
-                        <input type="number" [(ngModel)]="n_empleado" name="n_empleado"
-                            class="form-control form-control-solid mb-3 mb-lg-0" placeholder="000" />
+                        <input  [(ngModel)]="n_empleado" name="num_empleado"
+                            class="form-control form-control-solid mb-3 mb-lg-0" placeholder="000"
+                            #nEmpleadoControl="ngModel" required maxlength="10" />
+                        <div *ngIf="nEmpleadoControl.invalid && nEmpleadoControl.touched" class="alert alert-danger">
+                            <div *ngIf="nEmpleadoControl.errors?.required">El número de empleado es requerido</div>
+                            <div *ngIf="nEmpleadoControl.errors?.max">Máximo 10 dígitos permitidos</div>
+                        </div>
                     </div>
 
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Correo: </label>
                         <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="example@gmail.com" [(ngModel)]="email" />
+                            placeholder="example@gmail.com" [(ngModel)]="email" #emailControl="ngModel" required
+                            maxlength="100" email />
+                        <div *ngIf="emailControl.invalid && emailControl.touched" class="alert alert-danger mt-1">
+                            <div *ngIf="emailControl.errors?.required">El correo es requerido</div>
+                            <div *ngIf="emailControl.errors?.email">El correo no es válido</div>
+                            <div *ngIf="emailControl.errors?.maxlength">Máximo 100 caracteres permitidos</div>
+                        </div>
                     </div>
                 </div>
 
@@ -87,7 +118,7 @@
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Roles: </label>
                         <select class="form-control form-select-solid fw-bolder" name="role_selected"
-                            placeholder="Selecciona Rol" [(ngModel)]="role_id">
+                            placeholder="Selecciona Rol" [(ngModel)]="role_id" #roleControl="ngModel" required>
 
                             <option value="">Selec. Rol</option>
 
@@ -96,6 +127,10 @@
                             </ng-container>
 
                         </select>
+
+                        <div *ngIf="roleControl.invalid && roleControl.touched" class="alert alert-danger">
+                            El rol es requerido
+                        </div>
                     </div>
                 </div>
 
@@ -103,7 +138,8 @@
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Departamento: </label>
                         <select class="form-control form-select-solid fw-bolder" name="departamento"
-                            placeholder="Seleccionar Departamento" [(ngModel)]="departamento_id" required>
+                            placeholder="Seleccionar Departamento" [(ngModel)]="departamento_id"
+                            #departamentoControl="ngModel" required>
 
                             <option value="">Seleccionar Departamento</option>
                             <ng-container *ngFor="let departamento of departamentos">
@@ -112,6 +148,11 @@
                             </ng-container>
 
                         </select>
+
+                        <div *ngIf="departamentoControl.invalid && departamentoControl.touched"
+                            class="alert alert-danger">
+                            El departamento es requerido
+                        </div>
                     </div>
                 </div>
 
@@ -134,13 +175,23 @@
                     <div class="col-6">
                         <label class="fw-bold fs-6 mb-2">Contaseña: </label>
                         <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="*********" [(ngModel)]="password" />
+                            placeholder="*********" [(ngModel)]="password" #passwordControl="ngModel"
+                            minlength="3" />
+                        <div *ngIf="passwordControl.invalid && passwordControl.touched" class="alert alert-danger">
+                            <!-- <div *ngIf="passwordControl.errors?.required">La contraseña es requerida</div> -->
+                            <div *ngIf="passwordControl.errors?.minlength">Mínimo 3 caracteres</div>
+                        </div>
                     </div>
 
                     <div class="col-6">
                         <label class="fw-bold fs-6 mb-2">Repetir Contraseña: </label>
                         <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="*********" [(ngModel)]="password_repit" />
+                            placeholder="*********" [(ngModel)]="password_repit" #passwordRepitControl="ngModel"/>
+                        <div *ngIf="(passwordRepitControl.invalid && (passwordRepitControl.touched)) || passwordRepitControl.value !== password"
+                            class="alert alert-danger">
+                            <!-- <div *ngIf="passwordRepitControl.errors?.required">Debe repetir la contraseña</div> -->
+                            <div *ngIf="passwordRepitControl.value !== password">Las contraseñas no coinciden</div>
+                        </div>
                     </div>
                 </div>
 
@@ -152,7 +203,8 @@
             <!--begin::Actions-->
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="store()" class="btn btn-primary" [disabled]="isLoading" data-kt-users-modal-action="submit">
+                <button type="button" (click)="store()" class="btn btn-primary" [disabled]="isLoading || miForm.invalid || passwordRepitControl.value !== password"
+                    data-kt-users-modal-action="submit">
                     <span *ngIf="!isLoading" class="indicator-label">Guardar</span>
 
                     <span *ngIf="isLoading">Enviando...

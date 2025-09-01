@@ -38,32 +38,32 @@ export class AgregarJefeComponent {
   }
 
   guardar() {
-    this.reiniciarAlertas();
-    let error: boolean = false;
-    if (!this.nombres) {
-      // this.toast.error("Validación", "Es necesario describir la falla");
-      // return false;
-      error = true;
-      this.estadoN = true;
-    }
+    // this.reiniciarAlertas();
+    // let error: boolean = false;
+    // if (!this.nombres) {
+    //   // this.toast.error("Validación", "Es necesario describir la falla");
+    //   // return false;
+    //   error = true;
+    //   this.estadoN = true;
+    // }
 
-    if (!this.apellidoP) {
-      // this.toast.error("Validación", "Es necesario describir la solución");
-      // return false;
-      error = true;
-      this.estadoAP = true;
-    }
+    // if (!this.apellidoP) {
+    //   // this.toast.error("Validación", "Es necesario describir la solución");
+    //   // return false;
+    //   error = true;
+    //   this.estadoAP = true;
+    // }
 
-    if (!this.apellidoM) {
-      // this.toast.error("Validación", "Es necesario escribir los materiales ocupados");
-      // return false;
-      error = true;
-      this.estadoAM = true;
-    }
+    // if (!this.apellidoM) {
+    //   // this.toast.error("Validación", "Es necesario escribir los materiales ocupados");
+    //   // return false;
+    //   error = true;
+    //   this.estadoAM = true;
+    // }
 
-    if (error) {
-      return false;
-    }
+    // if (error) {
+    //   return false;
+    // }
 
     let formData = new FormData();
     formData.append('nombres', this.nombres)

@@ -30,7 +30,7 @@
     <div class="modal-body scroll-y mx-5 my-3">
         <!--begin::Form-->
 
-        <form id="kt_modal_add_user_form" class="form" action="#">
+        <form id="kt_modal_add_user_form" class="form" action="#" #miForm="ngForm">
             <div class="d-flex flex-column flex-lg-row">
                 <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 order-2 order-lg-2 scroll-y me-n7 pe-7 me-lg-5"
                     id="kt_modal_view_data_scroll" data-kt-scroll="true"
@@ -117,9 +117,13 @@
                         <div class="col-12">
                             <label class="required fw-bold fs-6 mb-2">Nombre de quien verificó</label>
                             <input type="text" class="form-control form-control-solid mb-3 mb-lg-0" name="verifico"
-                                placeholder="Nombre de la persona que verificó..." [(ngModel)]="user.full_names">
-                            <div *ngIf="estadoNV" class="alert alert-danger" role="alert">
-                                El nombre de quien verificó es requerido
+                                placeholder="Nombre de la persona que verificó..." [(ngModel)]="user.full_names"
+                                #verificoControl="ngModel" required maxlength="150">
+                            <div *ngIf="verificoControl.invalid && verificoControl.touched"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="verificoControl.errors?.required">El nombre de quien verificó es requerido
+                                </div>
+                                <div *ngIf="verificoControl.errors?.maxlength">Máximo 150 caracteres permitidos</div>
                             </div>
                         </div>
                     </div>
@@ -127,10 +131,11 @@
                     <div class="fv-row row my-1">
                         <div class="col-12">
                             <label class="fw-bold fs-6 mb-2">Nombre de quien aprobó </label>
-                            <span style="font-style: italic;"><br> Automatico de acuerdo al jefe del Centro de Cómputo activo actualmente</span>
+                            <span style="font-style: italic;"><br> Automatico de acuerdo al jefe del Centro de Cómputo
+                                activo actualmente</span>
                             <input type="text" class="form-control form-control-outline mb-3 mb-lg-0" name="aprobo"
                                 readOnly [(ngModel)]="jefeCC.nombreC">
-                            <div *ngIf="!jefeCC" class="alert alert-danger" role="alert">
+                            <div *ngIf="!jefeCC" class="alert alert-danger mt-1" role="alert">
                                 Primero debe dar de alta a un Jefe de Departamento de Centro de Cómputo en
                                 <a routerLinkActive="active" routerLink="/config-adicionales/"
                                     (click)="modal.dismiss()">
@@ -145,9 +150,11 @@
                         <div class="col-12">
                             <label class="required fw-bold fs-6 mb-2">Asunto</label>
                             <textarea name="asunto" class="form-control form-control-solid mb-3 mb-lg-0"
-                                placeholder="Asunto..." [(ngModel)]="asunto" rows="2"></textarea>
-                            <div *ngIf="estadoA" class="alert alert-danger" role="alert">
-                                El asunto es requerido
+                                placeholder="Asunto..." [(ngModel)]="asunto" rows="2" #asuntoControl="ngModel" required
+                                maxlength="200"></textarea>
+                            <div *ngIf="asuntoControl.invalid && asuntoControl.touched" class="alert alert-danger mt-1">
+                                <div *ngIf="asuntoControl.errors?.required">El asunto es requerido</div>
+                                <div *ngIf="asuntoControl.errors?.maxlength">Máximo 200 caracteres permitidos</div>
                             </div>
                         </div>
                     </div>
@@ -156,9 +163,12 @@
                         <div class="col-12">
                             <label class="required fw-bold fs-6 mb-2">Descripción</label>
                             <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                                placeholder="Describe la solución" [(ngModel)]="descripcion" rows="5"></textarea>
-                            <div *ngIf="estadoD" class="alert alert-danger" role="alert">
-                                La descripción es requerida
+                                placeholder="Describe la solución" [(ngModel)]="descripcion" rows="5"
+                                #descripcionControl="ngModel" required maxlength="800"></textarea>
+                            <div *ngIf="descripcionControl.invalid && descripcionControl.touched"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="descripcionControl.errors?.required">La descripción es requerida</div>
+                                <div *ngIf="descripcionControl.errors?.maxlength">Máximo 800 caracteres permitidos</div>
                             </div>
                         </div>
                     </div>
@@ -167,7 +177,8 @@
                         <div class="col-12">
                             <label class="required fw-bold fs-6 mb-2">Tipo de Servicio </label>
                             <select class="form-control form-select-solid fw-bolder" name="tipo_servicio_selected"
-                                placeholder="Selecciona el Tipo de Servicio" [(ngModel)]="idTipoServicio">
+                                placeholder="Selecciona el Tipo de Servicio" [(ngModel)]="idTipoServicio"
+                                #tipoServicioControl="ngModel" required>
 
                                 <option value="">Selec. Tipo Servicio</option>
 
@@ -176,7 +187,8 @@
                                 </ng-container>
 
                             </select>
-                            <div *ngIf="estadoTS" class="alert alert-danger" role="alert">
+                            <div *ngIf="tipoServicioControl.invalid && tipoServicioControl.touched"
+                                class="alert alert-danger mt-1">
                                 El tipo de servicio es requerido
                             </div>
                         </div>
@@ -186,7 +198,8 @@
                         <div class="col-12">
                             <label class="required fw-bold fs-6 mb-2">Tipo de Mantenimiento </label>
                             <select class="form-control form-select-solid fw-bolder" name="tipo_mantenimiento_selected"
-                                placeholder="Selecciona el Tipo de Mantenimiento" [(ngModel)]="idTipoMantenimiento">
+                                placeholder="Selecciona el Tipo de Mantenimiento" [(ngModel)]="idTipoMantenimiento"
+                                #tipoMantenimientoControl="ngModel" required>
 
                                 <option value="">Selec. Tipo Mantenimiento</option>
 
@@ -195,7 +208,8 @@
                                 </ng-container>
 
                             </select>
-                            <div *ngIf="estadoTM" class="alert alert-danger" role="alert">
+                            <div *ngIf="tipoMantenimientoControl.invalid && tipoMantenimientoControl.touched"
+                                class="alert alert-danger mt-1">
                                 El tipo de mantenimiento es requerido
                             </div>
                         </div>
@@ -208,11 +222,12 @@
             <!--begin::Actions-->
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="store()" class="btn btn-primary" [disabled]="isLoading" data-kt-users-modal-action="submit">
+                <button type="button" (click)="store()" class="btn btn-primary" [disabled]="isLoading || miForm.invalid"
+                    data-kt-users-modal-action="submit">
                     <span *ngIf="!isLoading" class="indicator-label">Enviar</span>
 
                     <span *ngIf="isLoading">Guardando...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2" ></span>
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
                 </button>
             </div>

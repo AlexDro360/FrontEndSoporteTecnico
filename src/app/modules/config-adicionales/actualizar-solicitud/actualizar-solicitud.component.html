@@ -29,7 +29,7 @@
     <!--begin::Modal body-->
     <div class="modal-body scroll-y mx-5 my-3">
         <!--begin::Form-->
-        <form id="kt_modal_add_user_form" class="form" action="#">
+        <form id="kt_modal_add_user_form" class="form" action="#" #miForm="ngForm">
             <!--begin::Scroll-->
             <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true"
                 data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
@@ -42,9 +42,12 @@
                         <label class="required fw-bold fs-6 mb-2">Folio de solicitudes para el departamento: {{folio.nombre}} </label>
                         <span style="font-style: italic;"><br>La proxima solicitud que se cree tomara el folio que ingrese</span>
                         <input type="number" min="0" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Folio de solicitud" [(ngModel)]="folio.folio" />
-                        <div *ngIf="estadoF" class="alert alert-danger" role="alert">
-                            Es necesario el folio
+                            placeholder="Folio de solicitud" [(ngModel)]="folio.folio" #folioControl="ngModel"
+                            required min="1"/>
+                        <div *ngIf="folioControl.invalid && folioControl.touched"
+                            class="alert alert-danger mt-1">
+                            <div *ngIf="folioControl.errors?.required">Es necesario el folio</div>
+                            <div *ngIf="folioControl.errors?.min">El folio debe ser un número mayor o igual a 1</div>
                         </div>
                     </div>
                 </div>
@@ -52,7 +55,7 @@
             <!--begin::Actions-->
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="guardar()" class="btn btn-primary" [disabled]="isLoading" data-kt-users-modal-action="submit">
+                <button type="button" (click)="guardar()" class="btn btn-primary" [disabled]="isLoading || miForm.invalid" data-kt-users-modal-action="submit">
                     <span *ngIf="!isLoading" class="indicator-label">Guardar</span>
 
                     <span *ngIf="isLoading">Guardando...

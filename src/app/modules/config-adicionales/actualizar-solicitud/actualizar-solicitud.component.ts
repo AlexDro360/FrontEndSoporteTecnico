@@ -30,16 +30,16 @@ export class ActualizarSolicitudComponent {
   }
 
   guardar() {
-    this.reiniciarAlertas();
-    let error: boolean = false;
-    if (!this.folio.folio) {
-      error = true;
-      this.estadoF = true;
-    }
+    // this.reiniciarAlertas();
+    // let error: boolean = false;
+    // if (!this.folio.folio) {
+    //   error = true;
+    //   this.estadoF = true;
+    // }
 
-    if (error) {
-      return false;
-    }
+    // if (error) {
+    //   return false;
+    // }
 
     this.isLoading = true;
     this.configService.editarFolio(this.folio)

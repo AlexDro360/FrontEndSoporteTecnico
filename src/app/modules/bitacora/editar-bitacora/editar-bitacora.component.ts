@@ -49,50 +49,50 @@ export class EditarBitacoraComponent {
 
   update() {
     this.bitacora.duracion = (this.horas * 60) + this.minutos;
-    this.reiniciarAlertas();
-    let error: boolean = false;
+    // this.reiniciarAlertas();
+    // let error: boolean = false;
 
-    if (!this.bitacora.descFalla) {
-      // this.toast.error("Validación", "Es necesario describir la falla.");
-      // return false;
-      error = true;
-      this.estadoDF = true;
-    }
-
-    if (this.bitacora.duracion == 0) {
-      // this.toast.error("Validación", "Es necesario describir la falla");
-      // return false;
-      error = true;
-      this.estadoD = true;
-    }
-
-    if (!this.bitacora.descSolucion) {
-      // this.toast.error("Validación", "Es necesario describir la solución.");
-      // return false;
-      error = true;
-      this.estadoDS = true;
-    }
-
-    if (!this.bitacora.materialReq) {
-      // this.toast.error("Validación", "Ingrese los materiales que utilizó.");
-      // return false;
-      error = true;
-      this.estadoDM = true;
-    }
-
-    // if (this.bitacora.descFalla.length < 10) {
-    //   this.toast.warning("Validación", "Es necesario, mas descripción de la falla.");
-    //   return false;
+    // if (!this.bitacora.descFalla) {
+    //   // this.toast.error("Validación", "Es necesario describir la falla.");
+    //   // return false;
+    //   error = true;
+    //   this.estadoDF = true;
     // }
 
-    // if (this.bitacora.descSolucion.length < 10) {
-    //   this.toast.warning("Validación", "Es necesario, mas descripción de la solución.");
-    //   return false;
-    // }
-    
-    if (error) {
-      return false;
-    }
+      // if (this.bitacora.duracion == 0) {
+      //   // this.toast.error("Validación", "Es necesario describir la falla");
+      //   // return false;
+      //   error = true;
+      //   this.estadoD = true;
+      // }
+
+      // if (!this.bitacora.descSolucion) {
+      //   // this.toast.error("Validación", "Es necesario describir la solución.");
+      //   // return false;
+      //   error = true;
+      //   this.estadoDS = true;
+      // }
+
+      // if (!this.bitacora.materialReq) {
+      //   // this.toast.error("Validación", "Ingrese los materiales que utilizó.");
+      //   // return false;
+      //   error = true;
+      //   this.estadoDM = true;
+      // }
+
+      // // if (this.bitacora.descFalla.length < 10) {
+      // //   this.toast.warning("Validación", "Es necesario, mas descripción de la falla.");
+      // //   return false;
+      // // }
+
+      // // if (this.bitacora.descSolucion.length < 10) {
+      // //   this.toast.warning("Validación", "Es necesario, mas descripción de la solución.");
+      // //   return false;
+      // // }
+      
+      // if (error) {
+      //   return false;
+      // }
 
     this.isLoading = true;
     this.bitacoraService.editarBitacora(this.bitacora)

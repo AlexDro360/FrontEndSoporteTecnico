@@ -29,7 +29,7 @@
     <!--begin::Modal body-->
     <div class="modal-body scroll-y mx-5 my-3">
         <!--begin::Form-->
-        <form id="kt_modal_add_user_form" class="form" action="#">
+        <form id="kt_modal_add_user_form" class="form" action="#" #miForm="ngForm">
             <!--begin::Scroll-->
             <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true"
                 data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
@@ -41,9 +41,11 @@
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Nombres: </label>
                         <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Nombre" [(ngModel)]="jefe.nombres" />
-                        <div *ngIf="estadoN" class="alert alert-danger" role="alert">
-                            Es necesario el nombre
+                            placeholder="Nombre" [(ngModel)]="jefe.nombres" #nombresControl="ngModel" required
+                            maxlength="50" />
+                        <div *ngIf="nombresControl.invalid && nombresControl.touched" class="alert alert-danger mt-1">
+                            <div *ngIf="nombresControl.errors?.required">Es necesario el nombre</div>
+                            <div *ngIf="nombresControl.errors?.maxlength">Máximo 50 caracteres permitidos</div>
                         </div>
                     </div>
                 </div>
@@ -52,18 +54,22 @@
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Apellido Paterno: </label>
                         <input type="text" name="surnameP" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Nombre" [(ngModel)]="jefe.apellidoP" />
-                        <div *ngIf="estadoAP" class="alert alert-danger" role="alert">
-                            Es necesario el apellido paterno
+                            placeholder="Nombre" [(ngModel)]="jefe.apellidoP" #apellidoPControl="ngModel" required
+                            maxlength="50"/>
+                        <div *ngIf="apellidoPControl.invalid && apellidoPControl.touched" class="alert alert-danger mt-1">
+                            <div *ngIf="apellidoPControl.errors?.required">Es necesario el apellido paterno</div>
+                            <div *ngIf="apellidoPControl.errors?.maxlength">Máximo 50 caracteres permitidos</div>
                         </div>
                     </div>
 
                     <div class="col-6">
                         <label class="required fw-bold fs-6 mb-2">Apellido Materno </label>
                         <input type="text" name="surnameM" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Apellido Paterno" [(ngModel)]="jefe.apellidoM" />
-                        <div *ngIf="estadoAM" class="alert alert-danger" role="alert">
-                            Es necesario el apellido materno
+                            placeholder="Apellido Paterno" [(ngModel)]="jefe.apellidoM" #apellidoMControl="ngModel" required
+                            maxlength="50"/>
+                        <div *ngIf="apellidoMControl.invalid && apellidoMControl.touched" class="alert alert-danger mt-1">
+                            <div *ngIf="apellidoMControl.errors?.required">Es necesario el apellido materno</div>
+                            <div *ngIf="apellidoMControl.errors?.maxlength">Máximo 50 caracteres permitidos</div>
                         </div>
                     </div>
                 </div>
@@ -73,11 +79,12 @@
             <!--begin::Actions-->
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="guardar()" class="btn btn-primary" [disabled]="isLoading" data-kt-users-modal-action="submit">
+                <button type="button" (click)="guardar()" class="btn btn-primary" [disabled]="isLoading || miForm.invalid"
+                    data-kt-users-modal-action="submit">
                     <span *ngIf="!isLoading" class="indicator-label">Guardar</span>
 
-                    <span *ngIf="isLoading">Enviando... 
-                        <span class="spinner-border spinner-border-sm align-middle ms-2" ></span>
+                    <span *ngIf="isLoading">Enviando...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
                 </button>
             </div>

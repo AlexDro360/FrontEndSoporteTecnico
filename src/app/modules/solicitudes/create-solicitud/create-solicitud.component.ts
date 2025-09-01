@@ -32,20 +32,20 @@ export class CreateSolicitudComponent {
   ngOnInit(): void { }
 
   store(){
-    if(!this.tipo_id){
-      this.toast.error("Validación", "El Tipo de Problema es requerido");
-      return false;
-    }
+    // if(!this.tipo_id){
+    //   this.toast.error("Validación", "El Tipo de Problema es requerido");
+    //   return false;
+    // }
 
-    if(!this.textoUser){
-      this.toast.error("Validación", "La Descripción del Problema es requerida");
-      return false;
-    }
+    // if(!this.textoUser){
+    //   this.toast.error("Validación", "La Descripción del Problema es requerida");
+    //   return false;
+    // }
 
-    if(this.textoUser.length < 15){
-      this.toast.warning("Validación", "Es necesario, mas Descripción del Problema");
-      return false;
-    }
+    // if(this.textoUser.length < 15){
+    //   this.toast.warning("Validación", "Es necesario, mas Descripción del Problema");
+    //   return false;
+    // }
     
 
     let formData = new FormData();
@@ -54,7 +54,6 @@ export class CreateSolicitudComponent {
     formData.append('idTipo', this.tipo_id);
     this.isLoading = true;
     this.solicitudService.registerSolicitud(formData).subscribe((resp:any) => {
-      
       if(resp.message == 403){
         this.toast.error("Validación", resp.message_text);
       }else{

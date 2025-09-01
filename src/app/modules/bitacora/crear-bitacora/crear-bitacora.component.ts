@@ -50,31 +50,31 @@ export class CrearBitacoraComponent {
   store() {
     if (this.estadoSolucion) {
       this.duracion = (this.horas * 60) + this.minutos;
-      this.reiniciarAlertas();
-      let error: boolean = false;
-      if (!this.falla) {
-        error = true;
-        this.estadoDF = true;
-      }
+      // this.reiniciarAlertas();
+      // let error: boolean = false;
+      // if (!this.falla) {
+      //   error = true;
+      //   this.estadoDF = true;
+      // }
 
-      if (this.duracion == 0) {
-        error = true;
-        this.estadoD = true;
-      }
+      // if (this.duracion == 0) {
+      //   error = true;
+      //   this.estadoD = true;
+      // }
 
-      if (!this.solucion) {
-        error = true;
-        this.estadoDS = true;
-      }
+      // if (!this.solucion) {
+      //   error = true;
+      //   this.estadoDS = true;
+      // }
 
-      if (!this.materiales) {
-        error = true;
-        this.estadoDM = true;
-      }
+      // if (!this.materiales) {
+      //   error = true;
+      //   this.estadoDM = true;
+      // }
 
-      if (error) {
-        return false;
-      }
+      // if (error) {
+      //   return false;
+      // }
 
       let formData = new FormData();
       formData.append('descFalla', this.falla)

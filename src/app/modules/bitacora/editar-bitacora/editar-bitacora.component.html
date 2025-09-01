@@ -19,16 +19,15 @@
 
     <!--begin::Modal body-->
     <div class="modal-body scroll-y mx-5 my-3">
-        <form class="form">
+        <form class="form" #miForm="ngForm">
             <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll">
 
                 <div class="fv-row row my-1">
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Descripción de la Falla/Error</label>
-                        <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Falla/Error" [(ngModel)]="bitacora.descFalla" rows="5" name="Solucion"
-                            [ngModelOptions]="{standalone: true}"></textarea>
-                        <div *ngIf="estadoDF" class="alert alert-danger" role="alert">
+                        <textarea name="descripcion_falla" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Falla/Error" [(ngModel)]="bitacora.descFalla" rows="5" #fallaControl="ngModel" required></textarea>
+                        <div *ngIf="fallaControl.invalid && fallaControl.touched" class="alert alert-danger mt-1">
                             Es necesario describir la falla
                         </div>
                     </div>
@@ -37,10 +36,9 @@
                 <div class="fv-row row my-1">
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Descripción de la Solución</label>
-                        <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Solución" [(ngModel)]="bitacora.descSolucion" rows="5" name="Solucion"
-                            [ngModelOptions]="{standalone: true}"></textarea>
-                        <div *ngIf="estadoDS" class="alert alert-danger" role="alert">
+                        <textarea name="descripcion_sol" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Solución" [(ngModel)]="bitacora.descSolucion" rows="5" #solucionControl="ngModel" required></textarea>
+                        <div *ngIf="solucionControl.invalid && solucionControl.touched" class="alert alert-danger mt-1">
                             Es necesario describir la solución
                         </div>
                     </div>
@@ -49,10 +47,11 @@
                 <div class="fv-row row my-1">
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Materiales Requeridos</label>
-                        <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Materiales utilizados" [(ngModel)]="bitacora.materialReq" rows="3"
-                            name="Solucion" [ngModelOptions]="{standalone: true}"></textarea>
-                        <div *ngIf="estadoDM" class="alert alert-danger" role="alert">
+                        <textarea name="materiales" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Materiales utilizados" [(ngModel)]="bitacora.materialReq" rows="3" #materialesControl="ngModel"
+                            required></textarea>
+                        <div *ngIf="materialesControl.invalid && materialesControl.touched"
+                            class="alert alert-danger mt-1">
                             Es necesario escribir los materiales utilizados
                         </div>
                     </div>
@@ -62,32 +61,35 @@
                     <label class="required fw-bold fs-6 mb-2">Duración</label>
                     <div class="col-6 d-flex align-items-center">
                         <label class=" fw-bold fs-6 mb-2 me-2">Horas: </label>
-                        <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0" name="horas"
-                            [(ngModel)]="horas" />
+                        <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0" name="horas" [(ngModel)]="horas" #horasControl="ngModel" required/>
 
                     </div>
 
                     <div class="col-6 d-flex align-items-center">
                         <label class="fw-bold fs-6 mb-2 me-2">Minutos: </label>
-                        <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0" name="minutos"
-                            [(ngModel)]="minutos" />
+                        <input class="form-control form-control-solid mb-3 mb-lg-0" type="number" min="0" name="minutos" [(ngModel)]="minutos" #minutosControl="ngModel" required/>
                     </div>
-                    <div class="col-12" >
-                        <div *ngIf="estadoD" class="alert alert-danger" role="alert">
-                            Es necesario especificar la duración del mantenimiento
-                        </div>
+                    <div class="col-12">
+                        <div *ngIf="(horasControl.invalid || minutosControl.invalid) && (horasControl.touched || minutosControl.touched)"
+                                class="alert alert-danger mt-1">
+                                Es necesario especificar la duración del mantenimiento
+                            </div>
+                            <div *ngIf="(horas + minutos <= 0) && (horasControl.touched || minutosControl.touched)"
+                                class="alert alert-danger mt-1">
+                                La duración total debe ser mayor a 0
+                            </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <!-- Botones -->
             <div class="text-center pt-15">
                 <button type="button" class="btn btn-light me-3" (click)="modal.dismiss()">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="update()" [disabled]="isLoading">
+                <button type="button" class="btn btn-primary" (click)="update()" [disabled]="isLoading || miForm.invalid || (horas + minutos <= 0)">
                     <span *ngIf="!isLoading" class="indicator-label">Actualizar</span>
-                    <span *ngIf="isLoading">Actualizando... 
-                        <span class="spinner-border spinner-border-sm align-middle ms-2" ></span>
+                    <span *ngIf="isLoading">Actualizando...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
                 </button>
             </div>

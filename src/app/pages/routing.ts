@@ -98,6 +98,17 @@ const Routing: Routes = [
     data: { permission: 'view_my_solicitudes' }
   },
   {
+    path: 'bienvenido',
+    loadChildren: () => import('./bienvenido/bienvenido.module').then((m) => m.BienvenidoModule),
+    canActivate: [AuthGuard],
+  },
+  // {
+  //   path: 'dashboard',
+  //   loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+  //   canActivate: [AuthGuard, PermissionGuard],
+  //   data: { permission: 'view_dashboard' }
+  // },
+  {
     path: '',
     canActivate: [AuthGuard], 
     component: RoleRedirectComponent,

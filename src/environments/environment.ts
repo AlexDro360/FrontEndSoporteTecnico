@@ -160,7 +160,7 @@ export const environment = {
     },
   },
   URL_BACKEND: 'http://127.0.0.1:8000/',
-  URL_SERVICIOS: 'http://10.168.0.108:8000/api',
+  URL_SERVICIOS: 'http://localhost:8000/api',
   URL_FRONTED: 'http://localhost:5000',
 };
 

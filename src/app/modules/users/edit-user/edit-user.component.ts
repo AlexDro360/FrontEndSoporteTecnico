@@ -75,50 +75,50 @@ export class EditUserComponent {
 
 
   store() {
-    if (!this.name) {
-      this.toast.error("Validación", "El nombre es requerido");
-      return false;
-    }
+    // if (!this.name) {
+    //   this.toast.error("Validación", "El nombre es requerido");
+    //   return false;
+    // }
 
-    if (!this.surnameP) {
-      this.toast.error("Validación", "El apellido Paterno es requerido");
-      return false;
-    }
+    // if (!this.surnameP) {
+    //   this.toast.error("Validación", "El apellido Paterno es requerido");
+    //   return false;
+    // }
 
-    if (!this.surnameM) {
-      this.toast.error("Validación", "El apellido Materno es requerido");
-      return false;
-    }
+    // if (!this.surnameM) {
+    //   this.toast.error("Validación", "El apellido Materno es requerido");
+    //   return false;
+    // }
 
-    if (!this.email) {
-      this.toast.error("Validación", "El correo es requerido");
-      return false;
-    }
+    // if (!this.email) {
+    //   this.toast.error("Validación", "El correo es requerido");
+    //   return false;
+    // }
 
-    if (!this.phone) {
-      this.toast.error("Validación", "El telefono es requerido");
-      return false;
-    }
+    // if (!this.phone) {
+    //   this.toast.error("Validación", "El telefono es requerido");
+    //   return false;
+    // }
 
-    if (!this.role_id) {
-      this.toast.error("Validación", "El rol es requerido");
-      return false;
-    }
+    // if (!this.role_id) {
+    //   this.toast.error("Validación", "El rol es requerido");
+    //   return false;
+    // }
 
-    if (!this.n_empleado) {
-      this.toast.error("Validación", "El Número de empleado es requerido");
-      return false;
-    }
+    // if (!this.n_empleado) {
+    //   this.toast.error("Validación", "El Número de empleado es requerido");
+    //   return false;
+    // }
 
-    if (!this.departamento_id) {
-      this.toast.error("Validación", "El Departamento es requerido");
-      return false;
-    }
+    // if (!this.departamento_id) {
+    //   this.toast.error("Validación", "El Departamento es requerido");
+    //   return false;
+    // }
 
-    if (this.password && this.password != this.password_repit) {
-      this.toast.error("Validación", "Las contraseña no son iguales");
-      return false;
-    }
+    // if (this.password && this.password != this.password_repit) {
+    //   this.toast.error("Validación", "Las contraseña no son iguales");
+    //   return false;
+    // }
 
     let formData = new FormData();
     formData.append("name", this.name);

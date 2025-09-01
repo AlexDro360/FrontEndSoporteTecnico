@@ -26,7 +26,7 @@
     <!--begin::Modal body-->
     <div class="modal-body scroll-y mx-5 my-3">
         <!--begin::Form-->
-        <form id="kt_modal_add_user_form" class="form" action="#">
+        <form id="kt_modal_add_user_form" #miForm="ngForm" class="form" action="#">
             <!--begin::Scroll-->
             <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true"
                 data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
@@ -34,11 +34,13 @@
                 data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
                 <!--begin::Input group-->
 
+
                 <div class="fv-row row my-1">
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Tipos de Problemas </label>
                         <select class="form-control form-select-solid fw-bolder" name="tipo_selected"
-                            placeholder="Selecciona tu Tipo de Problema" [(ngModel)]="tipo_id">
+                            #tipo_selected="ngModel" placeholder="Selecciona tu Tipo de Problema" [(ngModel)]="tipo_id"
+                            required>
 
                             <option value="">Selec. Tipo</option>
 
@@ -50,15 +52,25 @@
                     </div>
                 </div>
 
+                <div *ngIf="tipo_selected.invalid && tipo_selected.touched" class="alert alert-danger">
+                    Debes seleccionar un tipo de problema
+                </div>
+
                 <div class="fv-row row my-1">
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Descripción del Problema</label>
-                        <span class="fs-5" style="font-style: italic; color: rgb(9, 121, 7);"><br>Indique la ubicación del equipo y el nombre del responsable</span>
+                        <span class="fs-5" style="font-style: italic; color: rgb(9, 121, 7);"><br>Indique la ubicación
+                            del equipo y el nombre del responsable</span>
                         <textarea name="textoUser" class="form-control form-control-solid "
-                            placeholder="Podrías contarnos más sobre el problema" [(ngModel)]="textoUser"
-                            rows="5"></textarea>
+                            placeholder="Podrías contarnos más sobre el problema" [(ngModel)]="textoUser" rows="5"
+                            #descripcion="ngModel" minlength="15" required></textarea>
                     </div>
-                    
+                </div>
+                <div *ngIf="descripcion.errors?.['required'] && descripcion.touched" class="alert alert-danger">
+                    La descripción es obligatoria
+                </div>
+                <div *ngIf="descripcion.errors?.['minlength'] && descripcion.touched" class="alert alert-danger">
+                    La descripción debe contener minimo 15 caracteres
                 </div>
 
 
@@ -68,13 +80,12 @@
             <!--begin::Actions-->
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="store()" class="btn btn-primary" [disabled]="isLoading" data-kt-users-modal-action="submit">
+                <button type="button" (click)="store()" class="btn btn-primary" [disabled]="isLoading"
+                    data-kt-users-modal-action="submit" [disabled]="miForm.invalid">
                     <span *ngIf="!isLoading" class="indicator-label">Crear Solicitud</span>
-                    <span *ngIf="isLoading">Enviando... 
-                        <span class="spinner-border spinner-border-sm align-middle ms-2" ></span>
+                    <span *ngIf="isLoading">Enviando...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
-                    <!-- <span class="indicator-progress">Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
                 </button>
             </div>
             <!--end::Actions-->
