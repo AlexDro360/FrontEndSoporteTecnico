@@ -123,7 +123,7 @@
                             <option value="">Selec. Rol</option>
 
                             <ng-container *ngFor="let rol of roles">
-                                <option [value]="rol.id">{{rol.name}}</option>
+                                <option *ngIf="rol.id > 1" [value]="rol.id">{{rol.name}}</option>
                             </ng-container>
 
                         </select>
