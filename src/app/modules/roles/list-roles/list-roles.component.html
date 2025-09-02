@@ -98,13 +98,13 @@
                     <i class="ki-solid ki-eye fs-1"></i>
                   </a>
 
-                  <a *ngIf="ROL.id != myRoleId isPermission('edit_role') && ROL.id > 1" href="#" onclick="return false;"
+                  <a *ngIf="ROL.id != myRoleId && isPermission('edit_role') && ROL.id > 1" href="#" onclick="return false;"
                     (click)="editRole(ROL)" class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-active-color-light btn-color-info btn-sm m-1 btn-con-tooltip"
                     data-label="Editar">
                     <i class="ki-duotone ki-pencil fs-1"><span class="path1"></span><span class="path2"></span></i>
                   </a>
 
-                  <a *ngIf="isPermission('delete_role') && ROL.id > 1" href="#" onclick="return false;"
+                  <a *ngIf="ROL.id != myRoleId && isPermission('delete_role') && ROL.id > 1" href="#" onclick="return false;"
                     (click)="deleteRole(ROL)" class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-active-color-light btn-color-danger btn-sm m-1 btn-con-tooltip"
                     data-label="Eliminar">
                     <i class="ki-duotone ki-trash fs-1">
