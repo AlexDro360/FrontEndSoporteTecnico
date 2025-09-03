@@ -133,7 +133,7 @@
             <!--begin::Actions-->
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="store()" class="btn btn-primary" [disabled]="isLoading || miForm.invalid || (horas + minutos <= 0)"
+                <button type="button" (click)="store()" class="btn btn-primary" [disabled]="(estadoSolucion === true) && (isLoading || miForm.invalid || (horas + minutos <= 0))"
                     data-kt-users-modal-action="submit">
                     <span *ngIf="!isLoading" class="indicator-label">Guardar</span>
 

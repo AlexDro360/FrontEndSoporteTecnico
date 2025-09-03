@@ -107,9 +107,11 @@
       <button type="button" class="btn btn-light m-1" (click)="modal.dismiss()">Cerrar</button>
 
       <!-- Abrir PDF (visible siempre) -->
-      <button type="button" class="btn btn-secondary m-1" (click)="verPdf()">
-        <span class="indicator-label">Abrir PDF</span>
-        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+      <button type="button" class="btn btn-secondary m-1" (click)="verPdf()" [disabled]="isLoading">
+        <span *ngIf="!isLoading" class="indicator-label">Abrir PDF</span>
+        <span *ngIf="isLoading">Cargando PDF...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
       </button>
 
       <!-- Responder (estado 4) -->

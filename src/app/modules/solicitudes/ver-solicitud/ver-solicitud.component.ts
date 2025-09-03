@@ -4,7 +4,7 @@ import { SolicitudService } from '../service/solicitud.service';
 import { ToastrService } from 'ngx-toastr';
 import { AsignarPersonalComponent } from '../../atender-solicitud/asignar-personal/asignar-personal.component';
 import { CrearBitacoraComponent } from '../../bitacora/crear-bitacora/crear-bitacora.component';
-import { forkJoin } from 'rxjs';
+import { finalize, forkJoin } from 'rxjs';
 import { CrearRespuestaComponent } from '../../respuestas/crear-respuesta/crear-respuesta.component';
 import { VerRespuestaComponent } from '../../respuestas/ver-respuesta/ver-respuesta.component';
 import { VerBitacoraComponent } from '../../bitacora/ver-bitacora/ver-bitacora.component';
@@ -22,6 +22,7 @@ export class VerSolicitudComponent {
   @Input() user: any;
 
   isLoading: any;
+  loading: boolean = false;
 
   constructor(
     public modalService: NgbModal,
@@ -31,7 +32,10 @@ export class VerSolicitudComponent {
   ) {
   }
   verPdf(): void {
-    this.solicitudService.obtenerPDF(this.solicitud.id).subscribe({
+    this.loading = true;
+    this.solicitudService.obtenerPDF(this.solicitud.id)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe({
       next: (resp) => {
         const fileURL = URL.createObjectURL(resp);
         window.open(fileURL);
