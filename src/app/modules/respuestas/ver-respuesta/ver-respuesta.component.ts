@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { RespuestaService } from '../service/respuesta.service';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-ver-respuesta',
@@ -18,6 +19,7 @@ export class VerRespuestaComponent {
   @Input() solicitud: any;
 
   isLoading: any;
+  loading: boolean = false;
 
   constructor(
     public modal: NgbActiveModal,
@@ -26,7 +28,10 @@ export class VerRespuestaComponent {
   ) {
   }
   verPdf() {
-    this.respuestaService.obtenerPDF(this.respuesta.id).subscribe({
+    this.loading = true;
+    this.respuestaService.obtenerPDF(this.respuesta.id)
+    .pipe(finalize(() => this.loading = false))
+    .subscribe({
       next: (resp) => {
         const fileURL = URL.createObjectURL(resp);
         window.open(fileURL);

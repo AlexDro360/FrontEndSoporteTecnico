@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { forkJoin } from 'rxjs';
+import { finalize, forkJoin } from 'rxjs';
 import { VerRespuestaComponent } from '../../respuestas/ver-respuesta/ver-respuesta.component';
 import { MisSolicitudesService } from '../service/mis-solicitudes.service';
 import { isPermission } from 'src/app/config/config';
@@ -16,6 +16,7 @@ export class VerSolicitudComponent {
   @Input() user: any;
 
   isLoading: any;
+  loading: boolean = false;
 
   constructor(
     public modalService: NgbModal,
@@ -25,16 +26,19 @@ export class VerSolicitudComponent {
   ) {
   }
   verPdf(): void {
-    this.solicitudService.obtenerPDF(this.solicitud.id).subscribe({
-      next: (resp) => {
-        const fileURL = URL.createObjectURL(resp);
-        window.open(fileURL);
-      },
-      error: (err) => {
-        console.error('Error al generar el pdf', err);
-        this.toast.error('Error al abrir el pdf', 'Error');
-      }
-    })
+    this.loading = true;
+    this.solicitudService.obtenerPDF(this.solicitud.id)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: (resp) => {
+          const fileURL = URL.createObjectURL(resp);
+          window.open(fileURL);
+        },
+        error: (err) => {
+          console.error('Error al generar el pdf', err);
+          this.toast.error('Error al abrir el pdf', 'Error');
+        }
+      })
   }
 
   verRespuesta(): void {
@@ -60,6 +64,6 @@ export class VerSolicitudComponent {
     });
   }
   isPermission(permission: string) {
-      return isPermission(permission);
-    }
+    return isPermission(permission);
+  }
 }

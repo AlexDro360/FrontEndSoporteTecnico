@@ -34,7 +34,7 @@ export class VerSolicitudComponent {
   verPdf(): void {
     this.loading = true;
     this.solicitudService.obtenerPDF(this.solicitud.id)
-    .pipe(finalize(() => this.isLoading = false))
+    .pipe(finalize(() => this.loading = false))
     .subscribe({
       next: (resp) => {
         const fileURL = URL.createObjectURL(resp);
