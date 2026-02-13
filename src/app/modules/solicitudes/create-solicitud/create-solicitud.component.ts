@@ -18,6 +18,8 @@ export class CreateSolicitudComponent {
   isLoading: boolean = false;
 
   textoUser: string = '';
+  textoRes: string = '';
+  textoHora: string = '';
   phone: string = '';
   tipo_id: string = '';
 
@@ -50,7 +52,7 @@ export class CreateSolicitudComponent {
 
     let formData = new FormData();
     formData.append('idUser', this.user.id);
-    formData.append('descripcionUser', this.textoUser);
+    formData.append('descripcionUser', this.textoUser + ', ' + this.textoRes+ ', '+ this.textoHora);
     formData.append('idTipo', this.tipo_id);
     this.isLoading = true;
     this.solicitudService.registerSolicitud(formData).subscribe((resp:any) => {

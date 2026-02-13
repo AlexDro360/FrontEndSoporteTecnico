@@ -53,9 +53,27 @@
                 <div class="fv-row row my-1">
                     <div class="col-12">
                         <label class="required fw-bold fs-6 mb-2">Descripción del Problema</label>
-                        <span class="fs-4" style="font-style: italic; color: rgb(7, 7, 121);"><br>Indique la ubicación del equipo y el nombre del responsable</span>
+                        <!-- <span class="fs-4" style="font-style: italic; color: rgb(7, 7, 121);"><br>Indique la ubicación del equipo y el nombre del responsable</span> -->
                         <textarea name="textoUser" class="form-control form-control-solid mb-3 mb-lg-0"
                             placeholder="Podrías contarnos más sobre el problema" [(ngModel)]="textoUser"
+                            rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="fv-row row my-1">
+                    <div class="col-12">
+                        <label class="required fw-bold fs-6 mb-2">Responsable</label>
+                        <span class="fs-4" style="font-style: italic; color: rgb(7, 7, 121);"><br>Indique el nombre del responsable y la ubicación del equipo</span>
+                        <textarea name="textoRes" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Nombre del responsable y ubicación del equipo" [(ngModel)]="textoUser"
+                            rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="fv-row row my-1">
+                    <div class="col-12">
+                        <label class="required fw-bold fs-6 mb-2">Horario disponible</label>
+                        <!-- <span class="fs-4" style="font-style: italic; color: rgb(7, 7, 121);"><br>Indique la ubicación del equipo y el nombre del responsable</span> -->
+                        <textarea name="textoHora" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Horario en el cual podrán encontrarlo los técnicos" [(ngModel)]="textoUser"
                             rows="5"></textarea>
                     </div>
                 </div>
