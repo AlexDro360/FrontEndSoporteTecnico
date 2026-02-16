@@ -66,30 +66,38 @@
                             #descripcion="ngModel" minlength="15" required></textarea>
                     </div>
                 </div>
-
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Responsable</label>
-                        <span class="fs-5" style="font-style: italic; color: rgb(9, 121, 7);"><br>Indique el nombre del responsable y la ubicación del equipo</span>
-                        <textarea name="textoRes" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Nombre del responsable y ubicación del equipo" [(ngModel)]="textoRes"
-                            rows="5"></textarea>
-                    </div>
-                </div>
-                <div class="fv-row row my-1">
-                    <div class="col-12">
-                        <label class="required fw-bold fs-6 mb-2">Horario disponible</label>
-                        <!-- <span class="fs-4" style="font-style: italic; color: rgb(7, 7, 121);"><br>Indique la ubicación del equipo y el nombre del responsable</span> -->
-                        <textarea name="textoHora" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Horario en el cual podrán encontrarlo los técnicos" [(ngModel)]="textoHora"
-                            rows="5"></textarea>
-                    </div>
-                </div>
                 <div *ngIf="descripcion.errors?.['required'] && descripcion.touched" class="alert alert-danger">
                     La descripción es obligatoria
                 </div>
                 <div *ngIf="descripcion.errors?.['minlength'] && descripcion.touched" class="alert alert-danger">
-                    La descripción debe contener minimo 15 caracteres
+                    La descripción debe contener mínimo 15 caracteres
+                </div>
+
+                <div class="fv-row row my-1">
+                    <div class="col-12">
+                        <label class="required fw-bold fs-6 mb-2">Responsable del equipo y ubicación</label>
+                        <span class="fs-5" style="font-style: italic; color: rgb(9, 121, 7);"><br>Indique el nombre del responsable y la ubicación del equipo</span>
+                        <textarea name="textoRes" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Nombre del responsable y ubicación del equipo" [(ngModel)]="textoRes" rows="5"
+                            #textResponsable="ngModel" required></textarea>
+                    </div>
+                </div>
+                <div *ngIf="textResponsable.errors?.['required'] && textResponsable.touched" class="alert alert-danger">
+                    El responsable del equipo es obligatorio para la atención
+                </div>
+
+                <div class="fv-row row my-1">
+                    <div class="col-12">
+                        <label class="required fw-bold fs-6 mb-2">Horario disponible del responsable</label>
+                        <!-- <span class="fs-4" style="font-style: italic; color: rgb(7, 7, 121);"><br>Indique la ubicación del equipo y el nombre del responsable</span> -->
+                        <textarea name="textoHora" class="form-control form-control-solid mb-3 mb-lg-0"
+                            placeholder="Horario en el cual podrán encontrarlo los técnicos" [(ngModel)]="textoHora"
+                            rows="5"
+                            #textHorario="ngModel" required></textarea>
+                    </div>
+                </div>
+                <div *ngIf="textHorario.errors?.['required'] && textHorario.touched" class="alert alert-danger">
+                    Indique el horario disponible del responsable para la atención
                 </div>
 
 
