@@ -44,6 +44,8 @@ export class JefesDepartamentoComponent {
   listJefes(page = 1) {
     this.configService.listarJefes(page, this.pageSize, this.search).subscribe((resp: any) => {
       this.jefes = resp;
+      this.totalPages = resp.total;
+      this.currentPage = page;
     });
   }
 

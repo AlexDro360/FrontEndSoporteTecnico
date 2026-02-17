@@ -48,6 +48,7 @@ export class CrearRespuestaComponent {
     this.user = userString ? JSON.parse(userString) : null;
     this.horas = Math.floor(this.bitacora.duracion / 60);
     this.minutos = this.bitacora.duracion % 60;
+    // this.nombreVerifico = this.solicitud.user.full_name;
   }
 
   reiniciarAlertas() {
@@ -113,7 +114,7 @@ export class CrearRespuestaComponent {
     // }
 
     let formData = new FormData();
-    formData.append('nombreVerifico', this.user.full_names)
+    formData.append('nombreVerifico', this.solicitud.user.full_name)
     formData.append('asunto', this.asunto);
     formData.append('descripcion', this.descripcion);
     formData.append('idCentroComputoJefe', this.jefeCC.id)

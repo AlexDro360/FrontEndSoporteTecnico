@@ -46,7 +46,7 @@ export class ActualizarSolicitudComponent {
       .pipe(finalize(() => this.isLoading = false))
       .subscribe({
         next: (resp) => {
-          this.toast.success("Éxito", "Se edito el folio para el depertamento " + this.folio.nombre + " correctamente");
+          this.toast.success("Éxito", "Se edito el folio para el departamento " + this.folio.nombre + " correctamente");
           this.FolioS.emit(resp);
           this.modal.close();
         },

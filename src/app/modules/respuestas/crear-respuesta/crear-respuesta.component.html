@@ -116,9 +116,9 @@
                     <div class="fv-row row my-1">
                         <div class="col-12">
                             <label class="required fw-bold fs-6 mb-2">Nombre de quien verificó</label>
-                            <input type="text" class="form-control form-control-solid mb-3 mb-lg-0" name="verifico"
-                                placeholder="Nombre de la persona que verificó..." [(ngModel)]="user.full_names"
-                                #verificoControl="ngModel" required maxlength="150">
+                            <input type="text" class="form-control form-control-outline mb-3 mb-lg-0" name="verifico"
+                                placeholder="Nombre de la persona que verificó..." [(ngModel)]="solicitud.user.full_name"
+                                #verificoControl="ngModel" required maxlength="150" readOnly>
                             <div *ngIf="verificoControl.invalid && verificoControl.touched"
                                 class="alert alert-danger mt-1">
                                 <div *ngIf="verificoControl.errors?.required">El nombre de quien verificó es requerido

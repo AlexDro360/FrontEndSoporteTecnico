@@ -214,7 +214,7 @@
                 </a>
 
                 <a href="#" onclick="return false;"
-                  *ngIf="(SOLICITUD.estado.id === 5 || (SOLICITUD.estado.id === 2 && !SOLICITUD.respuesta)) && isPermission('response_solicitud')"
+                  *ngIf="(SOLICITUD.estado.id === 5) && isPermission('response_solicitud')"
                   (click)="createRespuesta(SOLICITUD)"
                   class="btn btn-icon bg-gray-400 btn-hover-success btn-active-success btn-color-success btn-active-color-white btn-sm m-1 btn-con-tooltip"
                   data-label="Responder">

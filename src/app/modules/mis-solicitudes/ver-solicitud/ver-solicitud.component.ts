@@ -5,6 +5,7 @@ import { finalize, forkJoin } from 'rxjs';
 import { VerRespuestaComponent } from '../../respuestas/ver-respuesta/ver-respuesta.component';
 import { MisSolicitudesService } from '../service/mis-solicitudes.service';
 import { isPermission } from 'src/app/config/config';
+import { EditSolicitudComponent } from '../../solicitudes/edit-solicitud/edit-solicitud.component';
 @Component({
   selector: 'app-ver-solicitud',
   templateUrl: './ver-solicitud.component.html',
@@ -14,6 +15,7 @@ export class VerSolicitudComponent {
   @Output() SolicitudV: EventEmitter<any> = new EventEmitter();
   @Input() solicitud: any;
   @Input() user: any;
+  @Input() tipos: any[];
 
   isLoading: any;
   loading: boolean = false;
@@ -61,6 +63,24 @@ export class VerSolicitudComponent {
         console.error('Error al cargar los datos', err);
         this.toast.error("Error", "Error al obtener la respuesta");
       }
+    });
+  }
+
+  editSolicitud() {
+    const modalRef = this.modalService.open(EditSolicitudComponent, {
+      centered: true,
+      size: 'md'
+    });
+
+    // Inputs del modal
+    modalRef.componentInstance.solicitud = this.solicitud;
+    modalRef.componentInstance.tipos = this.tipos;
+    modalRef.componentInstance.user = this.user;
+
+    // Escuchar cuando se edita correctamente
+    modalRef.componentInstance.SolicitudE.subscribe((solicitudEditada: any) => {
+      this.SolicitudV.emit(solicitudEditada);
+      this.modal.close();
     });
   }
   isPermission(permission: string) {

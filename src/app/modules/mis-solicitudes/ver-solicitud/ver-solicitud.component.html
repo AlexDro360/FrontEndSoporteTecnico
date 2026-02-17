@@ -16,6 +16,9 @@
 
   <!--begin::Modal body-->
   <div class="modal-body scroll-y mx-5 my-3">
+    <div *ngIf="solicitud.estado.id === 2" class="alert alert-danger">
+      Su solicitud ha sido rechazada por falta de información. Por favor, edítela y proporcione mas detalles sobre el problema para poder atenderla.
+    </div>
     <div class="d-flex flex-column">
 
       <p class="fw-bold fs-4 text-center"> Información del solicitante</p>
@@ -115,9 +118,16 @@
         </span>
       </button>
 
+
+      <button *ngIf="(solicitud.estado.id === 2 || solicitud.estado.id == 1)" class="btn btn-warning m-1 text-white"
+        (click)="editSolicitud()">
+        <span class="indicator-label">Editar Solicitud</span>
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+      </button>
+
       <!-- Ver respuesta (estado 2 o 5) -->
-       
-      <button *ngIf="((solicitud.estado.id === 2 && solicitud.respuesta)  || solicitud.estado.id === 6) && isPermission('view_response_my_solicitudes')"
+      <button
+        *ngIf="((solicitud.estado.id === 2 && solicitud.respuesta)  || solicitud.estado.id === 6) && isPermission('view_response_my_solicitudes')"
         class="btn btn-info m-1 text-white" (click)="verRespuesta()">
         <span class="indicator-label">Ver respuesta</span>
         <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>

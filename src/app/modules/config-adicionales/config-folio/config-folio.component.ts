@@ -23,6 +23,8 @@ export class ConfigFolioComponent {
   currentPage: number = 1;
   pageSize: number = 10;
   FolioRespuesta: number = 0;
+  user: any;
+
 
   constructor(
     public modalService: NgbModal,
@@ -32,6 +34,7 @@ export class ConfigFolioComponent {
 
   ngOnInit(): void {
     this.isLoading$ = this.configService.isLoading$;
+    this.user = JSON.parse(localStorage.getItem('user') ?? '');
     this.listFolios();
     this.cargarFolioRespuesta();
 
@@ -40,6 +43,8 @@ export class ConfigFolioComponent {
   listFolios(page = 1) {
     this.configService.listarFolios(page, this.pageSize, this.search).subscribe((resp: any) => {
       this.folios = resp;
+      this.totalPages = resp.total;
+      this.currentPage = page;
     });
   }
 

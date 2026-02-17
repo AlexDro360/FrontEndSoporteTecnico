@@ -137,7 +137,7 @@
 
 
     <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show"
-      *ngIf="showMenu(['view_solicitud'])">
+      *ngIf="showMenu(['view_solicitud', 'view_bitacora'])">
       <span class="menu-link">
         <span class="menu-icon">
           <app-keenicon name="document" class="fs-2"></app-keenicon>
@@ -171,7 +171,7 @@
         </div>
       </div>
 
-      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg" *ngIf="showMenu(['view_extra'])">
+      <!-- <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg" *ngIf="showMenu(['view_extra'])">
         <div class="menu-item">
           <a class="menu-link without-sub" routerLinkActive="active" routerLink="/config-adicionales/">
             <span class="menu-bullet">
@@ -181,7 +181,7 @@
             </span>
           </a>
         </div>
-      </div>
+      </div> -->
 
     </div>
 
@@ -191,6 +191,15 @@
           <app-keenicon name="document" class="fs-2"></app-keenicon>
         </span>
         <span class="menu-title">Historial</span>
+      </a>
+    </div>
+    
+    <div class="menu-item" *ngIf="showMenu(['view_extra'])">
+      <a class="menu-link without-sub" routerLink="/config-adicionales/" routerLinkActive="active">
+        <span class="menu-icon">
+          <app-keenicon name="setting-2" class="fs-2"></app-keenicon>
+        </span>
+        <span class="menu-title">Configuraciones Adicionales</span>
       </a>
     </div>
 

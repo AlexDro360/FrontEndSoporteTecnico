@@ -116,7 +116,7 @@
 
       <!-- Responder (estado 4) -->
       <button
-        *ngIf="(solicitud.estado.id === 5 || (solicitud.estado.id === 2 && !solicitud.respuesta)) && isPermission('response_solicitud')"
+        *ngIf="(solicitud.estado.id === 5) && isPermission('response_solicitud')"
         type="button" class="btn btn-success m-1" (click)="responder()">
         <span class="indicator-label">Responder</span>
         <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>

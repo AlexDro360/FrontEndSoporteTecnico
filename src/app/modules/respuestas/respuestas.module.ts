@@ -21,7 +21,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ListRespuestaComponent,
     EditarRespuestaComponent,
     BorrarRespuestaComponent,
-    VerRespuestaComponent,
+    // VerRespuestaComponent,
   ],
   imports: [
     SharedModule,

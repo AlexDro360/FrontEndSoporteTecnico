@@ -1,0 +1,49 @@
+<div class="card">
+    
+    <div class="config-folio">
+        <div *ngIf="!(isLoading$ | async) && !canModifiedFolio()" class="alert alert-info">
+            Ha agotado el número de intentos permitidos para modificar el folio de las solicitudes de su departamento.
+            Le solicitamos comunicarse con la cuenta de soporte del Centro de Cómputo <strong><a href="mailto:soporte@itoaxaca.edu.mx">soporte@itoaxaca.edu.mx</a></strong> para gestionar un nuevo cambio de folio.
+        </div>
+        <div class="card-folio">
+
+            <div>
+                Folio de solicitud en:
+                <br>
+                <div *ngIf="!(isLoading$ | async)">
+                   {{ depto.nombre }}
+                </div>
+                <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm align-middle ms-2">
+                </span>
+            </div>
+            <div>
+                Folio siguiente
+                <span *ngIf="!(isLoading$ | async)">
+                    <strong>{{ depto.folio }}</strong></span>
+                <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm align-middle ms-2">
+                </span>
+
+            </div>
+
+            <div>
+                <button type="button" *ngIf="isPermission('reload_folio_solicitud') && !(isLoading$ | async) &&canModifiedFolio()"
+                    class="btn btn-icon btn-bg-light btn-hover-danger btn-active-danger btn-color-danger btn-sm btn-con-tooltip m-1"
+                    (click)="reiniciarMiFolio()" title="Reiniciar Folio" data-label="Reiniciar Folio">
+                    <i class="ki-duotone ki-arrow-circle-left fs-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                </button>
+                <button type="button" *ngIf="isPermission('edit_folio_solicitud') && !(isLoading$ | async) && canModifiedFolio()"
+                    class="btn btn-icon btn-bg-light btn-hover-info btn-active-info btn-color-info btn-sm me-1 btn-con-tooltip m-1"
+                    (click)="editarMiFolio()" title="Editar Folio" data-label="Editar Folio">
+                    <i class="ki-duotone ki-pencil fs-1">
+                        <span class="path1"></span><span class="path2"></span>
+                    </i>
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+</div>

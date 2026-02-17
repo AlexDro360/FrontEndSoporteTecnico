@@ -1,5 +1,7 @@
+<app-mi-folio
+    *ngIf="user.role_id == 3 && (isPermission('edit_folio_solicitud') || isPermission('reload_folio_solicitud'))"></app-mi-folio>
 <!-- Aquí se muestra el componente de ConfigFolio -->
-<app-config-folio></app-config-folio>
+<app-config-folio *ngIf="!(user.role_id == 3)"></app-config-folio>
 
 <!-- Aquí se muestra el componente de JefesDepartamento -->
-<app-jefes-departamento></app-jefes-departamento>
+<app-jefes-departamento *ngIf="isPermission('add_Jefe')"></app-jefes-departamento>
