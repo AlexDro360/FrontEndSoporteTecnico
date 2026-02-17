@@ -85,6 +85,19 @@ export class SolicitudService {
     return this.http.post(URL, data, { headers: headers });
   }
 
+  updateSolicitud(idSolicitud: any, data: any) {
+    this.isLoadingSubject.next(true);
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.authservice.token
+    });
+
+    const URL = `${URL_SERVICIOS}/solicitudes/${idSolicitud}`;
+
+    return this.http.put(URL, data, { headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
   tiposServicios() {
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = URL_SERVICIOS + "/tiposervicios";

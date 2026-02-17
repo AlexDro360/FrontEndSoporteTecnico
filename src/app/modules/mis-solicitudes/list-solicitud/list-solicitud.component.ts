@@ -8,6 +8,7 @@ import { VerSolicitudComponent } from '../ver-solicitud/ver-solicitud.component'
 import { VerRespuestaComponent } from '../../respuestas/ver-respuesta/ver-respuesta.component';
 import { isPermission } from 'src/app/config/config';
 import { CreateSolicitudComponent } from '../../solicitudes/create-solicitud/create-solicitud.component';
+import { EditSolicitudComponent } from '../../solicitudes/edit-solicitud/edit-solicitud.component';
 
 @Component({
   selector: 'app-list-solicitud',
@@ -42,7 +43,7 @@ export class ListSolicitudComponent {
       this.listSolicitudes();
     });
     this.configAll();
-    
+
   }
 
   onChangeItemsPerPage() {
@@ -67,6 +68,23 @@ export class ListSolicitudComponent {
     });
   }
 
+  editSolicitud(solicitud: any) {
+    const modalRef = this.modalService.open(EditSolicitudComponent, {
+      centered: true,
+      size: 'md'
+    });
+
+    // Inputs del modal
+    modalRef.componentInstance.solicitud = solicitud;
+    modalRef.componentInstance.tipos = this.tipos;
+    modalRef.componentInstance.user = this.user;
+
+    // Escuchar cuando se edita correctamente
+    modalRef.componentInstance.SolicitudE.subscribe((solicitudEditada: any) => {
+      this.listSolicitudes(this.currentPage);
+    });
+  }
+
    watchRespuesta(solicitud: any) {
       forkJoin({
         tipoServicio: this.solicitudesService.tiposServicios(),
@@ -79,7 +97,7 @@ export class ListSolicitudComponent {
           modalRef.componentInstance.tipoMantenimiento = result.tipoMantenimiento;
           modalRef.componentInstance.tipoServicio = result.tipoServicio;
           modalRef.componentInstance.solicitud = solicitud;
-  
+
           modalRef.componentInstance.RespuestaV.subscribe((res: any) => {
           })
         },

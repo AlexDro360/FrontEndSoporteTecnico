@@ -128,7 +128,7 @@
                 <td>
                   {{SOLICITUD.tipo.nombre}}
                 </td>
-                <!--   
+                <!--
                   <td>
                     {{SOLICITUD.fechaSolucion == null ? 'Sin fecha' : SOLICITUD.fechaSolucion}}
                   </td> -->
@@ -139,6 +139,21 @@
                     data-label="Ver Solicitud">
                     <i class="ki-solid ki-eye fs-1"></i>
                   </a>
+
+                  <a href="#"
+                    onclick="return false;"
+                    *ngIf="SOLICITUD.estado.id === 1 && isPermission('view_response_my_solicitudes')"
+                    (click)="editSolicitud(SOLICITUD)"
+                    class="btn btn-icon bg-warning btn-hover-warning btn-active-warning btn-color-white btn-active-color-white btn-sm m-1 btn-con-tooltip"
+                    data-label="Editar">
+
+                    <i class="ki-duotone ki-pencil fs-1">
+                      <span class="path1"></span>
+                      <span class="path2"></span>
+                    </i>
+
+                  </a>
+
 
                   <a href="#" onclick="return false;"
                     *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 6) && isPermission('view_response_my_solicitudes')"
