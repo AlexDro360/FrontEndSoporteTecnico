@@ -226,7 +226,7 @@
                 </a>
 
                 <a href="#" onclick="return false;"
-                  *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 6) && isPermission('response_solicitud')"
+                  *ngIf="((SOLICITUD.estado.id === 2 && SOLICITUD.respuesta)  || SOLICITUD.estado.id === 6) && isPermission('view_solicitud')"
                   (click)="watchRespuesta(SOLICITUD)"
                   class="btn btn-icon bg-gray-400 btn-hover-info btn-active-info btn-color-info btn-active-color-white btn-sm m-1 btn-con-tooltip"
                   data-label="Ver Respuesta">
