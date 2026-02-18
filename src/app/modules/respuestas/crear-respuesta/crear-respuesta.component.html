@@ -164,11 +164,11 @@
                             <label class="required fw-bold fs-6 mb-2">Descripción</label>
                             <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
                                 placeholder="Describe la solución" [(ngModel)]="descripcion" rows="5"
-                                #descripcionControl="ngModel" required maxlength="800"></textarea>
+                                #descripcionControl="ngModel" required maxlength="2000"></textarea>
                             <div *ngIf="descripcionControl.invalid && descripcionControl.touched"
                                 class="alert alert-danger mt-1">
                                 <div *ngIf="descripcionControl.errors?.required">La descripción es requerida</div>
-                                <div *ngIf="descripcionControl.errors?.maxlength">Máximo 800 caracteres permitidos</div>
+                                <div *ngIf="descripcionControl.errors?.maxlength">Máximo 2000 caracteres permitidos</div>
                             </div>
                         </div>
                     </div>
