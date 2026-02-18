@@ -117,7 +117,7 @@ export class CrearRespuestaComponent {
     let formData = new FormData();
     formData.append('nombreVerifico', this.solicitud.user.full_name)
     formData.append('asunto', this.asunto);
-    formData.append('descripcion', 'Diagnostico: ' + this.diagnostico + ' - Trabajo Realizado: ' + this.trabajoRealizado);
+    formData.append('descripcion', `Diagnostico: ${this.diagnostico}\n\nTrabajo Realizado: ${this.trabajoRealizado}`);
     formData.append('idCentroComputoJefe', this.jefeCC.id)  
     formData.append('idSolicitud', this.solicitud.id);
     if (!!this.bitacora) {

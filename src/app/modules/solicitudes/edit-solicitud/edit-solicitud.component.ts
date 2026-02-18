@@ -27,7 +27,7 @@ export class EditSolicitudComponent {
     public modal: NgbActiveModal,
     public solicitudService: SolicitudService,
     public toast: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarSolicitud();
@@ -38,19 +38,35 @@ export class EditSolicitudComponent {
 
     this.tipo_id = this.solicitud.idTipo;
 
-    if (this.solicitud.descripcionUser) {
-      const partes = this.solicitud.descripcionUser.split(' - ');
-      this.textoUser = partes[0] || '';
-      this.textoRes  = partes[1] || '';
-      this.textoHora = partes[2] || '';
+    const textoLimpio = this.solicitud.descripcionUser.replace(/\r/g, '');
+
+    const partes = textoLimpio.split('\n\n');
+
+    if (partes[0]) {
+      this.textoUser = partes[0].replace('Descripción del Problema: ', '').trim();
+    } else {
+      this.textoUser = '';
     }
+
+    if (partes[1]) {
+      this.textoRes = partes[1].replace('Responsable del equipo: ', '').trim();
+    } else {
+      this.textoRes = '';
+    }
+
+    if (partes[2]) {
+      this.textoHora = partes[2].replace('Horario disponible del responsable: ', '').trim();
+    } else {
+      this.textoHora = '';
+    }
+    console.log(partes)
   }
 
   update() {
     // 1. Validaciones (opcional)
     if (!this.tipo_id) {
-       this.toast.error("Error", "El tipo es requerido");
-       return;
+      this.toast.error("Error", "El tipo es requerido");
+      return;
     }
 
     this.isLoading = true;
@@ -58,7 +74,7 @@ export class EditSolicitudComponent {
     // ✅ CORRECCIÓN 1: Usar un Objeto JSON normal, NO FormData
     // Angular lo convertirá automáticamente a JSON y Laravel lo entenderá con PUT
     const data = {
-      descripcionUser: `${this.textoUser} - ${this.textoRes} - ${this.textoHora}`,
+      descripcionUser: `Descripción del Problema: ${this.textoUser}\n\nResponsable del equipo: ${this.textoRes}\n\nHorario disponible del responsable: ${this.textoHora}`,
       idTipo: this.tipo_id
     };
 

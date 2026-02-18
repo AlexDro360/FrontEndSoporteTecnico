@@ -52,7 +52,7 @@ export class CreateSolicitudComponent {
 
     let formData = new FormData();
     formData.append('idUser', this.user.id);
-    formData.append('descripcionUser', `${this.textoUser} - ${this.textoRes} - ${this.textoHora}`);
+    formData.append('descripcionUser', `Descripción del Problema: ${this.textoUser}\n\nResponsable del equipo: ${this.textoRes}\n\nHorario disponible del responsable: ${this.textoHora}`);
     formData.append('idTipo', this.tipo_id);
     this.isLoading = true;
     this.solicitudService.registerSolicitud(formData).subscribe((resp:any) => {
