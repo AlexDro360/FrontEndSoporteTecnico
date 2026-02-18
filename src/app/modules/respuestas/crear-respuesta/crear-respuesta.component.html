@@ -161,14 +161,27 @@
 
                     <div class="fv-row row my-1">
                         <div class="col-12">
-                            <label class="required fw-bold fs-6 mb-2">Descripción</label>
-                            <textarea name="descripcion" class="form-control form-control-solid mb-3 mb-lg-0"
-                                placeholder="Describe la solución" [(ngModel)]="descripcion" rows="5"
-                                #descripcionControl="ngModel" required maxlength="2000"></textarea>
-                            <div *ngIf="descripcionControl.invalid && descripcionControl.touched"
+                            <label class="required fw-bold fs-6 mb-2">Diagnostico</label>
+                            <textarea name="Diagnostico" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Describe el diagnostico del problema" [(ngModel)]="diagnostico" rows="6"
+                                #diagnosticoControl="ngModel" required maxlength="1450"></textarea>
+                            <div *ngIf="diagnosticoControl.invalid && diagnosticoControl.touched"
                                 class="alert alert-danger mt-1">
-                                <div *ngIf="descripcionControl.errors?.required">La descripción es requerida</div>
-                                <div *ngIf="descripcionControl.errors?.maxlength">Máximo 2000 caracteres permitidos</div>
+                                <div *ngIf="diagnosticoControl.errors?.required">La descripción es requerida</div>
+                                <div *ngIf="diagnosticoControl.errors?.maxlength">Máximo 1500 caracteres permitidos</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fv-row row my-1">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Trabajo realizado</label>
+                            <textarea name="Trabajo_realizado" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Describe el trabajo realizado" [(ngModel)]="trabajoRealizado" rows="6"
+                                #trabajoControl="ngModel" required maxlength="1450"></textarea>
+                            <div *ngIf="trabajoControl.invalid && trabajoControl.touched"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="trabajoControl.errors?.required">La descripción es requerida</div>
+                                <div *ngIf="trabajoControl.errors?.maxlength">Máximo 1490 caracteres permitidos</div>
                             </div>
                         </div>
                     </div>

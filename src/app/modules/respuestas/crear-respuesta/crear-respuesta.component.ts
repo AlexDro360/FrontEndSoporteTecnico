@@ -22,7 +22,8 @@ export class CrearRespuestaComponent {
 
   user: any;
   asunto: string = '';
-  descripcion: string = '';
+  trabajoRealizado: string = '';
+  diagnostico: string = '';
   nombreVerifico: string = '';
   idTipoMantenimiento: string = '';
   idTipoServicio: string = '';
@@ -116,8 +117,8 @@ export class CrearRespuestaComponent {
     let formData = new FormData();
     formData.append('nombreVerifico', this.solicitud.user.full_name)
     formData.append('asunto', this.asunto);
-    formData.append('descripcion', this.descripcion);
-    formData.append('idCentroComputoJefe', this.jefeCC.id)
+    formData.append('descripcion', 'Diagnostico: ' + this.diagnostico + ' - Trabajo Realizado: ' + this.trabajoRealizado);
+    formData.append('idCentroComputoJefe', this.jefeCC.id)  
     formData.append('idSolicitud', this.solicitud.id);
     if (!!this.bitacora) {
       formData.append('idTipoMantenimiento', this.idTipoMantenimiento);

@@ -54,13 +54,21 @@
                             <label class="required fw-bold fs-6 mb-2">Descripción de la Falla/Error</label>
                             <textarea name="descripcion_falla" class="form-control form-control-solid mb-3 mb-lg-0"
                                 placeholder="Describe la solución" [(ngModel)]="falla" rows="5" #fallaControl="ngModel"
-                                required></textarea>
+                                #descripcionFalla="ngModel" maxlength="2000" required></textarea>
                             <!-- <div *ngIf="estadoDF" class="alert alert-danger" role="alert">
                                 Es necesario describir la falla
                             </div> -->
 
-                            <div *ngIf="fallaControl.invalid && fallaControl.touched" class="alert alert-danger mt-1">
+                            <!-- <div *ngIf="fallaControl.invalid && fallaControl.touched" class="alert alert-danger mt-1">
                                 Es necesario describir la falla
+                            </div> -->
+                            <div *ngIf="descripcionFalla.errors?.['required'] && descripcionFalla.touched"
+                                class="alert alert-danger">
+                                La descripción de la falla es obligatoria
+                            </div>
+                            <div *ngIf="descripcionFalla.errors?.['maxlength'] && descripcionFalla.touched"
+                                class="alert alert-danger">
+                                La descripción de la falla debe contener máximo 2000 caracteres
                             </div>
                         </div>
                     </div>
@@ -70,10 +78,15 @@
                             <label class="required fw-bold fs-6 mb-2">Descripción de la Solución</label>
                             <textarea name="descripcion_sol" class="form-control form-control-solid mb-3 mb-lg-0"
                                 placeholder="Describe la solución" [(ngModel)]="solucion" rows="5"
-                                #solucionControl="ngModel" required>
+                                #solucionControl="ngModel" maxlength="2000" required>
                             </textarea>
-                            <div *ngIf="solucionControl.invalid && solucionControl.touched" class="alert alert-danger mt-1">
-                                Es necesario describir la solución
+                            <div *ngIf="solucionControl.errors?.['required'] && solucionControl.touched"
+                                class="alert alert-danger">
+                                La descripción de la solución es obligatoria
+                            </div>
+                            <div *ngIf="solucionControl.errors?.['maxlength'] && solucionControl.touched"
+                                class="alert alert-danger">
+                                La descripción de la solución debe contener máximo 2000 caracteres
                             </div>
                         </div>
                     </div>
@@ -83,14 +96,18 @@
                             <label class="required fw-bold fs-6 mb-2">Materiales Requeridos</label>
                             <textarea name="materiales" class="form-control form-control-solid mb-3 mb-lg-0"
                                 placeholder="Describe la solución" [(ngModel)]="materiales" rows="3"
-                                #materialesControl="ngModel" required>
+                                #materialesControl="ngModel" maxlength="2000" required>
                             </textarea>
                             <!-- <div *ngIf="estadoDM" class="alert alert-danger" role="alert">
                                 Es necesario escribir los materiales utilizados
                             </div> -->
-                            <div *ngIf="materialesControl.invalid && materialesControl.touched"
-                                class="alert alert-danger mt-1">
-                                Es necesario escribir los materiales utilizados
+                            <div *ngIf="materialesControl.errors?.['required'] && materialesControl.touched"
+                                class="alert alert-danger">
+                                Es necesario describir los materiales utilizados en caso de no usar colocar "ninguno".
+                            </div>
+                            <div *ngIf="materialesControl.errors?.['maxlength'] && materialesControl.touched"
+                                class="alert alert-danger">
+                                Los materiales deben contener máximo 2000 caracteres
                             </div>
                         </div>
                     </div>
@@ -133,7 +150,8 @@
             <!--begin::Actions-->
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="store()" class="btn btn-primary" [disabled]="(estadoSolucion === true) && (isLoading || miForm.invalid || (horas + minutos <= 0))"
+                <button type="button" (click)="store()" class="btn btn-primary"
+                    [disabled]="(estadoSolucion === true) && (isLoading || miForm.invalid || (horas + minutos <= 0))"
                     data-kt-users-modal-action="submit">
                     <span *ngIf="!isLoading" class="indicator-label">Guardar</span>
 
