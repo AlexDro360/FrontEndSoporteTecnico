@@ -149,7 +149,7 @@ export class ListSolicitudComponent {
   }
 
   asignarTecnicos(SOLICITUD: any) {
-    this.solicitudesService.listTecnicos().subscribe({
+    this.solicitudesService.listTecnicosSolicitud(SOLICITUD.id).subscribe({
       next: (resp: any) => {
         const tecnicos = resp;
 

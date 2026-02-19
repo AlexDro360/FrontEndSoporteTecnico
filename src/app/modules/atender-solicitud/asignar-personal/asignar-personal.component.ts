@@ -32,6 +32,14 @@ export class AsignarPersonalComponent {
   ) {
   }
 
+  ngOnInit(): void {
+    this.personalAtencion = this.tecnicos
+        .filter((tecnico: any) => tecnico.asignado === true)
+        .map((tecnico: any) => tecnico.id);
+
+    // console.log(this.personalAtencion);
+  }
+
   onTecnicoChange(event: any) {
     const tecnicoId = +event.target.value;
 

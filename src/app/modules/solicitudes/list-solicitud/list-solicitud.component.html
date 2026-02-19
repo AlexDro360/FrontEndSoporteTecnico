@@ -206,7 +206,7 @@
                 </a>
 
                 <a href="#" onclick="return false;"
-                  *ngIf="(SOLICITUD.estado.id === 1 || SOLICITUD.estado.id === 4) && isPermission('asign_tecnico')"
+                  *ngIf="(SOLICITUD.estado.id === 1 || SOLICITUD.estado.id === 3 || SOLICITUD.estado.id === 4) && isPermission('asign_tecnico')"
                   (click)="asignarTecnicos(SOLICITUD)"
                   class="btn btn-icon bg-gray-400 btn-hover-primary btn-active-primary btn-color-primary btn-active-color-white btn-sm m-1 btn-con-tooltip"
                   data-label="Asignar Técnicos">

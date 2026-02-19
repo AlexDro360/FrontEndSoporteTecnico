@@ -39,7 +39,7 @@ export class SolicitudService {
   misSolicitudesAtendidas(page = 1, perPage=10, search: string = '', id: any) {
     this.isLoadingSubject.next(true);
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    const URL = `${URL_SERVICIOS}/solicitud/mis-solicitudes-atendidas/${id}?page=${page}&search=${search}&perPage=${perPage}`;
+    const URL = `${URL_SERVICIOS}/solicitud/mis-solicitudes-atendidas/${id}?page=${page}&search=${search}&perPage=${perPage}`;  
 
     return this.http.get(URL, { headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
@@ -49,6 +49,12 @@ export class SolicitudService {
   listTecnicos() {
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/atencion_solicitud/tecnicos`;
+    return this.http.get(URL, { headers: headers });
+  }
+
+  listTecnicosSolicitud(idSolicitud: any) {
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/atencion_solicitud/tecnicos/${idSolicitud}`;
     return this.http.get(URL, { headers: headers });
   }
 
