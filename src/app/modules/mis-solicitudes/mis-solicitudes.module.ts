@@ -11,6 +11,7 @@ import { MisSolicitudesComponent } from './mis-solicitudes.component';
 import { ListSolicitudComponent } from './list-solicitud/list-solicitud.component';
 import { VerSolicitudComponent } from './ver-solicitud/ver-solicitud.component';
 import { CrearSolicitudComponent } from './crear-solicitud/crear-solicitud.component';
+import { ConfirmarSolicitudComponent } from './confirmar-solicitud/confirmar-solicitud.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { CrearSolicitudComponent } from './crear-solicitud/crear-solicitud.compo
     MisSolicitudesComponent,
     ListSolicitudComponent,
     VerSolicitudComponent,
-    CrearSolicitudComponent
+    CrearSolicitudComponent,
+    ConfirmarSolicitudComponent
   ],
   imports: [
     SharedModule,

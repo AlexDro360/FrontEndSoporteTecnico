@@ -19,3 +19,25 @@
     }
   }
   
+.status-con-tooltip {
+    position: relative;
+    background-color: #dddddd;
+    &:hover::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4591ED;
+      color: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 1rem;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      font-size: 1.05rem; 
+      z-index: 9999999;
+      opacity: 1;
+      width: 300px;
+    }
+  }
+  

@@ -20,7 +20,7 @@ export class MisSolicitudesService {
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
 
-  listSolicitud(page = 1, perPage=10, search: string = '', id: any) {
+  listSolicitud(page = 1, perPage = 10, search: string = '', id: any) {
     this.isLoadingSubject.next(true);
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     const URL = `${URL_SERVICIOS}/solicitud/mis-solicitudes/${id}?page=${page}&search=${search}&perPage=${perPage}`;
@@ -80,6 +80,16 @@ export class MisSolicitudesService {
   obtenerPDF(id: any) {
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/pdf/solicitud/${id}`;
-    return this.http.get(URL, { headers: headers, responseType: 'blob'});
+    return this.http.get(URL, { headers: headers, responseType: 'blob' });
+  }
+
+  confirmarSolucion(id: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/solicitudes/${id}/confirmar`;
+    return this.http.patch(URL, {}, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+
   }
 }
