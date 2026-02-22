@@ -1,0 +1,131 @@
+<div class="card">
+    <!--begin::Card header-->
+    <div class="card-header border-0 pt-6 w-100">
+        <!--begin::Card title-->
+        <div class="card-title d-flex flex-column flex-md-row justify-content-start w-100 w-md-auto">
+            <!--begin::Search-->
+            <div class="d-flex align-items-center my-1 mb-3 mb-md-0 w-md-auto w-100">
+                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                    <span class="path1"></span><span class="path2"></span>
+                </i>
+                <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listSolicitudes()"
+                    data-kt-customer-table-filter="search"
+                    class="form-control form-control-solid w-100 w-md-250px w-mb ps-12 fs-3 h-100"
+                    placeholder="Buscar Solicitud" />
+            </div>
+
+            <!--end::Search-->
+        </div>
+        <!--begin::Card toolbar-->
+
+    </div>
+    <!--end::Card header-->
+
+    <!--begin::Card body-->
+    <div class="card-body pt-0">
+        <!--begin::Table-->
+        <div style="overflow:auto;">
+            <table style="border-collapse: separate; border-spacing: 0; border-radius: 0.475rem;"
+                class="table align-middle fs-6 gy-5 dataTable;">
+                <thead>
+                    <tr class="text-center fw-bold fs-3 g-0 align-middle"
+                        style=" color: white; border-radius: 0.475rem;">
+
+                        <th class="min-w-125px bg-primary" style="border-top-left-radius: 0.475rem;" data-dt-column="1"
+                            rowspan="1" colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
+                            <span class="dt-column-title" role="button">Folio</span><span
+                                class="dt-column-order"></span>
+                        </th>
+
+
+                        <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1"
+                            rowspan="1" colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
+                            <span class="dt-column-title" role="button"> Departamento</span><span
+                                class="dt-column-order"></span>
+                        </th>
+
+                        <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1"
+                            rowspan="1" colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
+                            <span class="dt-column-title" role="button"> Fecha</span><span
+                                class="dt-column-order"></span>
+                        </th>
+
+                        <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1"
+                            rowspan="1" colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
+                            <span class="dt-column-title" role="button"> Solicitud de mantenimiento</span><span
+                                class="dt-column-order"></span>
+                        </th>
+
+                        <th class="min-w-70px bg-primary dt-orderable-none" style="border-top-right-radius: 0.475rem;"
+                            data-dt-column="2" rowspan="1" colspan="1" aria-label="Actions">
+                            <span class="dt-column-title">Orden de trabajo</span><span class="dt-column-order"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="fw-semibold text-gray-600">
+                    <tr>
+                        <td colspan="10" *ngIf="isLoading$ | async" style="text-align: center;">
+                            Cargando... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </td>
+                    </tr>
+                    <ng-container *ngFor="let SOLICITUD of SOLICITUDES">
+                        <tr>
+
+                            <td style="text-align: center;">
+                                {{SOLICITUD.user.departamentoC.abreviatura}}/{{ SOLICITUD.folio | rellenaZero:3 }}
+                            </td>
+
+                            <td>
+                                {{SOLICITUD.user.departamento}}
+                            </td>
+
+                            <td>
+                                {{SOLICITUD.created_format_at}}
+                            </td>
+                            <td class="text-center">
+                                <a *ngIf="!SOLICITUD.isDownloadingS" href="#" onclick="return false;" (click)="descargarSolicitud(SOLICITUD)"
+                                    class="btn btn-icon bg-gray-400 btn-hover-primary btn-active-primary btn-color-primary btn-active-color-white btn-sm m-1 btn-con-tooltip "
+                                    data-label="Descargar">
+                                    <i class="ki-duotone ki-file-down fs-2x">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <span *ngIf="SOLICITUD.isDownloadingS" class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </td>
+                            <td class="text-center">
+                                <a *ngIf="!SOLICITUD.isDownloadingR" href="#" onclick="return false;" (click)="descargarRespuesta(SOLICITUD)"
+                                    class="btn btn-icon bg-gray-400 btn-hover-primary btn-active-primary btn-color-primary btn-active-color-white btn-sm m-1 btn-con-tooltip"
+                                    data-label="Descargar">
+                                    <i class="ki-duotone ki-file-down fs-2x">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <span *ngIf="SOLICITUD.isDownloadingR" class="spinner-border spinner-border-sm text-primary align-middle m-3"></span>
+                            </td>
+
+                        </tr>
+                    </ng-container>
+
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <!-- <div class="fw-semibold text-gray-700 me-2">Elementos por página:</div> -->
+            <select id="categoria" class="form-control w-55px" [(ngModel)]="pageSize" (change)="onChangeItemsPerPage()">
+                <option [ngValue]=10>10</option>
+                <option [ngValue]=25>25</option>
+                <option [ngValue]=50>50 </option>
+                <option [ngValue]=100>100 </option>
+            </select>
+            <ngb-pagination [collectionSize]="totalElements" [(page)]="currentPage" [pageSize]="pageSize"
+                [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)" [maxSize]="5"
+                [ellipses]="false"></ngb-pagination>
+        </div>
+
+    </div>
+    <!--end::Table-->
+</div>
+<!--end::Card body-->

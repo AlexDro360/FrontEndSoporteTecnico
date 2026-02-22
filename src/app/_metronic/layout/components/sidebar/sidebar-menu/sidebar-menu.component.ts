@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from 'src/app/modules/auth';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -8,7 +9,9 @@ import { CommonModule } from '@angular/common';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.showMenu();

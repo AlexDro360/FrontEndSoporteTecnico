@@ -150,6 +150,14 @@ export class AuthService implements OnDestroy {
     }
   }
 
+  isRoles(rolesPermitidos: number[]): boolean {
+    if (!this.user) {
+      return false;
+    }
+
+    return rolesPermitidos.includes(this.user.role_id);
+  }
+
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }

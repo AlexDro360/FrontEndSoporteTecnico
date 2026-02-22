@@ -48,7 +48,6 @@ export class MiFolioComponent {
   getMyFolio() {
     this.configService.getMyFolio(this.user.departamento_id).subscribe((resp: any) => {
       this.depto = resp;
-      console.log(this.depto);
     });
     
   }

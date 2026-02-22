@@ -59,7 +59,6 @@ export class EditSolicitudComponent {
     } else {
       this.textoHora = '';
     }
-    console.log(partes)
   }
 
   update() {

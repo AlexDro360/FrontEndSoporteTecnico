@@ -1,0 +1,21 @@
+.btn-con-tooltip {
+    position: relative;
+    background-color: #dddddd;
+    &:hover::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #1f2937;
+      color: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 0.4rem;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      font-size: 1.5rem; 
+      z-index: 9999999;
+      opacity: 1;
+    }
+  }
+  
