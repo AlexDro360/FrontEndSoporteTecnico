@@ -29,6 +29,7 @@ export class VerBitacoraComponent {
   ngOnInit(): void {
     this.horas = Math.floor(this.bitacora.duracion / 60);
     this.minutos = this.bitacora.duracion % 60;
+    console.log(this.bitacora);
   }
 }
 

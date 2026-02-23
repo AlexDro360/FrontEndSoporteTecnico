@@ -48,11 +48,11 @@
         <div class="col-12">
           <label class="fw-bold fs-6">Personal Técnico que Atendió</label>
           <div class="form-control form-control-solid h-auto">
-            
+
             <ng-container *ngIf="bitacora.solicitud.personal_atencion?.length > 0; else noTecnicos">
-              <ul class="mb-0" >
-                <li *ngFor="let tecnico of bitacora.solicitud.personal_atencion" >
-                 {{ tecnico.name }} {{ tecnico.surnameP }} {{ tecnico.surnameM }}
+              <ul class="mb-0">
+                <li *ngFor="let tecnico of bitacora.solicitud.personal_atencion">
+                  {{ tecnico.name }} {{ tecnico.surnameP }} {{ tecnico.surnameM }}
                   <span class="text-muted fs-6 ms-2">- {{ tecnico.num_empleado }}</span>
                 </li>
               </ul>
@@ -67,6 +67,10 @@
       </div>
 
 
+      <div class="col-12">
+        <label class="fw-bold fs-6">Clasificación del Problema</label>
+        <p class="form-control form-control-solid">{{bitacora.solicitud.tipo.nombre}}</p>
+      </div>
       <div class="col-12">
         <label class="fw-bold fs-6">Falla/Error encontrada por el técnico</label>
         <textarea class="form-control form-control-solid text-justify" [value]="bitacora.descFalla" disabled rows="3">

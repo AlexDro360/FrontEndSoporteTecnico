@@ -49,6 +49,25 @@
 
                 <!-- Formulario condicional -->
                 <div *ngIf="estadoSolucion === true" class="mt-3">
+                    <div class="fv-row row my-4">
+                        <div class="col-12">
+                            <label class="required fw-bold fs-6 mb-2">Clasificación del Problema</label>
+                            <select class="form-select form-select-solid" name="idTipo" [(ngModel)]="idTipoSeleccionado"
+                                #tipoControl="ngModel" required>
+                                <option *ngFor="let tipo of tiposProblemas" [ngValue]="tipo.id">
+                                    {{ tipo.nombre }}
+                                </option>
+                            </select>
+                            <div class="text-muted fs-7 mt-2">
+                                * Si el problema detectado fue diferente al reportado originalmente, actualízalo aquí
+                                para fines estadísticos.
+                            </div>
+                            <div *ngIf="tipoControl.invalid && tipoControl.touched" class="alert alert-danger mt-1">
+                                Es necesario clasificar el problema
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="fv-row row my-1">
                         <div class="col-12">
                             <label class="required fw-bold fs-6 mb-2">Descripción de la Falla/Error</label>

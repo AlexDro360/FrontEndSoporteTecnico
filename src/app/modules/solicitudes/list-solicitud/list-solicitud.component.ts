@@ -48,7 +48,7 @@ export class ListSolicitudComponent {
     this.isLoading$ = this.solicitudesService.isLoading$;
     this.me();
     this.configAll();
-    this.configFiltro();    
+    this.configFiltro();
   }
 
   me() {
@@ -65,13 +65,13 @@ export class ListSolicitudComponent {
         this.totalElements = resp.total;
         this.currentPage = page;
         this.SOLICITUDES.forEach((SOLICITUD: any) => {
-      if (SOLICITUD.user.avatar) {
-        SOLICITUD.user.avatar = SOLICITUD.user.avatar.replace(
-          "http://10.168.0.108/storage",
-          "http://10.168.0.108:8000/storage"
-        );
-      }
-    });
+          if (SOLICITUD.user.avatar) {
+            SOLICITUD.user.avatar = SOLICITUD.user.avatar.replace(
+              "http://10.168.0.108/storage",
+              "http://10.168.0.108:8000/storage"
+            );
+          }
+        });
       });
     } else {
       this.solicitudesService.misSolicitudesAtendidas(page, this.pageSize, this.search, this.user.id).subscribe((resp: any) => {
@@ -79,13 +79,13 @@ export class ListSolicitudComponent {
         this.totalElements = resp.total;
         this.currentPage = page;
         this.SOLICITUDES.forEach((SOLICITUD: any) => {
-      if (SOLICITUD.user.avatar) {
-        SOLICITUD.user.avatar = SOLICITUD.user.avatar.replace(
-          "http://10.168.0.108/storage",
-          "http://10.168.0.108:8000/storage"
-        );
-      }
-    });
+          if (SOLICITUD.user.avatar) {
+            SOLICITUD.user.avatar = SOLICITUD.user.avatar.replace(
+              "http://10.168.0.108/storage",
+              "http://10.168.0.108:8000/storage"
+            );
+          }
+        });
       });
     }
   }
@@ -94,9 +94,10 @@ export class ListSolicitudComponent {
     this.listSolicitudes($event);
   }
 
-  crearBitacora(id: any) {
+  crearBitacora(solicitud: any) {
     const modalRef = this.modalService.open(CrearBitacoraComponent, { centered: false, size: 'bg' });
-    modalRef.componentInstance.idSolicitud = id;
+    modalRef.componentInstance.solicitud = solicitud;
+    modalRef.componentInstance.tiposProblemas = this.tipos;
     modalRef.componentInstance.BitacoraN.subscribe((resp: any) => {
       this.listSolicitudes();
     });
@@ -120,6 +121,10 @@ export class ListSolicitudComponent {
       next: (resp: any) => {
         const modalRef = this.modalService.open(EditarBitacoraComponent, { centered: true, size: 'md' });
         modalRef.componentInstance.bitacora = resp;
+        modalRef.componentInstance.tiposProblemas = this.tipos;
+        modalRef.componentInstance.BitacoraE.subscribe(() => {
+          this.listSolicitudes();
+        });
       },
       error: (err) => {
         console.error('Error al obtener la bitácora:', err);

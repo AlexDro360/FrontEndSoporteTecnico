@@ -16,7 +16,8 @@ export class ConfirmarSolicitudComponent implements OnInit{
   @Input() solicitud: any;
   @Input() respuesta: any;
 
-  isLoading$: any;
+  isPdfLoading: boolean = false;
+  isConfirming: boolean = false;
 
   constructor(
     public modal: NgbActiveModal,
@@ -29,7 +30,10 @@ export class ConfirmarSolicitudComponent implements OnInit{
   }
 
   confirmar() {
-    this.misSolicitudesService.confirmarSolucion(this.solicitud.id).subscribe({
+    this.isConfirming = true;
+    this.misSolicitudesService.confirmarSolucion(this.solicitud.id)
+    .pipe(finalize(() => this.isConfirming = false))
+    .subscribe({
       next: (resp: any) => {
         this.toast.success("Éxito", resp.message || "El trabajo se confirmó correctamente y la solicitud fue cerrada.");
         this.SolicitudC.emit(resp);
@@ -48,9 +52,9 @@ export class ConfirmarSolicitudComponent implements OnInit{
   }
 
   verPdf() {
-      this.isLoading$ = true;
+      this.isPdfLoading = true;
       this.respuestaService.obtenerPDF(this.respuesta.id)
-      .pipe(finalize(() => this.isLoading$ = false))
+      .pipe(finalize(() => this.isPdfLoading = false))
       .subscribe({
         next: (resp) => {
           const fileURL = URL.createObjectURL(resp);

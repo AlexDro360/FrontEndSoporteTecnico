@@ -11,13 +11,15 @@ import { finalize } from 'rxjs';
 })
 export class CrearBitacoraComponent {
   @Output() BitacoraN: EventEmitter<any> = new EventEmitter();
-  @Input() idSolicitud: any;
+  @Input() solicitud: any;
+  @Input() tiposProblemas: any;
   @Input() user: any;
 
 
   isLoading: boolean = false;
 
   estadoSolucion: boolean = true;
+  idTipoSeleccionado: number;
 
   falla: string = '';
   solucion: string = '';
@@ -37,7 +39,9 @@ export class CrearBitacoraComponent {
     public toast: ToastrService) { }
 
   ngOnInit(): void {
-
+    if (this.solicitud && this.solicitud.idTipo) {
+      this.idTipoSeleccionado = this.solicitud.idTipo;
+    }
   }
 
   reiniciarAlertas() {
@@ -81,7 +85,8 @@ export class CrearBitacoraComponent {
       formData.append('descSolucion', this.solucion);
       formData.append('materialReq', this.materiales);
       formData.append('duracion', this.duracion.toString());
-      formData.append('idSolicitud', this.idSolicitud);
+      formData.append('idSolicitud', this.solicitud.id);
+      formData.append('idTipo', this.idTipoSeleccionado.toString());
 
       this.isLoading = true;
       this.bitacoraService.crearBitacora(formData)
@@ -98,7 +103,7 @@ export class CrearBitacoraComponent {
           }
         })
     } else {
-      this.bitacoraService.noSolucionada(this.idSolicitud)
+      this.bitacoraService.noSolucionada(this.solicitud.id)
         .pipe(finalize(() => this.isLoading = false))
         .subscribe({
           next: (resp) => {

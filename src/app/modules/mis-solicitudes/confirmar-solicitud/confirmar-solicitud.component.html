@@ -33,16 +33,18 @@
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
 
-                <button type="button" class="btn btn-primary m-2" (click)="verPdf()" [disabled]="isLoading$">
-                    <span *ngIf="!isLoading$" class="indicator-label">Abrir PDF</span>
-                    <span *ngIf="isLoading$">Cargando PDF...
+                <button type="button" class="btn btn-primary m-2" (click)="verPdf()" [disabled]="isPdfLoading">
+                    <span *ngIf="!isPdfLoading" class="indicator-label">Abrir PDF</span>
+                    <span *ngIf="isPdfLoading">Cargando PDF...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
                 </button>
 
-                <button type="button" (click)="confirmar()" class="btn btn-success" data-kt-users-modal-action="submit">
-                    <span class="indicator-label">Confirmar Solución</span>
-                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+                <button type="button" (click)="confirmar()" class="btn btn-success" data-kt-users-modal-action="submit" [disabled]="isConfirming">
+                    <span *ngIf="!isConfirming" class="indicator-label">Confirmar Solución</span>
+                    <span class="indicator-label" *ngIf="isConfirming">Confirmando...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
                 </button>
             </div>
         </form>
