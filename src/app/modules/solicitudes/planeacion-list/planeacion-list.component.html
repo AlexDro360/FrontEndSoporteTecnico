@@ -44,11 +44,6 @@
                                 class="dt-column-order"></span>
                         </th>
 
-                        <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1"
-                            rowspan="1" colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
-                            <span class="dt-column-title" role="button"> Fecha</span><span
-                                class="dt-column-order"></span>
-                        </th>
 
                         <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1"
                             rowspan="1" colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
@@ -79,9 +74,6 @@
                                 {{SOLICITUD.user.departamento}}
                             </td>
 
-                            <td>
-                                {{SOLICITUD.created_format_at}}
-                            </td>
                             <td class="text-center">
                                 <a *ngIf="!SOLICITUD.isDownloadingS" href="#" onclick="return false;" (click)="descargarSolicitud(SOLICITUD)"
                                     class="btn btn-icon bg-gray-400 btn-hover-primary btn-active-primary btn-color-primary btn-active-color-white btn-sm m-1 btn-con-tooltip "
