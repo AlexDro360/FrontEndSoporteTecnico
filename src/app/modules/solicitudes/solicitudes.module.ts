@@ -18,6 +18,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CrearRespuestaComponent } from '../respuestas/crear-respuesta/crear-respuesta.component';
 import { VerRespuestaComponent } from '../respuestas/ver-respuesta/ver-respuesta.component';
 import { PlaneacionListComponent } from './planeacion-list/planeacion-list.component';
+import { ArchivarSolicitudComponent } from './archivar-solicitud/archivar-solicitud.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { PlaneacionListComponent } from './planeacion-list/planeacion-list.compo
     CrearRespuestaComponent,
     VerRespuestaComponent,
     PlaneacionListComponent,
+    ArchivarSolicitudComponent,
   ],
   imports: [
     SharedModule,

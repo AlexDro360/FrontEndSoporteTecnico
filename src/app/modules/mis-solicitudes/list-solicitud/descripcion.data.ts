@@ -11,5 +11,7 @@ export const DESCRIPCIONES_ESTADO: { [key: number]: string } = {
     
     6: 'La solicitud está a la espera de su confirmación, para la generación de su reporte de orden de trabajo',
     
-    7: 'Usted ha confirmado que su solicitud se concluyo con éxito. El ciclo de esta solicitud ha concluido definitivamente.'
+    7: 'Usted ha confirmado que su solicitud se concluyo con éxito. El ciclo de esta solicitud ha concluido definitivamente.',
+
+    8: 'El departamento de Planeación, Programación y Presupuestación ha recibido los formatos de la solicitud.'
 };

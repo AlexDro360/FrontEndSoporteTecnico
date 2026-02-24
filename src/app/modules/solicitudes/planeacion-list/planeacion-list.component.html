@@ -44,6 +44,11 @@
                                 class="dt-column-order"></span>
                         </th>
 
+                        <th *ngIf="authService.isRoles([7])" class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1"
+                            rowspan="1" colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
+                            <span class="dt-column-title" role="button"> Estado</span><span
+                                class="dt-column-order"></span>
+                        </th>
 
                         <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1"
                             rowspan="1" colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
@@ -51,9 +56,16 @@
                                 class="dt-column-order"></span>
                         </th>
 
-                        <th class="min-w-70px bg-primary dt-orderable-none" style="border-top-right-radius: 0.475rem;"
+                        <th class="min-w-125px bg-primary dt-orderable-asc dt-orderable-desc" data-dt-column="1"
+                            rowspan="1" colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
+                            <span class="dt-column-title" role="button"> Orden de trabajo</span><span
+                                class="dt-column-order"></span>
+                        </th>
+
+                        <th *ngIf="authService.isRoles([6])" class="min-w-70px bg-primary dt-orderable-none" style="border-top-right-radius: 0.475rem;"
                             data-dt-column="2" rowspan="1" colspan="1" aria-label="Actions">
-                            <span class="dt-column-title">Orden de trabajo</span><span class="dt-column-order"></span>
+                            <span class="dt-column-title">Confirmar recepción</span><span
+                                class="dt-column-order"></span>
                         </th>
                     </tr>
                 </thead>
@@ -74,8 +86,54 @@
                                 {{SOLICITUD.user.departamento}}
                             </td>
 
+                            <td *ngIf="authService.isRoles([7])">
+                                <div *ngIf="SOLICITUD.estado.id === 1"
+                                    class="w-125px rounded-pill bg-primary text-center fw-bold text-white p-2">
+                                    {{SOLICITUD.estado.nombre}}
+                                </div>
+
+                                <div *ngIf="SOLICITUD.estado.id === 2"
+                                    class="w-125px rounded-pill bg-danger text-center fw-bold text-white p-2">
+                                    {{SOLICITUD.estado.nombre}}
+                                </div>
+
+                                <div *ngIf="SOLICITUD.estado.id === 3"
+                                    class="w-125px rounded-pill bg-warning text-center fw-bold text-white p-2">
+                                    {{SOLICITUD.estado.nombre}}
+                                </div>
+
+                                <div *ngIf="SOLICITUD.estado.id === 4"
+                                    class="w-125px rounded-pill text-center fw-bold text-white p-2"
+                                    style="background-color: #8C8C8C;">
+                                    {{SOLICITUD.estado.nombre}}
+                                </div>
+
+                                <div *ngIf="SOLICITUD.estado.id === 5"
+                                    class="w-125px rounded-pill bg-info text-center fw-bold text-white p-2">
+                                    {{SOLICITUD.estado.nombre}}
+                                </div>
+
+                                <div *ngIf="SOLICITUD.estado.id === 6"
+                                    class="w-125px rounded-pill text-center fw-bold text-white p-2"
+                                    style="background-color: #fd7e14;">
+                                    {{SOLICITUD.estado.nombre}}
+                                </div>
+
+                                <div *ngIf="SOLICITUD.estado.id === 7"
+                                    class="w-125px rounded-pill bg-success text-center fw-bold text-white p-2">
+                                    {{SOLICITUD.estado.nombre}}
+                                </div>
+                                
+                                <div *ngIf="SOLICITUD.estado.id === 8"
+                                    class="w-125px rounded-pill text-center fw-bold text-white p-2" style="background-color: #193CB8;">
+                                    {{SOLICITUD.estado.nombre}}
+                                </div>
+                            </td>
+
+
                             <td class="text-center">
-                                <a *ngIf="!SOLICITUD.isDownloadingS" href="#" onclick="return false;" (click)="descargarSolicitud(SOLICITUD)"
+                                <a *ngIf="!SOLICITUD.isDownloadingS" href="#" onclick="return false;"
+                                    (click)="descargarSolicitud(SOLICITUD)"
                                     class="btn btn-icon bg-gray-400 btn-hover-primary btn-active-primary btn-color-primary btn-active-color-white btn-sm m-1 btn-con-tooltip "
                                     data-label="Descargar">
                                     <i class="ki-duotone ki-file-down fs-2x">
@@ -83,10 +141,12 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <span *ngIf="SOLICITUD.isDownloadingS" class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                <span *ngIf="SOLICITUD.isDownloadingS"
+                                    class="spinner-border spinner-border-sm align-middle ms-2"></span>
                             </td>
                             <td class="text-center">
-                                <a *ngIf="!SOLICITUD.isDownloadingR" href="#" onclick="return false;" (click)="descargarRespuesta(SOLICITUD)"
+                                <a *ngIf="!SOLICITUD.isDownloadingR" href="#" onclick="return false;"
+                                    (click)="descargarRespuesta(SOLICITUD)"
                                     class="btn btn-icon bg-gray-400 btn-hover-primary btn-active-primary btn-color-primary btn-active-color-white btn-sm m-1 btn-con-tooltip"
                                     data-label="Descargar">
                                     <i class="ki-duotone ki-file-down fs-2x">
@@ -94,7 +154,27 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <span *ngIf="SOLICITUD.isDownloadingR" class="spinner-border spinner-border-sm text-primary align-middle m-3"></span>
+                                <span *ngIf="SOLICITUD.isDownloadingR"
+                                    class="spinner-border spinner-border-sm text-primary align-middle m-3"></span>
+                            </td>
+
+                            <td class="text-center" *ngIf="authService.isRoles([6])">
+                                <div *ngIf="SOLICITUD.estado.id === 7">
+                                    <a *ngIf="!SOLICITUD.isConfirming" href="#" onclick="return false;"
+                                        (click)="archivarSolicitud(SOLICITUD)"
+                                        class="btn btn-icon bg-gray-400 btn-hover-success btn-active-success btn-color-success btn-active-color-white btn-sm m-1 btn-con-tooltip"
+                                        data-label="Confirmar Recepción">
+                                        <i class="ki-duotone ki-check-circle fs-1">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </a>
+                                    <span *ngIf="SOLICITUD.isConfirming"
+                                        class="spinner-border spinner-border-sm text-primary align-middle m-3"></span>
+                                </div>
+                                <div *ngIf="SOLICITUD.estado.id === 8">
+                                    Recepción Confirmada
+                                </div>
                             </td>
 
                         </tr>

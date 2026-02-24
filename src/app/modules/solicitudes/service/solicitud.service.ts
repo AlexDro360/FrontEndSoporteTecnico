@@ -34,6 +34,15 @@ export class SolicitudService {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+  
+  listSolicitudConcluidas(page = 1, perPage = 10, search: string = '') {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS + "/solicitud/solicitudes-concluidas?page=" + page + "&search=" + search + "&perPage=" + perPage;
+    return this.http.get(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
 
 
   misSolicitudesAtendidas(page = 1, perPage=10, search: string = '', id: any) {
@@ -156,6 +165,16 @@ export class SolicitudService {
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let URL = `${URL_SERVICIOS}/jefe_cc/jefe-activo`;
     return this.http.get(URL, { headers: headers});
+  }
+
+  archivarSolicitud(id: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = `${URL_SERVICIOS}/solicitudes/${id}/archivar`;
+    return this.http.patch(URL, {}, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+
   }
 
 }

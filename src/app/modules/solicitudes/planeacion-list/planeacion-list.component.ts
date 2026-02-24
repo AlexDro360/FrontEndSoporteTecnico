@@ -5,6 +5,8 @@ import { SolicitudService } from '../service/solicitud.service';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { RespuestaService } from '../../respuestas/service/respuesta.service';
+import { AuthService } from 'src/app/modules/auth';
+import { ArchivarSolicitudComponent } from '../archivar-solicitud/archivar-solicitud.component';
 
 @Component({
   selector: 'app-planeacion-list',
@@ -31,7 +33,9 @@ export class PlaneacionListComponent {
     public solicitudesService: SolicitudService,
     public toast: ToastrService,
     public respuestaService: RespuestaService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public authService: AuthService
+
   ) {
 
   }
@@ -50,55 +54,73 @@ export class PlaneacionListComponent {
   }
 
   listSolicitudes(page = 1) {
-      this.solicitudesService.listSolicitud(page, this.pageSize, this.search, 7).subscribe((resp: any) => {
-        this.SOLICITUDES = resp.solicitudes;
-        this.totalElements = resp.total;
-        this.currentPage = page;
-      });
+    this.solicitudesService.listSolicitudConcluidas(page, this.pageSize).subscribe((resp: any) => {
+      this.SOLICITUDES = resp.solicitudes;
+      this.totalElements = resp.total;
+      this.currentPage = page;
+    });
   }
 
   descargarRespuesta(solicitud: any) {
     solicitud.isDownloadingR = true;
-    
+
     this.respuestaService.obtenerPDF(solicitud.respuestaData.id)
-    .subscribe({
-      next: (resp) => {
-        const fileURL = URL.createObjectURL(resp);
-        window.open(fileURL);
-        
-        solicitud.isDownloadingR = false;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error al generar el pdf', err);
-        this.toast.error('Error al abrir el pdf', 'Error');
-        
-        solicitud.isDownloadingR = false;
-        this.cdr.detectChanges();
-      }
-    });
+      .subscribe({
+        next: (resp) => {
+          const fileURL = URL.createObjectURL(resp);
+          window.open(fileURL);
+
+          solicitud.isDownloadingR = false;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error al generar el pdf', err);
+          this.toast.error('Error al abrir el pdf', 'Error');
+
+          solicitud.isDownloadingR = false;
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   descargarSolicitud(solicitud: any) {
     solicitud.isDownloadingS = true;
-      
+
     this.solicitudesService.obtenerPDF(solicitud.id)
       .subscribe({
         next: (resp) => {
           const fileURL = URL.createObjectURL(resp);
           window.open(fileURL);
-          
+
           solicitud.isDownloadingS = false;
-          this.cdr.detectChanges(); 
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error al obtener el pdf', err);
           this.toast.error('Error al abrir el pdf', 'Error');
-          
+
           solicitud.isDownloadingS = false;
           this.cdr.detectChanges();
         }
       });
+  }
+
+  archivarSolicitud(solicitud: any) {
+    // this.solicitudesService.getRespuesta(solicitud.id).subscribe({
+    //   next: (respuestaServidor: any) => {
+        const modalRef = this.modalService.open(ArchivarSolicitudComponent, { centered: true, size: 'md' });
+
+        modalRef.componentInstance.solicitud = solicitud;
+
+        modalRef.componentInstance.SolicitudC.subscribe(() => {
+          this.listSolicitudes();
+        });
+    //   },
+    //   error: (err) => {
+    //     console.error('Error al cargar la respuesta', err);
+    //     this.toast.error("Error", "No se pudo obtener el reporte de la solución.");
+    //   }
+    // });
   }
 
   loadPage($event: any) {

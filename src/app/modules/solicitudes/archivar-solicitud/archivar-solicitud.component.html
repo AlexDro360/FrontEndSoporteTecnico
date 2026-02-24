@@ -1,0 +1,48 @@
+<div class="modal-content">
+    <div class="modal-header" id="kt_modal_archivar_solicitud_header">
+        <h2 class="fw-bolder">Archivar Solicitud</h2>
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close"
+            (click)="modal.dismiss()">
+            <span class="svg-icon svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+                </svg>
+            </span>
+        </div>
+    </div>
+    
+    <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+        <form id="kt_modal_archivar_solicitud_form" class="form" action="#">
+
+            <div class="d-flex flex-row w-100 mb-10">
+                <div class="d-flex align-items-center justify-content-between" style="margin-right: 2rem;">
+                    <i class="ki-duotone ki-folder fs-5x text-primary">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                </div>
+                <div>
+                    <p class="fs-2" style="text-align: justify;">
+                        Confirme de <strong>recibido</strong>
+                    </p>
+                    <p class="text-muted fs-5" style="text-align: justify;">
+                        Al confirmar, esta indicando que los formatos de solicitud de mantenimiento y orden de trabajo fueron recibidos por el <strong>Departamento de Planeación, Programación y Presupuestación.</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center pt-15">
+                <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()" [disabled]="isLoading">Cerrar</button>
+
+                <button type="button" (click)="archivar()" class="btn btn-dark" data-kt-users-modal-action="submit" [disabled]="isLoading">
+                    <span *ngIf="!isLoading" class="indicator-label">Confirmar</span>
+                    <span class="indicator-label" *ngIf="isLoading">Confirmando...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+            </div>
+            
+        </form>
+    </div>
+</div>

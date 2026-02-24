@@ -124,37 +124,50 @@
 
                 <td>
                   <div *ngIf="SOLICITUD.estado.id === 1"
-                    class="w-125px rounded-pill bg-primary text-center fw-bold text-white p-2 status-con-tooltip" [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
+                    class="w-125px rounded-pill bg-primary text-center fw-bold text-white p-2 status-con-tooltip"
+                    [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
                   <div *ngIf="SOLICITUD.estado.id === 2"
-                    class="w-125px rounded-pill bg-danger text-center fw-bold text-white p-2 status-con-tooltip"  [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
+                    class="w-125px rounded-pill bg-danger text-center fw-bold text-white p-2 status-con-tooltip"
+                    [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
                   <div *ngIf="SOLICITUD.estado.id === 3"
-                    class="w-125px rounded-pill bg-warning text-center fw-bold text-white p-2 status-con-tooltip"  [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
+                    class="w-125px rounded-pill bg-warning text-center fw-bold text-white p-2 status-con-tooltip"
+                    [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
-                  <div *ngIf="SOLICITUD.estado.id === 4" class="w-125px rounded-pill text-center fw-bold text-white p-2 status-con-tooltip"  [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]"
-                    style="background-color: #8C8C8C  ;">
+                  <div *ngIf="SOLICITUD.estado.id === 4"
+                    class="w-125px rounded-pill text-center fw-bold text-white p-2 status-con-tooltip"
+                    [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]" style="background-color: #8C8C8C  ;">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
                   <div *ngIf="SOLICITUD.estado.id === 5"
-                    class="w-125px rounded-pill bg-info text-center fw-bold text-white p-2 status-con-tooltip"  [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
+                    class="w-125px rounded-pill bg-info text-center fw-bold text-white p-2 status-con-tooltip"
+                    [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
-                  <div *ngIf="SOLICITUD.estado.id === 6" class="w-125px rounded-pill text-center fw-bold text-white p-2 status-con-tooltip"  [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]"
-                    style="background-color: #fd7e14;">
+                  <div *ngIf="SOLICITUD.estado.id === 6"
+                    class="w-125px rounded-pill text-center fw-bold text-white p-2 status-con-tooltip"
+                    [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]" style="background-color: #fd7e14;">
                     {{SOLICITUD.estado.nombre}}
                   </div>
 
                   <div *ngIf="SOLICITUD.estado.id === 7"
-                    class="w-125px rounded-pill bg-success text-center fw-bold text-white p-2 status-con-tooltip"  [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
+                    class="w-125px rounded-pill bg-success text-center fw-bold text-white p-2 status-con-tooltip"
+                    [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]">
+                    {{SOLICITUD.estado.nombre}}
+                  </div>
+
+                  <div *ngIf="SOLICITUD.estado.id === 8"
+                    class="w-125px rounded-pill text-center fw-bold text-white p-2 status-con-tooltip"
+                    [attr.data-label]="descripcionesEstado[SOLICITUD.estado.id]" style="background-color: #193CB8;">
                     {{SOLICITUD.estado.nombre}}
                   </div>
                 </td>
@@ -187,7 +200,7 @@
                   </a>
 
 
-                  <a href="#" onclick="return false;" *ngIf="(SOLICITUD.estado.id === 7)"
+                  <a href="#" onclick="return false;" *ngIf="(SOLICITUD.estado.id >= 7)"
                     (click)="watchRespuesta(SOLICITUD)"
                     class="btn btn-icon bg-gray-400 btn-hover-info btn-active-info btn-color-info btn-active-color-white btn-sm m-1 btn-con-tooltip"
                     data-label="Ver Respuesta">
