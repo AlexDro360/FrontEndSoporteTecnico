@@ -147,7 +147,7 @@
         <span class="menu-arrow"></span>
       </span>
 
-      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg" *ngIf="showMenu(['view_solicitud']) && !authService.isRoles([6, 7])">
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg" *ngIf="showMenu(['view_solicitud']) && !authService.isRoles([6])">
         <div class="menu-item">
           <a class="menu-link without-sub" routerLinkActive="active" routerLink="/solicitudes/list">
             <span class="menu-bullet">
