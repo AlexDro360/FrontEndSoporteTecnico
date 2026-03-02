@@ -15,7 +15,7 @@ export class RoleRedirectComponent {
       this.router.navigate(['/dashboard']);
     } else if ((role === 2)){
       this.router.navigate(['/solicitudes/list']);
-    } else if (role === 3){
+    } else if (role === 3 || role === 6){
       this.router.navigate(['/mis-solicitudes/list']);
     } else if(role===4){
       this.router.navigate(['/dashboard']);

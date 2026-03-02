@@ -9,7 +9,7 @@ export const DESCRIPCIONES_ESTADO: { [key: number]: string } = {
     
     5: 'El personal técnico aplicó una solución al problema reportado y se considera arreglado.',
     
-    6: 'La solicitud está a la espera de su confirmación, para la generación de su reporte de orden de trabajo',
+    6: 'La solicitud está a la espera de su confirmación.',
     
     7: 'Usted ha confirmado que su solicitud se concluyo con éxito. El ciclo de esta solicitud ha concluido definitivamente.',
 

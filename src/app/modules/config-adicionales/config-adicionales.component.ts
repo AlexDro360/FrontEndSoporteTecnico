@@ -12,6 +12,7 @@ export class ConfigAdicionalesComponent {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user') ?? '');
+    console.log(this.user);
   }
 
   isPermission(permission: string) {

@@ -72,8 +72,8 @@ const Routing: Routes = [
   {
     path: 'solicitudes',
     loadChildren: () => import('../modules/solicitudes/solicitudes.module').then((m) => m.SolicitudesModule),
-    canActivate: [AuthGuard, PermissionGuard],
-    data: { permission: 'view_solicitud' }
+    // canActivate: [AuthGuard, PermissionGuard],
+    // data: { permission: 'view_solicitud' }
   },
   // {
   //   path: 'respuestas',

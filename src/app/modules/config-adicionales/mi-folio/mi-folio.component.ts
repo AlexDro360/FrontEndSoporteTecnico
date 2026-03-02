@@ -26,7 +26,9 @@ export class MiFolioComponent {
 
   ngOnInit(): void {
     this.isLoading$ = this.configService.isLoading$;
+    console.log(this.user);
     this.user = JSON.parse(localStorage.getItem('user') ?? '');
+    
     this.getMyFolio();
   }
 
@@ -46,6 +48,7 @@ export class MiFolioComponent {
   }
 
   getMyFolio() {
+    console.log(this.user);
     this.configService.getMyFolio(this.user.departamento_id).subscribe((resp: any) => {
       this.depto = resp;
     });

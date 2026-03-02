@@ -73,6 +73,10 @@ export const SIDEBAR:any = [
         {
           name:'Registrar Bitacora',
           permiso: 'register_bitacora_solicitud',
+        },
+        {
+          name:'Ver Expedientes Cerrados',
+          permiso: 'view_closed_tickets',
         }
       ]
     },

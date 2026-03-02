@@ -27,7 +27,7 @@ export class ActualizarSolicitudComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.authService.isRoles([3])){
+    if(this.authService.isRoles([3, 6])){
       this.folioOriginal = this.folio.folio;
     }else{
       this.folioOriginal = 1
