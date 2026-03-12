@@ -10,11 +10,11 @@
         </i>
         <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="listSolicitudes()"
           data-kt-customer-table-filter="search"
-          class="form-control form-control-solid w-100 w-md-250px w-mb ps-12 fs-3 h-100"
+          class="form-control form-control-solid w-100 w-md-250px w-mb ps-12 fs-3 "
           placeholder="Buscar Solicitud" />
       </div>
 
-      <div *ngIf="myRole() != 2" class="d-flex align-items-center my-1 ms-md-5 ms-0 mb-0 w-100">
+      <div *ngIf="myRole() != 2" class="d-flex align-items-center my-1 ms-md-5 ms-0 mb-0 w-100 w-md-auto">
 
         <div class="input-group">
           <span class="input-group-text">
@@ -34,6 +34,37 @@
         </div>
       </div>
 
+      <div class="d-flex align-items-center pt-1 ms-md-5 ms-0 mb-0 w-100 w-md-auto h-100">
+        <div class="btn-group w-100 h-100" role="group">
+          <input type="radio" class="btn-check" name="filtroTipo" id="tipo_todas" 
+                 [value]="0" [(ngModel)]="coordinacion" (change)="listSolicitudes()">
+          <label class="btn btn-outline btn-color-gray-700 btn-active-primary  fs-3 fw-bold px-4 " for="tipo_todas">
+            Todas
+          </label>
+
+          <input type="radio" class="btn-check" name="filtroTipo" id="tipo_redes" 
+                 [value]="1" [(ngModel)]="coordinacion" (change)="listSolicitudes()">
+          <label class="btn btn-outline btn-color-gray-700 btn-active-primary  fs-3 fw-bold px-4 " for="tipo_redes">
+            Redes
+          </label>
+
+          <input type="radio" class="btn-check" name="filtroTipo" id="tipo_mto" 
+                 [value]="2" [(ngModel)]="coordinacion" (change)="listSolicitudes()">
+          <label class="btn btn-outline btn-color-gray-700 btn-active-primary  fs-3 fw-bold px-4 " for="tipo_mto">
+            Mantenimiento
+          </label>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center ms-md-5 ms-0 mb-0 w-100 w-md-auto h-100">
+        <div class="form-check form-check-custom form-check-solid form-check-primary">
+          <input class="form-check-input" type="checkbox" id="checkEnProceso" [(ngModel)]="enProceso"
+            (change)="listSolicitudes()" />
+          <label class="form-check-label fw-bold fs-3 text-gray-700 cursor-pointer" for="checkEnProceso">
+            En Proceso
+          </label>
+        </div>
+      </div>
       <!--end::Search-->
     </div>
     <!--begin::Card toolbar-->

@@ -54,7 +54,7 @@ export class PlaneacionListComponent {
   }
 
   listSolicitudes(page = 1) {
-    this.solicitudesService.listSolicitudConcluidas(page, this.pageSize).subscribe((resp: any) => {
+    this.solicitudesService.listSolicitudConcluidas(page, this.pageSize, this.search).subscribe((resp: any) => {
       this.SOLICITUDES = resp.solicitudes;
       this.totalElements = resp.total;
       this.currentPage = page;

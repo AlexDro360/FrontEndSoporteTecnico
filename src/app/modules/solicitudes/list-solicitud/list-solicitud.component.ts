@@ -28,6 +28,8 @@ export class ListSolicitudComponent {
   estatu: number = 0;
   SOLICITUDES: any = [];
   isLoading$: any;
+  enProceso: boolean = false;
+  coordinacion: number = 0;
 
   tipos: any[];
   estatus: any[];
@@ -45,6 +47,17 @@ export class ListSolicitudComponent {
   }
 
   ngOnInit(): void {
+    // --- NUEVO: Recuperar valores de localStorage ---
+    const savedEnProceso = localStorage.getItem('filtroEnProceso');
+    if (savedEnProceso !== null) {
+      this.enProceso = savedEnProceso === 'true'; // Convierte el string a booleano
+    }
+
+    const savedCoordinacion = localStorage.getItem('filtroCoordinacion');
+    if (savedCoordinacion !== null) {
+      this.coordinacion = Number(savedCoordinacion); // Convierte el string a número
+    }
+    
     this.isLoading$ = this.solicitudesService.isLoading$;
     this.me();
     this.configAll();
@@ -59,8 +72,11 @@ export class ListSolicitudComponent {
   }
 
   listSolicitudes(page = 1) {
+    localStorage.setItem('filtroEnProceso', String(this.enProceso));
+    localStorage.setItem('filtroCoordinacion', String(this.coordinacion));
+
     if (myRol() != 2) {
-      this.solicitudesService.listSolicitud(page, this.pageSize, this.search, this.estatu).subscribe((resp: any) => {
+      this.solicitudesService.listSolicitud(page, this.pageSize, this.search, this.estatu, this.enProceso, this.coordinacion).subscribe((resp: any) => {
         this.SOLICITUDES = resp.solicitudes;
         this.totalElements = resp.total;
         this.currentPage = page;
@@ -74,7 +90,7 @@ export class ListSolicitudComponent {
         });
       });
     } else {
-      this.solicitudesService.misSolicitudesAtendidas(page, this.pageSize, this.search, this.user.id).subscribe((resp: any) => {
+      this.solicitudesService.misSolicitudesAtendidas(page, this.pageSize, this.search, this.user.id, this.enProceso, this.coordinacion).subscribe((resp: any) => {
         this.SOLICITUDES = resp.solicitudes;
         this.totalElements = resp.total;
         this.currentPage = page;

@@ -26,10 +26,10 @@ export class SolicitudService {
     return this.http.post(URL, data, { headers: headers });
   }
 
-  listSolicitud(page = 1, perPage = 10, search: string = '', filtroEst:number = 0) {
+  listSolicitud(page = 1, perPage = 10, search: string = '', filtroEst:number = 0, inProcess: boolean = false, coordination: number = 0) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/solicitudes?page=" + page + "&search=" + search + "&perPage=" + perPage + "&filtroEstatus=" + filtroEst;
+    let URL = URL_SERVICIOS + "/solicitudes?page=" + page + "&search=" + search + "&perPage=" + perPage + "&filtroEstatus=" + filtroEst + "&inProcess=" + inProcess + "&coordination=" + coordination;
     return this.http.get(URL, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
@@ -45,10 +45,10 @@ export class SolicitudService {
   }
 
 
-  misSolicitudesAtendidas(page = 1, perPage=10, search: string = '', id: any) {
+  misSolicitudesAtendidas(page = 1, perPage=10, search: string = '', id: any, inProcess: boolean = false, coordination: number = 0) {
     this.isLoadingSubject.next(true);
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    const URL = `${URL_SERVICIOS}/solicitud/mis-solicitudes-atendidas/${id}?page=${page}&search=${search}&perPage=${perPage}`;  
+    const URL = `${URL_SERVICIOS}/solicitud/mis-solicitudes-atendidas/${id}?page=${page}&search=${search}&perPage=${perPage}&inProcess=${inProcess}&coordination=${coordination}`;  
 
     return this.http.get(URL, { headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
