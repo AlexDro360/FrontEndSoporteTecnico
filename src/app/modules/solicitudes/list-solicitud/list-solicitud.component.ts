@@ -162,6 +162,7 @@ export class ListSolicitudComponent {
   verSolicitud(SOLICITUD: any) {
     const modalRef = this.modalService.open(VerSolicitudComponent, { centered: true, size: 'md' });
     modalRef.componentInstance.solicitud = SOLICITUD;
+    modalRef.componentInstance.tiposProblemas = this.tipos;
     modalRef.componentInstance.user = this.user;
 
     modalRef.componentInstance.SolicitudV.subscribe((tipo: any) => {

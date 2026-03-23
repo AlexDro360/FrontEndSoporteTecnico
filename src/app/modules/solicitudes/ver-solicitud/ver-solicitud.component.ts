@@ -19,6 +19,7 @@ import { isPermission } from 'src/app/config/config';
 export class VerSolicitudComponent {
   @Output() SolicitudV: EventEmitter<any> = new EventEmitter();
   @Input() solicitud: any;
+  @Input() tiposProblemas: any;
   @Input() user: any;
 
   isLoading: any;
@@ -115,7 +116,9 @@ export class VerSolicitudComponent {
 
   hacerBitacora(): void {
     const modalRef = this.modalService.open(CrearBitacoraComponent, { centered: false, size: 'bg' });
-    modalRef.componentInstance.idSolicitud = this.solicitud.id;
+    console.log(this.solicitud)
+    modalRef.componentInstance.solicitud = this.solicitud;
+    modalRef.componentInstance.tiposProblemas = this.tiposProblemas;
     modalRef.componentInstance.BitacoraN.subscribe((resp: any) => {
       this.SolicitudV.emit(resp);
       this.modal.close();

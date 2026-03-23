@@ -131,7 +131,7 @@
       </button>
 
       <!-- Hacer Bitácora (estado 3) -->
-      <button *ngIf="solicitud.estado.id === 3" type="button" class="btn btn-warning m-1" (click)="hacerBitacora()">
+      <button *ngIf="(solicitud.estado.id === 3 || solicitud.estado.id === 4) && isPermission('register_bitacora_solicitud')" type="button" class="btn btn-warning m-1" (click)="hacerBitacora()">
         <span class="indicator-label">Hacer Bitácora</span>
         <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
       </button>
